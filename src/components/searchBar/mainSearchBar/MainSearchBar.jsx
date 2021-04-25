@@ -1,13 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from 'react';
 
-import axios from "axios";
-import { Link } from "react-router-dom";
-import { ListGroup, ListGroupItem } from "reactstrap";
-import { useFormik } from "formik";
-import * as yup from "yup";
-import "./MainSearchBar.scss";
+import axios from 'axios';
+import { Link } from 'react-router-dom';
+import { ListGroup, ListGroupItem } from 'reactstrap';
+import { useFormik } from 'formik';
+import * as yup from 'yup';
+import './MainSearchBar.scss';
 
-import LoadingSpinner from "../../../components/loadingSpinner/LoadingSpinner";
+import LoadingSpinner from '../../../components/loadingSpinner/LoadingSpinner';
 
 const MainSearchBar = (props) => {
   const [data, setData] = useState([]);
