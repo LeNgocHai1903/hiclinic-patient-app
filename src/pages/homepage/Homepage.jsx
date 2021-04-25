@@ -73,7 +73,7 @@ const Homepage = () => {
             )}
           </div>
           <div className="seeall-link">
-          <Link to="/clinicList">{t("See all")}</Link>
+          <Link to="/clinicList">{t("See all clinic")}</Link>
           </div>
         </div>
         <div>
@@ -95,7 +95,7 @@ const Homepage = () => {
             )}
           </div>
           <div className="seeall-link">
-            <Link to="/news">{t("See all")}</Link>
+            <Link to="/news">{t("See all news")}</Link>
           </div>
         </div>
       </div>

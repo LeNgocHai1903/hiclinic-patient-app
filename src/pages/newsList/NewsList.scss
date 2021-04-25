@@ -2,3 +2,24 @@
     display: flex;
     justify-content: center;
 }
+
+h1 {
+    display: flex;
+    justify-content: center;
+    padding: 10px;
+}
+
+.news-sort{
+    display: flex;
+    justify-content: flex-end;
+    padding: 10px;
+    margin-bottom: 20px;
+    width:90%;
+}
+.sort-option{
+    height:1.8rem;
+    width: 4rem;
+    background-color:white;
+    border-radius:.5rem; 
+    outline: none;
+}

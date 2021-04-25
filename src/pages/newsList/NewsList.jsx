@@ -12,6 +12,7 @@ import Pagination from "../../components/pagination/Pagination";
 const NewsList = (props) => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
+
   useEffect(() => {
     const fetchData = async () => {
       const res = await axios(
@@ -23,6 +24,16 @@ const NewsList = (props) => {
     fetchData();
   }, []);
 
+  const changeSortHandler = (e) => {
+    if (e.target.value === "alphabet inc") {
+      setData([...data].sort((a, b) => a.title.localeCompare(b.name)));
+    } else {
+      setData(
+        [...data].sort((a, b) => a.title.localeCompare(b.name)).reverse()
+      );
+    }
+  };
+
   return (
     <div>
       <>
@@ -32,9 +43,24 @@ const NewsList = (props) => {
             <LoaddingSpinner />
           </div>
         ) : (
-          <Pagination data={data} type={"news"}  itemPerPage={6}>
-            <NewsItem />
-          </Pagination>
+          <div>
+            <h1>News List</h1>
+            <div className="news-sort">
+              <select
+                id="sort-list"
+                onChange={changeSortHandler}
+                className="sort-option"
+              >
+                <optgroup label="Alphabet">
+                  <option value="alphabet inc"> A - Z </option>
+                  <option value="alphabet desc"> Z - A </option>
+                </optgroup>
+              </select>
+            </div>
+            <Pagination data={data} type={"news"} itemPerPage={6}>
+              <NewsItem />
+            </Pagination>
+          </div>
         )}
         <Footer />
       </>

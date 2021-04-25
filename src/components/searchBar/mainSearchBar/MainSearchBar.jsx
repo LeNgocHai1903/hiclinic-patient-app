@@ -1,13 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 
-import axios from 'axios';
-import { Link } from 'react-router-dom';
-import { ListGroup, ListGroupItem } from 'reactstrap';
-import { useFormik } from 'formik';
-import * as yup from 'yup';
-import './MainSearchBar.scss';
+import axios from "axios";
+import { Link } from "react-router-dom";
+import { ListGroup, ListGroupItem } from "reactstrap";
+import { useFormik } from "formik";
+import * as yup from "yup";
+import "./MainSearchBar.scss";
 
-import LoadingSpinner from '../../../components/loadingSpinner/LoadingSpinner';
+import LoadingSpinner from "../../../components/loadingSpinner/LoadingSpinner";
 
 const MainSearchBar = (props) => {
   const [data, setData] = useState([]);
@@ -40,15 +40,13 @@ const MainSearchBar = (props) => {
     },
 
     onSubmit: (values) => {
-      window.location.href=`/clinicList?sort=${values.searchValue}`
+      window.location.href = `/clinicList?sort=${values.searchValue}`;
     },
 
     validationSchema: yup.object({
       searchValue: yup.string().required("Required field"),
     }),
   });
-
-  console.log(formik.values)
 
   return (
     <>
@@ -58,10 +56,11 @@ const MainSearchBar = (props) => {
         </div>
       ) : (
         <>
+          {console.log(formik)}
           <form onSubmit={formik.handleSubmit}>
             <div className="main-search-bar">
               <input
-                name= "searchValue"
+                name="searchValue"
                 className="search-input"
                 type="search"
                 placeholder={"Search for " + searchType}
@@ -82,7 +81,9 @@ const MainSearchBar = (props) => {
                     if (formik.values.searchValue === "") {
                       return;
                     } else if (
-                      d.name.toLowerCase().includes(formik.values.searchValue.toLowerCase())
+                      d.name
+                        .toLowerCase()
+                        .includes(formik.values.searchValue.toLowerCase())
                     ) {
                       return d;
                     }

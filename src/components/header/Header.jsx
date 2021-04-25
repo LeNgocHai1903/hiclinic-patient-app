@@ -23,6 +23,11 @@ const Header = () => {
 
           <ul className="site-nav-desktop-nav">
             <li className="site-nav-desktop-item">
+              <a href="/https://hiclinic-clinic-portal.herokuapp.com/">
+                <button className="change-site-btn">Clinic Website</button>
+              </a>
+            </li>
+            {/* <li className="site-nav-desktop-item">
               <a href="/">Your Link</a>
             </li>
             <li className="site-nav-desktop-item">
@@ -30,10 +35,7 @@ const Header = () => {
             </li>
             <li className="site-nav-desktop-item">
               <a href="/">Your Link</a>
-            </li>
-            <li className="site-nav-desktop-item">
-              <a href="/">Your Link</a>
-            </li>
+            </li> */}
           </ul>
         </div>
 
