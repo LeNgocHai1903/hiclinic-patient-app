@@ -1,0 +1,27 @@
+@import '../../styles/variable.scss';
+.main-search-on-homepage {
+  height: 100%;
+}
+
+.container {
+  h1 {
+    display: flex;
+    justify-content: center;
+  }
+}
+
+.clinic-list {
+    padding-bottom: 15px;
+    margin-bottom: 30px;
+    border-bottom: 1px solid $grey-color-3;
+}
+
+.seeall-link{ 
+    display: flex;
+    justify-content: flex-end;
+}
+
+.main-search-on-homepage{
+  display: flex;
+  justify-content: center;
+}

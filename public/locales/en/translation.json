@@ -1,0 +1,23 @@
+{
+  "title": "Welcome to HiClinic",
+  "header": {
+    "signIn": "Sign in",
+    "signUp": "Sign up",
+    "yourLink": "Your Link"
+  },
+  "signIn": "Sign in",
+  "signUp": "Sign up",
+  "yourLink": "Your Link",
+  "copyright": "Copyright @2021 HiClinic",
+  "termsOfUse": "Terms of Use",
+  "legalNotices": "Legal Notices",
+  "privacyAndSecurity": "Privacy & Security",
+  "directMenu": "Direct Menu",
+  "welcome": "Welcome",
+  "profile": "Profile",
+  "news": "News",
+  "signOut": "Sign out",
+  "Top Clinic" : "Top Clinic",
+  "Top News" : "Top News",
+  "See all" : "See All"
+}

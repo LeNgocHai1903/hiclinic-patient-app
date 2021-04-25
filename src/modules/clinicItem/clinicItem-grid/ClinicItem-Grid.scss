@@ -1,0 +1,80 @@
+@import "../../../styles/variable.scss";
+
+.clinic-items {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20px;
+
+}
+
+.clinic-item {
+  border-radius: 0.5rem;
+  background-color: $primary-color-3;
+  width: 300px;
+  padding: 5px;
+  cursor: pointer;
+}
+
+.clinic-item-img {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.clinic-item-img img {
+  border-top-left-radius: 0.7rem;
+  border-top-right-radius: 0.7rem;
+  width: 100%;
+  margin-bottom: 5px;
+}
+
+.clinic-item-content {
+  padding:5px;
+  font-size: 14px;
+  background-color: white;
+  display: flex;
+  justify-content: space-between;
+}
+
+.clinic-name {
+  height:38px;
+  margin-bottom: 6px;
+  display: flex;
+  justify-content:space-between;
+}
+
+.clinic-item-content-header{
+width:100%;
+}
+
+.clinic-address {
+  height:50px;
+}
+
+// Extra small devices (portrait phones, less than 576px)
+@media (max-width: 575.98px) {
+  .clinic-item {
+    border-radius: 0.5rem;
+    background-color: $primary-color-3;
+    width: 80%;
+  }
+  .clinic-item-content {
+    font-size: 12px;
+  }
+}
+
+// Small devices (landscape phones, 576px and up)
+@media (min-width: 576px) and (max-width: 991.98px) {
+  .col-lg-4 {
+    width: auto !important  ;
+  }
+}
+
+// Large devices (desktops, 992px and up)
+@media (min-width: 992px) and (max-width: 1199.98px) {
+}
+
+// Extra large devices (large desktops, 1200px and up)
+@media (min-width: 1200px) {
+}
