@@ -17,11 +17,11 @@ const DirectMenu = () => {
         <FaAlignJustify />
       </button>
       <div className="dr-dropdown-content">
-        <p>{t("welcome")} (User name)</p>
+        <p>{t('welcome')} (User name)</p>
         <SearchOnMenu />
         <a href="/news">
           <FaNewspaper />
-          &nbsp; {t("news")}
+          &nbsp; {t('news')}
         </a>
         <a href="/">
           <FaUserCircle />

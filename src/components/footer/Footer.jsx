@@ -1,21 +1,26 @@
 import { FaFacebookSquare, FaLinkedin, FaYoutubeSquare } from 'react-icons/fa';
+import {useTranslation} from 'react-i18next';
+
 import './Footer.scss';
 
 const Footer = () => {
+
+  const {t} = useTranslation();
+
   return (
     <footer>
       <div className="footer-container">
         <div className="footer-copyright">
-          <p>&copy; 2021 HiClinic Inc. All Rights Reserved.</p>
+          <p>&copy; {t('copyright')}</p>
           <ul className="terms-and-conditions">
             <li>
-              <a href="#">Terms of Use</a>
+              <a href="#">{t('termsOfUse')}</a>
             </li>
             <li>
-              <a href="#">Legal Notices</a>
+              <a href="#">{t('legalNotices')}</a>
             </li>
             <li>
-              <a href="#">Privacy & Security</a>
+              <a href="#">{t('privacyAndSecurity')}</a>
             </li>
           </ul>
         </div>

@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import "./ClinicList.scss";
 
 import axios from "axios";
+import {useTranslation} from 'react-i18next';
 
 import Header from "../../components/header/Header";
 import Footer from "../../components/footer/Footer";
@@ -12,10 +13,13 @@ import Pagination from "../../components/pagination/Pagination";
 import SearchBar from "../../components/searchBar/mainSearchBar/MainSearchBar";
 import LoadingSpinner from "../../components/loadingSpinner/LoadingSpinner";
 
+
 const ClinicList = (props) => {
   const [isLoading, setIsLoading] = useState(false);
   const [listStyle, setListStyle] = useState("grid");
   const [data, setData] = useState([]);
+
+  const {t} = useTranslation();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -67,8 +71,8 @@ const ClinicList = (props) => {
             onChange={changeStyleHandler}
           >
             <optgroup label="View Styles">
-            <option value="grid"> Grid </option>
-            <option value="list"> List </option>
+            <option value="grid"> {t('Grid')} </option>
+            <option value="list"> {t('List')} </option>
             </optgroup>
           </select>
 
@@ -78,12 +82,12 @@ const ClinicList = (props) => {
             className="sort-option"
           >
             <optgroup label="Alphabet">
-              <option value="alphabet inc"> A - Z </option>
-              <option value="alphabet desc"> Z - A </option>
+              <option value="alphabet inc"> {t('A - Z')}</option>
+              <option value="alphabet desc"> {t('Z - A')}</option>
             </optgroup>
             <optgroup label="Rating">
-              <option value="rating inc"> From top</option>
-              <option value="rating desc"> From bottom </option>
+              <option value="rating inc"> {t('From top')}</option>
+              <option value="rating desc"> {t('From bottom')} </option>
             </optgroup>
           </select>
         </div>

@@ -4,6 +4,8 @@ import "./index.scss";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 
+import './i18n/i18n';
+
 //Boostrap 4
 import "bootstrap/dist/css/bootstrap.css";
 

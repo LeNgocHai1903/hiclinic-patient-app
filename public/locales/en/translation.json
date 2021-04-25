@@ -16,8 +16,19 @@
   "welcome": "Welcome",
   "profile": "Profile",
   "news": "News",
-  "signOut": "Sign out",
+  "signOut": "Sign Out",
   "Top Clinic" : "Top Clinic",
   "Top News" : "Top News",
-  "See all" : "See All"
+  "See all" : "See All",
+  "Grid" : "Grid",
+  "List" : "List",
+  "A - Z" : "A - Z",
+  "Z - A" : "Z - A",
+  "From top" : "From top",
+  "From bottom" : "From bottom",
+  "News List" : "News List",
+  "Working Time" : "Working Time",
+  "Address" : "Address"
+
+
 }

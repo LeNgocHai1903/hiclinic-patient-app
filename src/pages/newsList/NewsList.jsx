@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import "./NewsList.scss";
 
 import axios from "axios";
+import {useTranslation} from 'react-i18next';
+
 
 import Footer from "../../components/footer/Footer";
 import Header from "../../components/header/Header";
@@ -12,6 +14,8 @@ import Pagination from "../../components/pagination/Pagination";
 const NewsList = (props) => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
+
+  const {t} = useTranslation();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -44,7 +48,7 @@ const NewsList = (props) => {
           </div>
         ) : (
           <div>
-            <h1>News List</h1>
+            <h1>{t('News List')}</h1>
             <div className="news-sort">
               <select
                 id="sort-list"

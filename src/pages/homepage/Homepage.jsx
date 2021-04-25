@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 
 import axios from "axios";
 import { Link } from "react-router-dom";
+import {FaArrowCircleRight} from 'react-icons/fa';
 
 //Component
 import Header from "../../components/header/Header";
@@ -58,7 +59,7 @@ const Homepage = () => {
           <h1>{t("Top Clinic")}</h1>
           <div
             className="row justify-content-center"
-            style={{ marginTop: "15px", marginBottom:"15px" }}
+            style={{ marginTop: "15px", marginBottom: "15px" }}
           >
             {clinicIsLoading ? (
               <div>
@@ -73,7 +74,9 @@ const Homepage = () => {
             )}
           </div>
           <div className="seeall-link">
-          <Link to="/clinicList">{t("See all clinic")}</Link>
+            <Link to="/clinicList">
+              <button className="seeall-btn">{t("See all clinic")}&nbsp;<FaArrowCircleRight/></button>
+            </Link>
           </div>
         </div>
         <div>
@@ -95,7 +98,9 @@ const Homepage = () => {
             )}
           </div>
           <div className="seeall-link">
-            <Link to="/news">{t("See all news")}</Link>
+            <Link to="/news">
+              <button className="seeall-btn">{t("See all news")}&nbsp;<FaArrowCircleRight/></button>
+            </Link>
           </div>
         </div>
       </div>

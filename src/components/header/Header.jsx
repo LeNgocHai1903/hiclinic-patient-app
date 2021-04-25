@@ -23,7 +23,7 @@ const Header = () => {
 
           <ul className="site-nav-desktop-nav">
             <li className="site-nav-desktop-item">
-              <a href="/https://hiclinic-clinic-portal.herokuapp.com/">
+              <a href="https://hiclinic-clinic-portal.herokuapp.com/" target="_blank">
                 <button className="change-site-btn">Clinic Website</button>
               </a>
             </li>

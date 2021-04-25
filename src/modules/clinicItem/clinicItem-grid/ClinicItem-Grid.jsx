@@ -1,10 +1,15 @@
 import "./ClinicItem-Grid.scss";
 
 import { AiFillStar } from "react-icons/ai";
+import {useTranslation} from 'react-i18next';
 
 import Img from "../../../asset/img/clinic-grid-example.jpeg";
 
+
 const GridClinicItem = (props) => {
+
+  const {t} = useTranslation();
+
   return (
     <div className={`col-lg-4 clinic-items`}>
       <div className="clinic-item">
@@ -25,10 +30,10 @@ const GridClinicItem = (props) => {
               </span>
             </div>
             <div data-test-time="time">
-              <b>Working Time:</b> {props.data.workingTime}
+              <b>{t('Working Time')}:</b> {props.data.workingTime}
             </div>
             <div className="clinic-address" data-test-address="address">
-              <b>Address:</b> {props.data.address}
+              <b>{t('Address')}:</b> {props.data.address}
             </div>
           </div>
         </div>

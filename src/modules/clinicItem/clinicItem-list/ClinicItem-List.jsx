@@ -1,9 +1,13 @@
 import "./ClinicItem-List.scss";
 
 import { AiFillStar } from "react-icons/ai";
+import {useTranslation} from 'react-i18next';
 import Img from "../../../asset/img/clinic-list-example.jpeg";
 
 const ListClinicItem = (props) => {
+
+  const {t} = useTranslation();
+
   return (
     <div className="clinic-item-list-row">
       <div className="list-group clinic-item-list">
@@ -21,10 +25,10 @@ const ListClinicItem = (props) => {
               </small>
             </div>
             <label className="mb-1" data-test-time="time">
-              <b>Working Time:</b> {props.data.workingTime}
+              <b>{t('Working Time')}:</b> {props.data.workingTime}
             </label>
             <p className="mb-1" data-test-address="address">
-              <b>Address:</b> {props.data.address}
+              <b>{t('Address')}:</b> {props.data.address}
             </p>
             <small data-test-description="description">
               {props.data.description}
