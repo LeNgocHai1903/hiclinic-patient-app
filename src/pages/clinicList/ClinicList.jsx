@@ -99,7 +99,7 @@ const ClinicList = (props) => {
           <Pagination
             data={data}
             type="clinic"
-            search={props.location.search}
+            search={props.location.search.substr(6)}
             itemPerPage={6}
           >
             {listStyle === "grid" ? <GridClinicItem /> : <ListClinicItem />}
