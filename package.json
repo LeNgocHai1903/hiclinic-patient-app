@@ -13,20 +13,6 @@
     "lint:fix": "eslint src/**/*.{js,jsx} --fix",
     "lint": "eslint src/**/*.{js,jsx}"
   },
-  "lint-staged": {
-    "src/**/*.{js,jsx}": [
-      "pretty-quick --staged",
-      "npm run lint:fix"
-    ],
-    "src/**/*.scss": [
-      "npm run stylelint:fix"
-    ]
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
-  },
   "dependencies": {
     "@testing-library/jest-dom": "^5.11.10",
     "@testing-library/react": "^11.2.6",

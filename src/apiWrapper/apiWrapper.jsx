@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { BASE_API_ENDPOINT } from '../constant/apiUrl/apiUrl';
 const request = axios.create({
-  baseURL: `${process.env.REACT_APP_PATIENT_SERVER_URL_FAKE}`,
+  baseURL: `https://hiclinic-patient-portal-server.herokuapp.com/api`,
 });
 
 const get = async (url) => {
