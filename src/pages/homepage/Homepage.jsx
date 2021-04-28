@@ -1,16 +1,17 @@
 import { useEffect, useState } from "react";
 
-import axios from "axios";
+import { apiWrapper } from "../../apiWrapper/apiWrapper";
 import { Link } from "react-router-dom";
-import {FaArrowCircleRight} from 'react-icons/fa';
+import { FaArrowCircleRight } from "react-icons/fa";
 
 //Component
-import Header from "../../components/header/Header";
-import Footer from "../../components/footer/Footer";
 import MainSearchBar from "../../components/searchBar/mainSearchBar/MainSearchBar";
-import ClinicItem from "../../modules/clinicItem/clinicItem-grid/ClinicItem-Grid";
+import ClinicItem from "../../modules/clinicItem/gridView/GridView";
 import News from "../../modules/news/NewsItem";
 import LoaddingSpinner from "../../components/loadingSpinner/LoadingSpinner";
+
+//Route
+import * as routeType from "../../constant/route/route";
 
 //scss
 import "./Homepage.scss";
@@ -26,41 +27,29 @@ const Homepage = () => {
   const [newsIsLoading, setNewsIsLoading] = useState(true);
 
   useEffect(() => {
-    const fetchTopClinic = async () => {
-      const result = await axios(
-        "https://hiclinic-patient-portal-server.herokuapp.com/api/top6clinic"
-      );
-      setTop6Clinic(result.data);
-    };
-    fetchTopClinic();
-    setClinicIsLoading(false);
+    apiWrapper.get(`/top6clinic`).then((res) => {
+      setTop6Clinic(res);
+      setClinicIsLoading(false);
+    });
   }, []);
 
   useEffect(() => {
-    const fetchTopNews = async () => {
-      const result = await axios(
-        "https://hiclinic-patient-portal-server.herokuapp.com/api/top3news"
-      );
-      setTop3News(result.data);
-    };
-    fetchTopNews();
-    setNewsIsLoading(false);
+    apiWrapper.get(`/top3news`).then((res) => {
+      setTop3News(res);
+      setNewsIsLoading(false);
+    });
   }, []);
 
   return (
     <>
-      <Header />
       <div className="main-search-on-homepage">
         <MainSearchBar />
       </div>
 
       <div className="container">
         <div className="clinic-list">
-          <h1>{t("Top Clinic")}</h1>
-          <div
-            className="row justify-content-center"
-            style={{ marginTop: "15px", marginBottom: "15px" }}
-          >
+          <h1>{t("topClinic")}</h1>
+          <div className="row justify-content-center">
             {clinicIsLoading ? (
               <div>
                 <LoaddingSpinner />
@@ -68,23 +57,22 @@ const Homepage = () => {
             ) : (
               <>
                 {top6Clinic.map((item) => (
-                  <ClinicItem data={item} />
+                  <ClinicItem data={item} key={item.id} />
                 ))}
               </>
             )}
           </div>
           <div className="seeall-link">
-            <Link to="/clinicList">
-              <button className="seeall-btn">{t("See all clinic")}&nbsp;<FaArrowCircleRight/></button>
+            <Link to={`${routeType.ROUTE_CLINICLIST_LIST}`}>
+              <button className="seeall-btn">
+                {t("seeAllClinic")} <FaArrowCircleRight />
+              </button>
             </Link>
           </div>
         </div>
         <div>
-          <h1>{t("Top News")}</h1>
-          <div
-            // className="row justify-content-center"
-            style={{ marginTop: "15px" }}
-          >
+          <h1>{t("topNews")}</h1>
+          <div>
             {newsIsLoading ? (
               <div>
                 <LoaddingSpinner />
@@ -92,19 +80,20 @@ const Homepage = () => {
             ) : (
               <>
                 {top3News.map((item) => (
-                  <News data={item} />
+                  <News data={item} key={item.id} />
                 ))}
               </>
             )}
           </div>
           <div className="seeall-link">
-            <Link to="/news">
-              <button className="seeall-btn">{t("See all news")}&nbsp;<FaArrowCircleRight/></button>
+            <Link to={`${routeType.ROUTE_NEWS_LIST}`}>
+              <button className="seeall-btn">
+                {t("seeAllNews")} <FaArrowCircleRight />
+              </button>
             </Link>
           </div>
         </div>
       </div>
-      <Footer />
     </>
   );
 };

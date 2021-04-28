@@ -1,8 +1,8 @@
-import "./ClinicItem-List.scss";
+import './ListView.scss';
 
-import { AiFillStar } from "react-icons/ai";
+import { AiFillStar } from 'react-icons/ai';
 import {useTranslation} from 'react-i18next';
-import Img from "../../../asset/img/clinic-list-example.jpeg";
+import Img from '../../../asset/img/clinic-list-example.jpeg';
 
 const ListClinicItem = (props) => {
 
@@ -25,10 +25,10 @@ const ListClinicItem = (props) => {
               </small>
             </div>
             <label className="mb-1" data-test-time="time">
-              <b>{t('Working Time')}:</b> {props.data.workingTime}
+              <b>{t('workingTime')}:</b> {props.data.workingTime}
             </label>
             <p className="mb-1" data-test-address="address">
-              <b>{t('Address')}:</b> {props.data.address}
+              <b>{t('address')}:</b> {props.data.address}
             </p>
             <small data-test-description="description">
               {props.data.description}

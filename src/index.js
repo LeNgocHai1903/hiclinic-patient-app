@@ -9,6 +9,8 @@ import './i18n/i18n';
 //Boostrap 4
 import "bootstrap/dist/css/bootstrap.css";
 
+import './i18n/i18n';
+
 ReactDOM.render(
   <React.StrictMode>
     <Suspense fallback={<div>Loading...</div>}>

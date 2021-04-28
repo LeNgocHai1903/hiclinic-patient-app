@@ -1,11 +1,11 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
-import axios from 'axios';
+import {useTranslation} from 'react-i18next';
+
+import {apiWrapper} from '../../apiWrapper/apiWrapper';
 
 import './NewsDetails.scss';
-import Header from '../../components/header/Header';
-import Footer from '../../components/footer/Footer';
 import LoaddingSpinner from '../../components/loadingSpinner/LoadingSpinner';
 
 const NewsDetails = () => {
@@ -13,20 +13,17 @@ const NewsDetails = () => {
   const [loading, setLoading] = useState(true);
   const newsId = useParams();
 
+  const {t}  = useTranslation();
+
   useEffect(() => {
-    const fetchData = async () => {
-      const res = await axios.get(
-        `https://hiclinic-patient-portal-server.herokuapp.com/api/news/${newsId.newsId}`
-      );
-      setData(res.data);
+    apiWrapper.get(`/news/${newsId.newsId}`).then(res=>{
+      setData(res);
       setLoading(false);
-    };
-    fetchData();
+    })
   }, [newsId.newsId]);
 
   return (
     <div>
-      <Header />
       {loading ? (
         <div className="loading"><LoaddingSpinner/></div>
       ) : (
@@ -36,10 +33,10 @@ const NewsDetails = () => {
           <img src={data[0].image} alt="News" />
           <div className="news-info">
             <p className="author">
-              Author: {data[0].author}
+              {t('author')} {data[0].author}
             </p>
             <p className="created-date">
-              Created on: {data[0].createdDate}
+              {t('createdOn')} {data[0].createdDate}
             </p>
           </div>
           <p className="content">
@@ -47,7 +44,6 @@ const NewsDetails = () => {
           </p>
         </div>
       )}
-      <Footer />
     </div>
   );
 };

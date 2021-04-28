@@ -1,54 +1,52 @@
 import { useEffect, useState } from "react";
 import "./NewsList.scss";
+import { useTranslation } from "react-i18next";
 
-import axios from "axios";
-import {useTranslation} from 'react-i18next';
-
-
-import Footer from "../../components/footer/Footer";
-import Header from "../../components/header/Header";
 import NewsItem from "../../modules/news/NewsItem";
 import LoaddingSpinner from "../../components/loadingSpinner/LoadingSpinner";
 import Pagination from "../../components/pagination/Pagination";
+
+import { apiWrapper } from "../../apiWrapper/apiWrapper";
+import * as sortType from "../../constant/sorting/sorting";
 
 const NewsList = (props) => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  const {t} = useTranslation();
+  const { t } = useTranslation();
 
   useEffect(() => {
-    const fetchData = async () => {
-      const res = await axios(
-        "https://hiclinic-patient-portal-server.herokuapp.com/api/news"
-      );
-      setData(res.data);
+    apiWrapper.get("/news").then((res) => {
+      setData(res);
       setLoading(false);
-    };
-    fetchData();
+    });
   }, []);
 
   const changeSortHandler = (e) => {
-    if (e.target.value === "alphabet inc") {
-      setData([...data].sort((a, b) => a.title.localeCompare(b.name)));
-    } else {
-      setData(
-        [...data].sort((a, b) => a.title.localeCompare(b.name)).reverse()
-      );
+    switch (e.target.value) {
+      case sortType.SORT_BY_ALPHABET_INC:
+        setData([...data].sort((a, b) => a.title.localeCompare(b.title)));
+        break;
+      case sortType.SORT_BY_ALPHABET_DECS:
+        setData(
+          [...data].sort((a, b) => a.title.localeCompare(b.title)).reverse()
+        );
+        break;
+      default:
+        return setData([...data]);
     }
   };
 
   return (
     <div>
       <>
-        <Header />
         {loading ? (
           <div className="loading">
             <LoaddingSpinner />
           </div>
         ) : (
           <div>
-            <h1>{t('News List')}</h1>
+            <h1>{t("newsList")}</h1>
             <div className="news-sort">
               <select
                 id="sort-list"
@@ -56,8 +54,8 @@ const NewsList = (props) => {
                 className="sort-option"
               >
                 <optgroup label="Alphabet">
-                  <option value="alphabet inc"> A - Z </option>
-                  <option value="alphabet desc"> Z - A </option>
+                  <option value="alphabet inc"> {t("a_z")} </option>
+                  <option value="alphabet desc"> {t("z_a")} </option>
                 </optgroup>
               </select>
             </div>
@@ -66,7 +64,6 @@ const NewsList = (props) => {
             </Pagination>
           </div>
         )}
-        <Footer />
       </>
     </div>
   );

@@ -1,10 +1,11 @@
-@import "../../styles/variable.scss";
+@import '../../styles/variable.scss';
 
 .dropdown {
   position: relative;
   display: inline-block;
   z-index: 900;
 }
+
 .dropbtn {
   background-color: white;
   color: black;
@@ -15,6 +16,7 @@
   align-items: center;
   cursor: pointer;
 }
+
 /* Dropdown Content (Hidden by Default) */
 .dr-dropdown-content {
   border-radius: 5%;
@@ -22,14 +24,18 @@
   position: absolute;
   background-color: white;
   min-width: 250px;
-  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
   z-index: 50;
   right:0;
   a{
-    text-decoration: none !important;
+    text-decoration: none;
+  }
+  svg {
+    margin-right: 20px;
   }
 
 }
+
 .signout-area {
   border-top: 1px solid rgba(0, 0, 0, 0.418);
 }
@@ -46,7 +52,6 @@
   background-color: $primary-color-3;
 }
 
-
 /* Change color of dropdown links on hover */
 .dr-dropdown-content a:hover {
   background-color: $primary-color-3;
@@ -61,4 +66,3 @@
 .dr-dropdown:hover .dropbtn {
   background-color: white;
 }
-

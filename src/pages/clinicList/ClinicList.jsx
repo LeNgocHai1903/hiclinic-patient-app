@@ -1,35 +1,32 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect } from 'react';
 
-import "./ClinicList.scss";
+import './ClinicList.scss';
 
-import axios from "axios";
-import {useTranslation} from 'react-i18next';
+import {apiWrapper} from '../../apiWrapper/apiWrapper';
+import * as sortType from '../../constant/sorting/sorting';
 
-import Header from "../../components/header/Header";
-import Footer from "../../components/footer/Footer";
-import GridClinicItem from "../../modules/clinicItem/clinicItem-grid/ClinicItem-Grid";
-import ListClinicItem from "../../modules/clinicItem/clinicItem-list/ClinicItem-List";
-import Pagination from "../../components/pagination/Pagination";
-import SearchBar from "../../components/searchBar/mainSearchBar/MainSearchBar";
-import LoadingSpinner from "../../components/loadingSpinner/LoadingSpinner";
+import { useTranslation } from 'react-i18next';
 
+import GridView from '../../modules/clinicItem/gridView/GridView';
+import ListView from '../../modules/clinicItem/listView/ListView';
+import Pagination from '../../components/pagination/Pagination';
+import SearchBar from '../../components/searchBar/mainSearchBar/MainSearchBar';
+import LoadingSpinner from '../../components/loadingSpinner/LoadingSpinner';
 
 const ClinicList = (props) => {
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const [listStyle, setListStyle] = useState("grid");
   const [data, setData] = useState([]);
 
-  const {t} = useTranslation();
-
+  const { t } = useTranslation();
+  
+  const search = props.location.search;
   useEffect(() => {
-    const fetchData = async () => {
-      const result = await axios(
-        "https://hiclinic-patient-portal-server.herokuapp.com/api/clinic"
-      );
-      setData(result.data.sort((a, b) => a.name.localeCompare(b.name)));
-    };
-    fetchData();
-    setIsLoading(true);
+    apiWrapper.get('/clinic').then(res => {
+      console.log(res.sort((a, b) => a.name.localeCompare(b.name)))
+      setData(res.sort((a, b) => a.name.localeCompare(b.name)));
+      setIsLoading(false)
+    })
   }, []);
 
   const changeStyleHandler = (e) => {
@@ -38,28 +35,26 @@ const ClinicList = (props) => {
 
   const changeSortHandler = (e) => {
     switch (e.target.value) {
-      case "alphabet inc":
+      case sortType.SORT_BY_ALPHABET_INC:
         setData([...data].sort((a, b) => a.name.localeCompare(b.name)));
         break;
-      case "alphabet desc":
+      case sortType.SORT_BY_ALPHABET_DECS:
         setData(
           [...data].sort((a, b) => a.name.localeCompare(b.name)).reverse()
         );
         break;
-      case "rating inc":
+      case sortType.SORT_BY_RATING_INC:
         setData([...data].sort((a, b) => b.rating - a.rating));
         break;
-      case "rating desc":
+      case sortType.SORT_BY_RATING_DECS:
         setData([...data].sort((a, b) => a.rating - b.rating));
         break;
       default:
         return setData([...data]);
     }
   };
-  console.log(data);
   return (
     <>
-      <Header />
       <div className="container">
         <div className="clinicList-search-bar">
           <SearchBar />
@@ -71,8 +66,8 @@ const ClinicList = (props) => {
             onChange={changeStyleHandler}
           >
             <optgroup label="View Styles">
-            <option value="grid"> {t('Grid')} </option>
-            <option value="list"> {t('List')} </option>
+              <option value="grid"> {t("grid")} </option>
+              <option value="list"> {t("list")} </option>
             </optgroup>
           </select>
 
@@ -82,16 +77,16 @@ const ClinicList = (props) => {
             className="sort-option"
           >
             <optgroup label="Alphabet">
-              <option value="alphabet inc"> {t('A - Z')}</option>
-              <option value="alphabet desc"> {t('Z - A')}</option>
+              <option value="alphabet inc"> {t("a_z")}</option>
+              <option value="alphabet desc"> {t("z_a")}</option>
             </optgroup>
             <optgroup label="Rating">
-              <option value="rating inc"> {t('From top')}</option>
-              <option value="rating desc"> {t('From bottom')} </option>
+              <option value="rating inc"> {t("fromTop")}</option>
+              <option value="rating desc"> {t("fromBottom")} </option>
             </optgroup>
           </select>
         </div>
-        {!isLoading ? (
+        {isLoading ? (
           <div className="loading">
             <LoadingSpinner />
           </div>
@@ -99,14 +94,13 @@ const ClinicList = (props) => {
           <Pagination
             data={data}
             type="clinic"
-            search={props.location.search.substr(6)}
+            search={!search  ? '' : search.substr(6)}
             itemPerPage={6}
           >
-            {listStyle === "grid" ? <GridClinicItem /> : <ListClinicItem />}
+            {listStyle === "grid" ? <GridView /> : <ListView />}
           </Pagination>
         )}
       </div>
-      <Footer />
     </>
   );
 };

@@ -1,4 +1,4 @@
-@import "../../styles/variable.scss";
+@import '../../styles/variable.scss';
 
 body {
   font-family: Arial, Helvetica, sans-serif;
@@ -24,33 +24,41 @@ body {
     height: 80px;
     background-color: #fff;
   }
+
   a {
     color: $grey-color-1;
     text-decoration: none;
   }
+
   @media screen and(max-width: 920px) {
     .site-nav-desktop-item,
     .site-nav-desktop-nav {
       display: none;
     }
+
     .site-nav-desktop-only {
-      display: none !important;
+      display: none ;
     }
+
     .sign-up-form {
-      display: none !important;
+      display: none ;
     }
   }
+
   @media screen and(min-width: 920px) {
     .site-nav-mobile-menu {
       display: none !important;
     }
+
     .site-nav-mobile-only {
       display: none;
     }
+
     .mobile-logo {
       display: none;
     }
   }
+
   .site-nav-container {
     align-items: center;
     display: flex;
@@ -59,29 +67,30 @@ body {
     margin-right: 24px;
     height: 80px;
     width: 100%;
-  }
-  .site-nav-container {
-    //desktop screen
 
     .site-nav-desktop-only {
       display: flex;
-
     }
+
     .align-center {
       align-items: center;
     }
+
     .header-logo img {
       vertical-align: middle;
       height: 80px;
       margin-right: 16px;
     }
+
     .site-nav-desktop-nav {
       display: flex;
       // height: 100%;
     }
+
     ul {
       list-style: none;
     }
+
     .site-nav-desktop-item {
       display: flex;
       align-items: center;
@@ -91,11 +100,13 @@ body {
       // padding-left: 16px;
       padding-right: 16px;
     }
+
     .site-nav-action {
       display: flex;
       margin-right: 40px;
       right: 0;
     }
+
     .site-nav-action-item {
       display: flex;
       align-items: center;
@@ -107,6 +118,7 @@ body {
       border-radius: 8px;
       position: relative;
     }
+
     a.sign-up {
       color: #fff;
     }
@@ -119,9 +131,11 @@ body {
       display: flex;
       align-items: center;
     }
+
     .mobile-logo {
       margin: auto;
     }
+
     .mobile-logo img {
       top: 0;
       left: 0;
@@ -142,7 +156,7 @@ body {
       top: 5%;
       margin-left: 24px;
       min-width: 100px;
-      box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+      box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
       z-index: 9999;
     }
 

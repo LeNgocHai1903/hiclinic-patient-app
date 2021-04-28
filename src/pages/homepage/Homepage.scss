@@ -20,6 +20,7 @@
 .seeall-link{ 
     display: flex;
     justify-content: flex-end;
+    margin: 20px;
     .seeall-btn {
       height: 35px;
       border-radius:.2rem;
@@ -31,7 +32,10 @@
       box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.356);
     }
     a{
-      text-decoration: none !important;
+      text-decoration: none ;
+    }
+    svg {
+      margin-left: 10px;
     }
 }
 

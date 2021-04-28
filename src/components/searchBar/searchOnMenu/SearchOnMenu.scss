@@ -1,17 +1,19 @@
-.search-on-menu{
-    margin:12px 16px;
-    display: flex;
-    align-items: center;
+.search-on-menu {
+  margin: 12px 16px;
+  display: flex;
+  align-items: center;
 }
-.search-on-menu-input{
-    height: 30px;
-    width: 250px;
-    border:1px solid rgb(62, 63, 61);
-    border-radius: 10px;
-    text-align: center;
-    font-size: 16px;
+
+.search-on-menu-input {
+  height: 30px;
+  width: 250px;
+  border: 1px solid rgb(62, 63, 61);
+  border-radius: 10px;
+  text-align: center;
+  font-size: 16px;
 }
-.search-on-menu i{
-    position: absolute;
-    margin-left:10px;
+
+.search-on-menu i {
+  position: absolute;
+  margin-left: 10px;
 }

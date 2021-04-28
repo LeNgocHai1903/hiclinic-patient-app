@@ -33,7 +33,7 @@
   padding: 5px 10px;
   margin-right: 10px;
   color: $primary-color-3;
-  background-color: #e7dede71;
+  background-color: $custom-pagination-color-1;
   border: none;
   opacity: 0.4;
 } 
@@ -43,7 +43,7 @@
   padding: 5px 10px;
   margin-right: 10px;
   color: $primary-color-3;
-  background-color: #e7dede71;
+  background-color: $custom-pagination-color-1;
   border: none;
   &:hover {
     background-color: rgb(218, 218, 218);

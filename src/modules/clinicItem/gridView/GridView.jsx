@@ -1,9 +1,9 @@
-import "./ClinicItem-Grid.scss";
+import './GridView.scss';
 
-import { AiFillStar } from "react-icons/ai";
+import { AiFillStar } from 'react-icons/ai';
 import {useTranslation} from 'react-i18next';
 
-import Img from "../../../asset/img/clinic-grid-example.jpeg";
+import Img from '../../../asset/img/clinic-grid-example.jpeg';
 
 
 const GridClinicItem = (props) => {
@@ -30,10 +30,10 @@ const GridClinicItem = (props) => {
               </span>
             </div>
             <div data-test-time="time">
-              <b>{t('Working Time')}:</b> {props.data.workingTime}
+              <b>{t('workingTime')}:</b> {props.data.workingTime}
             </div>
             <div className="clinic-address" data-test-address="address">
-              <b>{t('Address')}:</b> {props.data.address}
+              <b>{t('address')}:</b> {props.data.address}
             </div>
           </div>
         </div>

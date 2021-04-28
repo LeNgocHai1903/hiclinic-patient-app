@@ -1,46 +1,50 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 
-import axios from "axios";
-import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
+
+import {apiWrapper} from "../../../apiWrapper/apiWrapper";
+import { BASE_URL } from "../../../constant/apiUrl/apiUrl";
+import * as routeType from "../../../constant/route/route";
+
+import { Link, withRouter } from "react-router-dom";
 import { ListGroup, ListGroupItem } from "reactstrap";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import "./MainSearchBar.scss";
+import { FaSearch } from "react-icons/fa";
 
 import LoadingSpinner from "../../../components/loadingSpinner/LoadingSpinner";
 
 const MainSearchBar = (props) => {
   const [data, setData] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
   const [searchType, setSearchType] = useState("Clinic");
+  const [display, setDisplay] = useState(false);
+  const wrapperRef = useRef(null);
+
+  const { t } = useTranslation();
 
   const variableSearchType = ["Clinic", "Department", "Doctor"];
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const result = await axios(
-          "https://hiclinic-patient-portal-server.herokuapp.com/api/clinic"
-        );
-        setData(result.data);
-      } catch (err) {
-        console.log(err);
-      }
-    };
-    fetchData();
-    setIsLoading(false);
+    apiWrapper.get('/clinic').then(res => {
+      setData(res);
+    })
   }, []);
 
   const changeHandler = (e) => {
     setSearchType(e.target.value);
   };
+
+  //formik
   const formik = useFormik({
     initialValues: {
       searchValue: "",
     },
 
     onSubmit: (values) => {
-      window.location.href = `/clinicList?sort=${values.searchValue}`;
+      props.history.push(
+        `${routeType.ROUTE_CLINICLIST_LIST}?sort=${values.searchValue}`
+      );
     },
 
     validationSchema: yup.object({
@@ -48,17 +52,38 @@ const MainSearchBar = (props) => {
     }),
   });
 
+  useEffect(() => {
+    if (formik.values.searchValue === "") {
+      setDisplay(false);
+    } else {
+      setDisplay(true);
+    }
+  }, [formik.values.searchValue]);
+
+  useEffect(() => {
+    document.addEventListener("click", handleClickOutside, false);
+    return () => {
+      document.removeEventListener("click", handleClickOutside, false);
+    };
+  }, []);
+
+  const handleClickOutside = (event) => {
+    if (wrapperRef.current && !wrapperRef.current.contains(event.target)) {
+      setDisplay(false);
+    }
+  };
+  const dataOption = data.filter((d) => {
+    return (
+      d.name.toLowerCase().includes(formik.values.searchValue.toLowerCase()) ||
+      !formik.values.searchValue
+    );
+  });
+
   return (
     <>
-      {isLoading ? (
-        <div className="loading">
-          <LoadingSpinner />
-        </div>
-      ) : (
-        <>
-          {console.log(formik)}
           <form onSubmit={formik.handleSubmit}>
             <div className="main-search-bar">
+              <FaSearch />
               <input
                 name="searchValue"
                 className="search-input"
@@ -68,40 +93,40 @@ const MainSearchBar = (props) => {
                 value={formik.values.searchValue}
                 onBlur={formik.handleBlur}
               />
+
               <select className="search-type" onChange={changeHandler}>
                 {variableSearchType.map((type) => (
                   <option value={type}>{type}</option>
                 ))}
               </select>
             </div>
-            <div className="clinic-list-for-search">
+            <div className="clinic-list-for-search" ref={wrapperRef}>
               <ListGroup className="main-search-bar-list">
-                {data
-                  .filter((d) => {
-                    if (formik.values.searchValue === "") {
-                      return;
-                    } else if (
-                      d.name
-                        .toLowerCase()
-                        .includes(formik.values.searchValue.toLowerCase())
-                    ) {
-                      return d;
-                    }
-                  })
-                  .sort((a, b) => a.name.localeCompare(b.name))
-                  .map((item) => (
-                    <Link to={`/clinicList?sort=${item.name}`}>
-                      <ListGroupItem className="listgroup-item" key={item.id}>
-                        {item.name}
-                      </ListGroupItem>
-                    </Link>
-                  ))}
+                {dataOption.length > 0
+                  ? dataOption
+                      .sort((a, b) => a.name.localeCompare(b.name))
+                      .map(
+                        (item) =>
+                          display && (
+                            <Link
+                              to={`${routeType.ROUTE_CLINICLIST_LIST}?sort=${item.name}`}
+                            >
+                              <ListGroupItem
+                                className="listgroup-item"
+                                key={item.id}
+                              >
+                                {item.name}
+                              </ListGroupItem>
+                            </Link>
+                          )
+                      )
+                  : display && (
+                      <ListGroupItem>{t("resultNotFound")}</ListGroupItem>
+                    )}
               </ListGroup>
             </div>
           </form>
-        </>
-      )}
     </>
   );
 };
-export default MainSearchBar;
+export default withRouter(MainSearchBar);

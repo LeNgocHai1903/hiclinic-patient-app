@@ -9,6 +9,7 @@ footer {
 .footer-container {
   border-top: 1px solid $grey-color-2;
   display: flex;
+  display: -webkit-flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
@@ -30,6 +31,7 @@ footer {
   .terms-and-conditions {
     list-style: none;
     display: flex;
+    display: -webkit-flex;
     align-items: center;
     flex-direction: column;
     margin: 10px 0;
@@ -50,7 +52,7 @@ footer {
     display: flex;
     a {
       font-size: 40px;
-      color: $grey-color-1;
+      color: $primary-color-1;
     }
     a:visited {
         color: $primary-color-1;

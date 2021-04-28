@@ -1,16 +1,14 @@
 import './Header.scss';
-import { AiOutlineSearch, AiOutlineMenu } from 'react-icons/ai';
+import { AiOutlineMenu } from 'react-icons/ai';
 import HeaderLogo from '../../asset/img/logo.png';
-
 import DirectMenu from '../directMenu/DirectMenu';
 
+import {CLINIC_URL} from '../../constant/apiUrl/apiUrl';
+
+import {useTranslation} from 'react-i18next';
+
 const Header = () => {
-  // const isDesktop= useMediaQuery({
-  //     query: '(min-width: 920px)'
-  // })
-  // const isMobile = useMediaQuery({
-  //     query: '(max-width: 920px)'
-  // })
+  const {t} =useTranslation();
   return (
     <div className="header-container">
       <header className="site-nav site-nav-container">
@@ -23,19 +21,10 @@ const Header = () => {
 
           <ul className="site-nav-desktop-nav">
             <li className="site-nav-desktop-item">
-              <a href="https://hiclinic-clinic-portal.herokuapp.com/" target="_blank">
-                <button className="change-site-btn">Clinic Website</button>
+              <a href={`${CLINIC_URL}`} target="_blank" rel="noreferrer" >
+                <button className="change-site-btn">{t('clinicWebsite')}</button>
               </a>
             </li>
-            {/* <li className="site-nav-desktop-item">
-              <a href="/">Your Link</a>
-            </li>
-            <li className="site-nav-desktop-item">
-              <a href="/">Your Link</a>
-            </li>
-            <li className="site-nav-desktop-item">
-              <a href="/">Your Link</a>
-            </li> */}
           </ul>
         </div>
 
@@ -44,7 +33,7 @@ const Header = () => {
             <AiOutlineMenu className="hamburger-button" />
           </a>
           <div className="dropdown-content">
-            <a href="#">Sign up</a>
+            <a href="#">{t('signUp')}</a>
             <a href="#">Your link</a>
             <a href="#">Your link</a>
             <a href="#">Your link</a>
@@ -63,11 +52,6 @@ const Header = () => {
           <li  className="direct-menu ">
             <DirectMenu/>
           </li>
-          {/* <li class="site-nav-action-item sign-up-form">
-            <a href="/" class="sign-up">
-              Sign up
-            </a>
-          </li> */}
         </ul>
       </header>
     </div>

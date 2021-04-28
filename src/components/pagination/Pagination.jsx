@@ -3,11 +3,6 @@ import React, { useState } from 'react';
 import {IoIosArrowForward, IoIosArrowBack} from 'react-icons/io';
 import './Pagination.scss';
 
-
-
-
-
-
 const Pagination = (props) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [itemPerPage] = useState(props.itemPerPage);

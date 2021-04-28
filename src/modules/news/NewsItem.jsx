@@ -1,25 +1,35 @@
 
 import './NewsItem.scss';
-import { Link } from 'react-router-dom';
+import { Link,withRouter } from 'react-router-dom';
+import * as routeType from '../../constant/route/route';
+
+import {useTranslation} from 'react-i18next';
 
 const NewsItem = (props) => {
+  const {t} = useTranslation();
+
+
+  const moveToDetail = (e) => {
+      e.preventDefault();
+      props.history.push(`${routeType.ROUTE_NEWS_DETAIL_BUILD(props.data.id)}`)
+  }
 
   return (
     <div className="news-item-container">
-      <Link to ={`/news/detail/${props.data.id}`} className="news-href">
+      <div onClick={moveToDetail} className="news-href">
         <div className="news-item">
           <img src={props.data.image} alt="" />
           <div className="news-item-content">
             <h3>{props.data.title}</h3>
             <p className="news-item-description">{props.data.shortDescription}</p>
-            <Link to={`/news/detail/${props.data.id}`} className="news-item-details">
-                More Details
+            <Link to={`${routeType.ROUTE_NEWS_DETAIL_BUILD(props.data.id)}`} className="news-item-details">
+                {t('moreDetails')}
             </Link>
           </div>
         </div>
-      </Link>
+      </div>
     </div>
   );
 };
 
-export default NewsItem;
+export default withRouter(NewsItem);

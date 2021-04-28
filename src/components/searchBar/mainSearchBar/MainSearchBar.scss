@@ -5,8 +5,14 @@
 .main-search-bar {
   display: flex;
   align-items: center;
-  justify-content: center;
 }
+
+.main-search-bar svg {
+  position: absolute;
+  margin-left: 20px;
+  font-size: 20px;
+}
+
 .search-input {
   height: 40px;
   width: 400px;
@@ -14,7 +20,6 @@
   border-radius: 10px;
   font-size: 16px;
   text-align: center;
-  background-image: url(../../../asset/img/search-icon.png);
   background-repeat: no-repeat;
   background-size: contain;
   margin-right: 3px;
@@ -54,12 +59,12 @@
 }
 
 .listgroup-item {
-    width:100%;
-    cursor: pointer;
+  width: 100%;
+  cursor: pointer;
 
-    &:hover {
-        background-color: $grey-color-3;
-    }
+  &:hover {
+    background-color: $grey-color-3;
+  }
 }
 
 .loading {
@@ -67,3 +72,9 @@
   justify-content: center;
 }
 
+.search-icon {
+  position: absolute;
+  height: 40px;
+  margin-left: 20px;
+  font-size: 18px;
+}
