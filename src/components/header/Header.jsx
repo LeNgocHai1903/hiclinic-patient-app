@@ -1,5 +1,4 @@
 import './Header.scss';
-import { AiOutlineMenu } from 'react-icons/ai';
 import HeaderLogo from '../../asset/img/logo.png';
 import DirectMenu from '../directMenu/DirectMenu';
 
