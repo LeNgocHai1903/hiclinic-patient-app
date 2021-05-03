@@ -17,6 +17,7 @@ const ClinicDetails = () => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [isModalShow, setIsModalShow] = useState(false);
+  const [chooseDoctor,setChooseDoctor]  = useState();
 
   const { t } = useTranslation();
   const clinicId = useParams();
@@ -35,9 +36,12 @@ const ClinicDetails = () => {
   };
 
   const bookingHandler = (doctorName) => {
+    setChooseDoctor(data.doctors.find(i => i.fullName ===doctorName))
     setIsModalShow(true);
-    actions.saveClinicAndDoctor(data.clinicName, doctorName.fullName);
+    actions.saveClinicAndDoctor(data.clinicName, doctorName);
   };
+
+  console.log(data)
 
   return (
     <div>
@@ -53,7 +57,7 @@ const ClinicDetails = () => {
             <ClinicTab data={data} onclick={bookingHandler} />
           </div>
         )}
-        {isModalShow ? <BookingModal data={data} show={isModalShow} modalClosed={closeModal} /> : null}
+        {isModalShow ? <BookingModal data={chooseDoctor} show={isModalShow} modalClosed={closeModal} /> : null}
       </>
     </div>
   );

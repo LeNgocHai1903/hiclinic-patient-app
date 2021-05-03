@@ -2,7 +2,7 @@
 
 .booking-modal {
   position: fixed;
-  z-index: 600;
+  z-index: 910;
   background-color: white;
   width: 70%;
   height: 80%;
@@ -79,25 +79,25 @@
 }
 
 .booking-modal-time-list {
-  height: 200px;
-  width: 35%;
+  height: 150px;
+  width: 60%;
 }
 
 .time-selected {
-  width: 100px;
+  width: 20%;
   margin-left: 20px;
   margin-top: 10px;
-  height: 60px;
+  height: 35px;
   border: none;
   border-radius: 0.5rem;
   background-color: $grey-color-3;
 }
 
 .time-selected-active {
-  width: 100px;
+  width: 20%;
   margin-left: 20px;
   margin-top: 10px;
-  height: 60px;
+  height: 35px;
   border: none;
   border-radius: 0.5rem;
   background-color: $primary-color-3;

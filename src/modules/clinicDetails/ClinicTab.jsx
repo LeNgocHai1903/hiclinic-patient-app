@@ -70,6 +70,7 @@ const ClinicTab = (props) => {
       >
         <Row>
           {docData[index].map((doc) => {
+
             return (
               <Col lg="4" sm="6">
                 <DoctorCard fullName={doc} image={DoctorImg} onclick={props.onclick} />

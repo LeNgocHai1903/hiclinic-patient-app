@@ -8,7 +8,7 @@
   justify-content: center;
   border-radius: 0.5rem;
   cursor: pointer;
-  height: 240px;
+  height: 300px;
 }
 
 .clinic-item-list-row {
@@ -21,7 +21,8 @@
   height: 100%;
   width: 100%;
   display: flex;
-  padding: 10px;
+  padding: 5px;
+  text-decoration: none !important;
 }
 
 // .clinic-item-list-items .list-group-item-action {
@@ -39,6 +40,11 @@
   background-color: white;
   height: 100%;
   padding: 5px;
+  color: black;
+}
+
+.clinic-item-description {
+  font-size: 14px;
 }
 
 @include media-breakpoint-only(xs) {
@@ -63,7 +69,7 @@
   }
 
   .clinic-item-list-img {
-    width: 80%;
+    width: 70%;
   }
 }
 

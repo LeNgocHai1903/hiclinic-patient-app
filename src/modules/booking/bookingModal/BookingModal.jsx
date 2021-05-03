@@ -8,7 +8,7 @@ import { useTranslation } from 'react-i18next';
 
 import { useCounter } from '../../../store/bookingStore';
 
-import { FaRegCalendarAlt } from 'react-icons/fa';
+import { FaCreativeCommonsZero, FaRegCalendarAlt } from 'react-icons/fa';
 import { UncontrolledPopover, PopoverHeader, PopoverBody } from 'reactstrap';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
@@ -19,6 +19,7 @@ import MiniModal from '../../../components/modal/MiniModal';
 import testImg from '../../../asset/img/clinic-grid-example.jpeg';
 
 const Modal = (props) => {
+
   const [state, actions] = useCounter();
   const [value, onChange] = useState(new Date());
   const [modal, setModal] = useState(false);
@@ -27,9 +28,9 @@ const Modal = (props) => {
     setModal(!modal);
   };
 
-  const confirmHandler = (date, time) => {
+  const confirmHandler = ( time) => {
     setModal(!modal);
-    actions.saveDateAndTime(date, time);
+    actions.saveDateAndTime(value.toLocaleDateString('en-GB'), time);
   };
 
   const { t } = useTranslation();
@@ -51,7 +52,7 @@ const Modal = (props) => {
     time: '',
   };
 
-  console.log(initialValues);
+
   const validateSchema = Yup.object().shape({
     date: Yup.string().required('Please pick a date before make a book'),
 
@@ -64,7 +65,6 @@ const Modal = (props) => {
       actions.setSubmitting(false);
     });
   };
-
   return (
     <>
       <Backdrop show={props.show} clicked={props.modalClosed} />
@@ -83,7 +83,7 @@ const Modal = (props) => {
                       <b>{t('experience')}:</b> {props.data.experience}{' '}
                     </label>
                     <label>
-                      <b>{t('licencseNumber')}:</b> {props.data.license}
+                      <b>{t('licencseNumber')}:</b> {props.data.licenseNumber}
                     </label>
                     <label>
                       <b>{t('departmentName')} :</b> {props.data.departmentName}
@@ -126,7 +126,7 @@ const Modal = (props) => {
                 <button
                   disabled={!dirty || !errors || !isValid}
                   className="btn btn-success"
-                  onClick={() => confirmHandler(values.date, values.time)}
+                  onClick={() => confirmHandler( values.time)}
                 >
                   {t('confirm')}
                 </button>

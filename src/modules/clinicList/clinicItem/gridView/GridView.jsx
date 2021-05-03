@@ -1,23 +1,17 @@
 import './GridView.scss';
 
-import { useHistory } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { AiFillStar } from 'react-icons/ai';
 import { useTranslation } from 'react-i18next';
 
 const GridClinicItem = (props) => {
-  const history = useHistory();
   const { data } = props;
 
   const { t } = useTranslation();
 
-  function changeSiteHandler(e) {
-    e.preventDefault();
-    history.push(`/clinics/detail/${data.id}`);
-  }
-
   return (
-    <div className={`col-lg-4 clinic-items`} onClick={changeSiteHandler}>
-      <div className="clinic-item">
+    <div className={`col-lg-4 clinic-items`}>
+      <Link to={`/clinics/detail/${data.id}`} className="clinic-item">
         <div className="clinic-item-img">
           <img alt="clinic-img" src={data.image} />
         </div>
@@ -42,7 +36,7 @@ const GridClinicItem = (props) => {
             </div>
           </div>
         </div>
-      </div>
+      </Link>
     </div>
   );
 };
