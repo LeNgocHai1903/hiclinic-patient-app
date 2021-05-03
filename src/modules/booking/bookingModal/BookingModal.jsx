@@ -19,7 +19,6 @@ import MiniModal from '../../../components/modal/MiniModal';
 import testImg from '../../../asset/img/clinic-grid-example.jpeg';
 
 const Modal = (props) => {
-
   const [state, actions] = useCounter();
   const [value, onChange] = useState(new Date());
   const [modal, setModal] = useState(false);
@@ -28,7 +27,7 @@ const Modal = (props) => {
     setModal(!modal);
   };
 
-  const confirmHandler = ( time) => {
+  const confirmHandler = (time) => {
     setModal(!modal);
     actions.saveDateAndTime(value.toLocaleDateString('en-GB'), time);
   };
@@ -51,7 +50,6 @@ const Modal = (props) => {
     date: value.toLocaleDateString('en-GB'),
     time: '',
   };
-
 
   const validateSchema = Yup.object().shape({
     date: Yup.string().required('Please pick a date before make a book'),
@@ -95,10 +93,10 @@ const Modal = (props) => {
                     {initialValues.date}
                     <FaRegCalendarAlt />
                   </label>
-                  <UncontrolledPopover trigger="legacy" placement="right" target="PopoverLegacy">
+                  <UncontrolledPopover  trigger="legacy" placement="right" target="PopoverLegacy">
                     <PopoverHeader>{t('pickDate')}</PopoverHeader>
                     <PopoverBody>
-                      <Calendar onChange={onChange} value={value} name="date" />
+                      <Calendar minDate={new Date()} onChange={onChange} value={value} name="date" />
                     </PopoverBody>
                   </UncontrolledPopover>
                 </div>
@@ -126,7 +124,7 @@ const Modal = (props) => {
                 <button
                   disabled={!dirty || !errors || !isValid}
                   className="btn btn-success"
-                  onClick={() => confirmHandler( values.time)}
+                  onClick={() => confirmHandler(values.time)}
                 >
                   {t('confirm')}
                 </button>

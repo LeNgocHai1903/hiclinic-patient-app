@@ -9,6 +9,7 @@ const Pagination = (props) => {
   const indexOfLastItem = currentPage * itemPerPage;
   const indexOfFirstItem = indexOfLastItem - itemPerPage;
 
+  console.log(props.data);
   let currentItems;
   switch (props.type) {
     case 'clinic':

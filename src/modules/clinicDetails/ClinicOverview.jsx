@@ -17,7 +17,7 @@ const ClinicOverview = (props) => {
         <div className="clinic-overview-container">
           <img src={data.image} />
           <div className="clinic-information">
-            <h2 className="clinic-name">{data.fullName}</h2>
+            <h2 className="clinic-name">{data.clinicName}</h2>
             <p>
               <MdLocationOn className="icon address-icon" />
               {data.address}

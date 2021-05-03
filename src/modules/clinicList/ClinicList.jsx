@@ -84,7 +84,7 @@ const ClinicList = (props) => {
           <Pagination
             data={data}
             type="clinic"
-            search={!props.location.state ? '' : props.location.state.clinicName}
+            search={!props.location.state ? props.location.search.substr(13) : props.location.state.clinicName}
             itemPerPage={variableType.NUMBER_OF_PAGE_CLINIC_LIST}
           >
             {listStyle === 'grid' ? <GridView /> : <ListView />}

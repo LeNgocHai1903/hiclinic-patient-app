@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 
 import { useTranslation } from 'react-i18next';
 
-import { Link, withRouter } from 'react-router-dom';
+import { Link, withRouter, useHistory } from 'react-router-dom';
 import { ListGroup, ListGroupItem } from 'reactstrap';
 import { Formik } from 'formik';
 import * as yup from 'yup';
@@ -13,6 +13,8 @@ import apiWrapper from '../../../api/apiWrapper';
 import * as routeType from '../../../constant/route/route.js';
 
 const MainSearchBar = (props) => {
+  const history = useHistory();
+
   const [data, setData] = useState([]);
   const [searchType, setSearchType] = useState('Clinic');
   const [display, setDisplay] = useState(false);
@@ -39,6 +41,10 @@ const MainSearchBar = (props) => {
   const validationSchema = yup.object().shape({
     searchValue: yup.string().required(t('requiredField')),
   });
+
+  const onSubmit = (values, actions) => {
+    history.push(`/clinicList?searchValue=${searchValue}`)
+  };
 
   useEffect(() => {
     if (searchValue === '') {
@@ -70,7 +76,7 @@ const MainSearchBar = (props) => {
     <>
       <Formik inititalValue={initialValueSearch} validationSchema={validationSchema}>
         {({ handleBlur, searchValue }) => (
-          <form>
+          <form onSubmit={onSubmit}>
             <div className="main-search-bar">
               <div className="search-icon-input-area">
                 <FaSearch className="search-icon" />
