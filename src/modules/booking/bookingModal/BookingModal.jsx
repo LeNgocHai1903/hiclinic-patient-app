@@ -8,7 +8,7 @@ import { useTranslation } from 'react-i18next';
 
 import { useCounter } from '../../../store/bookingStore';
 
-import { FaCreativeCommonsZero, FaRegCalendarAlt } from 'react-icons/fa';
+import { FaRegCalendarAlt } from 'react-icons/fa';
 import { UncontrolledPopover, PopoverHeader, PopoverBody } from 'reactstrap';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
