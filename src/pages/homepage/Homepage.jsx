@@ -49,7 +49,7 @@ const Homepage = () => {
       <div className="container">
         <div className="clinic-list">
           <h1>{t('topClinic')}</h1>
-          <div className="row justify-content-center">
+          <div className="row">
             {clinicIsLoading ? (
               <div>
                 <LoaddingSpinner />

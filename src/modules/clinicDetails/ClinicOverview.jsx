@@ -9,7 +9,7 @@ import { useTranslation } from 'react-i18next';
 const ClinicOverview = (props) => {
   const { t } = useTranslation();
 
-  const {data} = props;
+  const { data } = props;
 
   return (
     <div>
@@ -17,7 +17,7 @@ const ClinicOverview = (props) => {
         <div className="clinic-overview-container">
           <img src={data.image} />
           <div className="clinic-information">
-            <h2 className="clinic-name">{data.name}</h2>
+            <h2 className="clinic-name">{data.fullName}</h2>
             <p>
               <MdLocationOn className="icon address-icon" />
               {data.address}

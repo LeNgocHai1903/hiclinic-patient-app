@@ -45,6 +45,7 @@ function App() {
       <Route path={`${routeType.ROUTE_NEWS_LIST}`} exact component={News} />
       <Route path={`${routeType.ROUTE_NEWS_DETAIL}`} component={NewsDetail} />
       <Route path={`${routeType.ROUTE_CLINIC_DETAIL}`} component={ClinicDetails} />
+      <Redirect to="/" />
     </Switch>
   );
 

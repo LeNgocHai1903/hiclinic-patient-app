@@ -1,5 +1,4 @@
-import  { useState } from 'react';
-
+import { useState } from 'react';
 
 import './BookingModal.scss';
 import 'react-calendar/dist/Calendar.css';
@@ -28,7 +27,6 @@ const Modal = (props) => {
     setModal(!modal);
   };
 
-
   const confirmHandler = (date, time) => {
     setModal(!modal);
     actions.saveDateAndTime(date, time);
@@ -37,27 +35,27 @@ const Modal = (props) => {
   const { t } = useTranslation();
 
   const timeList = [
-    { time: "9AM- 10AM", id: "1" },
-    { time: "10AM- 11AM", id: "2" },
-    { time: "11AM- 12PM", id: "3" },
-    { time: "12PM- 1PM", id: "4" },
-    { time: "1PM- 2PM", id: "5" },
-    { time: "2PM- 3PM", id: "6" },
-    { time: "3PM- 4PM", id: "7" },
-    { time: "4PM- 5PM", id: "8" },
-    { time: "5PM- 6PM", id: "9" },
+    { time: '9AM- 10AM', id: '1' },
+    { time: '10AM- 11AM', id: '2' },
+    { time: '11AM- 12PM', id: '3' },
+    { time: '12PM- 1PM', id: '4' },
+    { time: '1PM- 2PM', id: '5' },
+    { time: '2PM- 3PM', id: '6' },
+    { time: '3PM- 4PM', id: '7' },
+    { time: '4PM- 5PM', id: '8' },
+    { time: '5PM- 6PM', id: '9' },
   ];
 
   const initialValues = {
-    date: value.toLocaleDateString("en-GB"),
-    time: "",
+    date: value.toLocaleDateString('en-GB'),
+    time: '',
   };
 
   console.log(initialValues);
   const validateSchema = Yup.object().shape({
-    date: Yup.string().required("Please pick a date before make a book"),
+    date: Yup.string().required('Please pick a date before make a book'),
 
-    time: Yup.string().required("Please choose one timebox"),
+    time: Yup.string().required('Please choose one timebox'),
   });
 
   const submitForm = (values, actions) => {
@@ -70,47 +68,35 @@ const Modal = (props) => {
   return (
     <>
       <Backdrop show={props.show} clicked={props.modalClosed} />
-      <Formik
-        initialValues={initialValues}
-        validationSchema={validateSchema}
-        onSubmit={submitForm}
-      >
+      <Formik initialValues={initialValues} validationSchema={validateSchema} onSubmit={submitForm}>
         {(formik) => {
           const { errors, isValid, dirty, values, handleChange } = formik;
           return (
             <div className="booking-modal">
-              <div className="booking-modal-title">{t("booking")}</div>
+              <div className="booking-modal-title">{t('booking')}</div>
               <div className="booking-modal-content">
                 <div className="booking-modal-infomation">
                   <img src={testImg} />
                   <div className="booking-modal-doctor">
                     <h3>{props.data.fullName}</h3>
                     <label>
-                      <b>{t("experience")}:</b> {props.data.experience}{" "}
+                      <b>{t('experience')}:</b> {props.data.experience}{' '}
                     </label>
                     <label>
-                      <b>{t("licencseNumber")}:</b> {props.data.license}
+                      <b>{t('licencseNumber')}:</b> {props.data.license}
                     </label>
                     <label>
-                      <b>{t("departmentName")} :</b> {props.data.departmentName}
+                      <b>{t('departmentName')} :</b> {props.data.departmentName}
                     </label>
                   </div>
                 </div>
                 <div className="booking-modal-date">
-                  <label
-                    type="date"
-                    id="PopoverLegacy"
-                    className="booking-modal-calendar"
-                  >
+                  <label type="date" id="PopoverLegacy" className="booking-modal-calendar">
                     {initialValues.date}
                     <FaRegCalendarAlt />
                   </label>
-                  <UncontrolledPopover
-                    trigger="legacy"
-                    placement="right"
-                    target="PopoverLegacy"
-                  >
-                    <PopoverHeader>{t("pickDate")}</PopoverHeader>
+                  <UncontrolledPopover trigger="legacy" placement="right" target="PopoverLegacy">
+                    <PopoverHeader>{t('pickDate')}</PopoverHeader>
                     <PopoverBody>
                       <Calendar onChange={onChange} value={value} name="date" />
                     </PopoverBody>
@@ -120,12 +106,8 @@ const Modal = (props) => {
                   <div className="booking-modal-time-list">
                     {timeList.map((item) => (
                       <button
-                      key={item.id}
-                        className={
-                          item.time === values.time
-                            ? "time-selected-active"
-                            : "time-selected"
-                        }
+                        key={item.id}
+                        className={item.time === values.time ? 'time-selected-active' : 'time-selected'}
                         value={item.time}
                         id={item.id}
                         name="time"
@@ -139,32 +121,32 @@ const Modal = (props) => {
               </div>
               <div className="booking-modal-btn">
                 <button className="btn btn-danger" onClick={props.modalClosed}>
-                  {t("cancle")}
+                  {t('cancle')}
                 </button>
                 <button
                   disabled={!dirty || !errors || !isValid}
                   className="btn btn-success"
                   onClick={() => confirmHandler(values.date, values.time)}
                 >
-                  {t("confirm")}
+                  {t('confirm')}
                 </button>
               </div>
             </div>
           );
         }}
       </Formik>
-      <MiniModal toggle={toggle} modal={modal} >
+      <MiniModal toggle={toggle} modal={modal}>
         <h3>
-          {t("clinicName")} : {state.clinicName}
+          {t('clinicName')} : {state.clinicName}
         </h3>
         <label>
-          {t("doctorName")}: {state.doctorName}
+          {t('doctorName')}: {state.doctorName}
         </label>
         <label>
-          {t("date")}: {state.bookingDate}
+          {t('date')}: {state.bookingDate}
         </label>
         <label>
-          {t("time")}: {state.bookingTime}
+          {t('time')}: {state.bookingTime}
         </label>
       </MiniModal>
     </>

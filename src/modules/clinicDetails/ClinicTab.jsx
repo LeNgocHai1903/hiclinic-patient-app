@@ -7,14 +7,12 @@ import DoctorCard from './DoctorCard';
 import { useTranslation } from 'react-i18next';
 
 const ClinicTab = (props) => {
-
   const [activeTab, setActiveTab] = useState('0');
   const { t } = useTranslation();
-  const {data} = props;
+  const { data } = props;
   const depAndDoc = data.doctors;
   const depNames = depAndDoc.map((doc) => doc.departmentName);
   let docData;
-  
 
   const uniqueDepNames = depNames.filter((item, pos, self) => {
     return self.indexOf(item) === pos;
@@ -67,7 +65,7 @@ const ClinicTab = (props) => {
       <TabPane
         tabId={index}
         className={classnames({
-          active: activeTab === index,
+          active: activeTab === index.toString(),
         })}
       >
         <Row>
