@@ -1,11 +1,10 @@
-@import "../../../styles/variable.scss";
+@import '../../../../styles/variable.scss';
 
 .clinic-items {
   display: flex;
   align-items: center;
   justify-content: center;
   margin-top: 20px;
-
 }
 
 .clinic-item {
@@ -30,7 +29,7 @@
 }
 
 .clinic-item-content {
-  padding:5px;
+  padding: 5px;
   font-size: 14px;
   background-color: white;
   display: flex;
@@ -38,18 +37,18 @@
 }
 
 .clinic-name {
-  height:38px;
+  height: 38px;
   margin-bottom: 6px;
   display: flex;
-  justify-content:space-between;
+  justify-content: space-between;
 }
 
-.clinic-item-content-header{
-width:100%;
+.clinic-item-content-header {
+  width: 100%;
 }
 
 .clinic-address {
-  height:50px;
+  height: 50px;
 }
 
 // Extra small devices (portrait phones, less than 576px)
@@ -59,22 +58,23 @@ width:100%;
     background-color: $primary-color-3;
     width: 80%;
   }
+
   .clinic-item-content {
     font-size: 12px;
   }
 }
 
 // Small devices (landscape phones, 576px and up)
-@media (min-width: 576px) and (max-width: 991.98px) {
+@include media-breakpoint-between(xs, sm) {
   .col-lg-4 {
-    width: auto   ;
+    width: auto;
   }
 }
 
 // Large devices (desktops, 992px and up)
-@media (min-width: 992px) and (max-width: 1199.98px) {
+@include media-breakpoint-only(lg) {
 }
 
 // Extra large devices (large desktops, 1200px and up)
-@media (min-width: 1200px) {
+@include media-breakpoint-only(xl) {
 }

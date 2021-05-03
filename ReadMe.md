@@ -32,6 +32,7 @@ Please run before start
 ```
 npm run dependencies:legacy
 ```
+
 ## Available Scripts
 
 In the project directory, you can run:

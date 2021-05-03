@@ -1,16 +1,22 @@
-@import "../../../styles/variable.scss";
+@import '../../../styles/variable.scss';
+
 .search {
   padding: 20px;
 }
+
+.search-icon {
+  position: absolute;
+  margin: 11px;
+}
+
 .main-search-bar {
   display: flex;
   align-items: center;
+  justify-content: center;
 }
 
-.main-search-bar svg {
-  position: absolute;
-  margin-left: 20px;
-  font-size: 20px;
+.search-icon-input-area {
+  position: relative;
 }
 
 .search-input {
@@ -20,9 +26,7 @@
   border-radius: 10px;
   font-size: 16px;
   text-align: center;
-  background-repeat: no-repeat;
-  background-size: contain;
-  margin-right: 3px;
+  align-items: center;
 
   &:focus {
     outline: none;
@@ -32,30 +36,33 @@
 .search-type {
   background: #fff;
   color: black;
+  //outline: #ffffff solid thick;
   outline-offset: -5px;
   font-size: 80%;
   height: 40px;
+
   &:focus {
     outline: none;
   }
+
   margin-left: 20px;
   border-radius: 0.3rem;
   text-align: center;
 }
+
 .search-type option {
   margin: 40px;
   background: rgba(0, 0, 0, 0.3);
   color: #fff;
   text-shadow: 0 1px 0 rgba(0, 0, 0, 0.4);
 }
+
 .clinic-list-for-search {
   width: 400px;
-  box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.356);
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.356);
   margin: auto;
+  display: flex;
   justify-content: center;
-  position: absolute;
-  margin-right: 120px;
-  z-index: 3;
 }
 
 .listgroup-item {
@@ -67,14 +74,7 @@
   }
 }
 
-.loading {
-  display: flex;
-  justify-content: center;
-}
-
-.search-icon {
-  position: absolute;
-  height: 40px;
-  margin-left: 20px;
-  font-size: 18px;
+.main-search-bar-list {
+  list-style: none;
+  z-index: 3;
 }

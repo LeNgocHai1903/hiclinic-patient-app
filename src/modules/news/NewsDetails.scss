@@ -1,4 +1,4 @@
-@import "../../styles/variable.scss";
+@import '../../styles/variable.scss';
 
 .news-details {
   display: flex;
@@ -8,31 +8,36 @@
   width: 50%;
   margin: auto;
 }
+
 .news-details h1 {
   font-size: 36px;
   justify-content: center;
   line-height: 1.6;
 }
+
 .news-details img {
   padding-top: 20px;
   padding-bottom: 20px;
   height: 400px;
 }
+
 .news-info {
   text-align: center;
   font-style: italic;
   line-height: 5px;
 }
+
 p {
   padding-bottom: 20px;
 }
+
 .news-title {
   margin-top: 50px;
 }
 
-.loading{
+.loading {
   display: flex;
-  justify-content:center;
+  justify-content: center;
 }
 
 @media screen and (max-width: 768px) {

@@ -1,0 +1,22 @@
+@import '../../styles/variable.scss';
+
+.tab-container {
+  width: 60%;
+  margin: 0 auto;
+  cursor: pointer;
+
+  .nav-item {
+    cursor: pointer;
+  }
+
+  .nav-tabs .nav-link.active,
+  .nav-tabs .nav-item.show .nav-link {
+    background-color: $primary-color-3;
+    color: #fff;
+  }
+
+  .tab-pane {
+    padding-bottom: 20px;
+    padding-top: 20px;
+  }
+}

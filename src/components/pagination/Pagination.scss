@@ -1,4 +1,5 @@
-@import "../../styles/variable.scss";
+@import '../../styles/variable.scss';
+
 .page {
   text-align: center;
   display: flex;
@@ -19,7 +20,6 @@
   border: 0.2px solid black;
 }
 
-
 .page-link-active {
   width: 40px;
   padding: 5px 10px;
@@ -36,7 +36,7 @@
   background-color: $custom-pagination-color-1;
   border: none;
   opacity: 0.4;
-} 
+}
 
 .page-link-arrow-active {
   width: 40px;
@@ -45,11 +45,11 @@
   color: $primary-color-3;
   background-color: $custom-pagination-color-1;
   border: none;
+
   &:hover {
     background-color: rgb(218, 218, 218);
   }
-
-} 
+}
 
 .page-link:focus {
   background-color: $primary-color-3;

@@ -1,0 +1,37 @@
+@import '../../styles/variable.scss';
+
+.style-option {
+  height: 1.8rem;
+  width: 4rem;
+  background-color: white;
+  border-radius: 0.5rem;
+  outline: none;
+}
+
+.select-group {
+  display: flex;
+  justify-content: space-between;
+  padding: 25px;
+}
+
+.sort-option {
+  height: 1.8rem;
+  width: 4rem;
+  background-color: white;
+  border-radius: 0.5rem;
+  outline: none;
+}
+
+.loading {
+  display: flex;
+  justify-content: center;
+}
+
+@include media-breakpoint-down(sm) {
+  .style-option {
+    visibility: hidden;
+  }
+}
+
+@include media-breakpoint-down(md) {
+}

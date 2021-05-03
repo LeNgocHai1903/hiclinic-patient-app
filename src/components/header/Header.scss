@@ -8,16 +8,18 @@ body {
   background-color: #fff;
 }
 
-.change-site-btn{
-  height:100%;
+.change-site-btn {
+  height: 100%;
   border-radius: 0.5rem;
   margin-left: 10px;
-  padding:5px;
-  background-color:$primary-color-3;
+  padding: 5px;
+  background-color: $primary-color-3;
 }
+
 .header-container {
   border-bottom: 1px solid $grey-color-2;
   margin-bottom: 20px;
+
   .site-nav {
     top: 0;
     width: 100%;
@@ -37,11 +39,11 @@ body {
     }
 
     .site-nav-desktop-only {
-      display: none ;
+      display: none !important;
     }
 
     .sign-up-form {
-      display: none ;
+      display: none !important;
     }
   }
 
@@ -114,6 +116,7 @@ body {
       margin-left: 10px;
       padding-left: 20px;
     }
+
     .direct-menu {
       border-radius: 8px;
       position: relative;
@@ -125,7 +128,6 @@ body {
     //mobile screen
     .site-nav-mobile-menu {
       height: 60px;
-      
       cursor: pointer;
       margin-left: 0;
       display: flex;
@@ -144,6 +146,7 @@ body {
       height: 50px;
       margin: auto;
       position: flex;
+      display: -webkit-flex;
       display: inline-block;
     }
 

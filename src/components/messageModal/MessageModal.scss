@@ -1,0 +1,14 @@
+@import '../../styles/variable.scss';
+
+.button-modal {
+  background-color: $primary-color-3;
+  font-weight: bolder;
+  margin-right: auto;
+  margin-left: auto;
+  width: 100%;
+  border: 1px solid $grey-color-3;
+
+  &:hover {
+    background-color: $primary-color-2;
+  }
+}

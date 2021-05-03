@@ -1,13 +1,13 @@
-import { useEffect, useState } from "react";
-import "./NewsList.scss";
-import { useTranslation } from "react-i18next";
+import { useEffect, useState } from 'react';
+import './NewsList.scss';
+import { useTranslation } from 'react-i18next';
 
-import NewsItem from "../../modules/news/NewsItem";
-import LoaddingSpinner from "../../components/loadingSpinner/LoadingSpinner";
-import Pagination from "../../components/pagination/Pagination";
+import NewsItem from '../../modules/news/NewsItem';
 
-import { apiWrapper } from "../../apiWrapper/apiWrapper";
-import * as sortType from "../../constant/sorting/sorting";
+import Pagination from '../../components/pagination/Pagination';
+
+import apiWrapper from '../../api/apiWrapper';
+import * as sortType from '../../constant/sorting/sorting';
 
 const NewsList = (props) => {
   const [data, setData] = useState([]);
@@ -16,7 +16,7 @@ const NewsList = (props) => {
   const { t } = useTranslation();
 
   useEffect(() => {
-    apiWrapper.get("/news").then((res) => {
+    apiWrapper({ url: `${process.env.REACT_APP_PATIENT_SERVER_URL_FAKE}/news`, method: 'GET' }).then((res) => {
       setData(res);
       setLoading(false);
     });
@@ -28,9 +28,7 @@ const NewsList = (props) => {
         setData([...data].sort((a, b) => a.title.localeCompare(b.title)));
         break;
       case sortType.SORT_BY_ALPHABET_DECS:
-        setData(
-          [...data].sort((a, b) => a.title.localeCompare(b.title)).reverse()
-        );
+        setData([...data].sort((a, b) => a.title.localeCompare(b.title)).reverse());
         break;
       default:
         return setData([...data]);
@@ -42,24 +40,21 @@ const NewsList = (props) => {
       <>
         {loading ? (
           <div className="loading">
-            <LoaddingSpinner />
+            {/* <LoaddingSpinner /> */}
+            {t('loading')}
           </div>
         ) : (
           <div>
-            <h1>{t("newsList")}</h1>
+            <h1>{t('newsList')}</h1>
             <div className="news-sort">
-              <select
-                id="sort-list"
-                onChange={changeSortHandler}
-                className="sort-option"
-              >
+              <select id="sort-list" onChange={changeSortHandler} className="sort-option">
                 <optgroup label="Alphabet">
-                  <option value="alphabet inc"> {t("a_z")} </option>
-                  <option value="alphabet desc"> {t("z_a")} </option>
+                  <option value="alphabet inc"> {t('a_z')} </option>
+                  <option value="alphabet desc"> {t('z_a')} </option>
                 </optgroup>
               </select>
             </div>
-            <Pagination data={data} type={"news"} itemPerPage={6}>
+            <Pagination data={data} type={'news'} itemPerPage={6}>
               <NewsItem />
             </Pagination>
           </div>

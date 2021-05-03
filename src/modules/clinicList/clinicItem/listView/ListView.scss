@@ -1,0 +1,80 @@
+@import '../../../../styles/variable.scss';
+
+.clinic-item-list {
+  width: 70%;
+  margin-top: 20px;
+  background-color: $primary-color-3;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  height: 240px;
+}
+
+.clinic-item-list-row {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.clinic-item-list-items {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  padding: 10px;
+}
+
+// .clinic-item-list-items .list-group-item-action {
+//     color: $grey-color-3;
+// }
+
+.clinic-item-list-img {
+  width: 60%;
+  border-radius: 0.7rem;
+  padding-right: 10px;
+}
+
+.clinic-item-list-content {
+  width: 400px;
+  background-color: white;
+  height: 100%;
+  padding: 5px;
+}
+
+@include media-breakpoint-only(xs) {
+  .clinic-item-list {
+    width: 80%;
+  }
+}
+
+// Small devices (landscape phones, 576px and up)
+@include media-breakpoint-only(sm) {
+  .clinic-item-list-content small {
+    display: block;
+    max-height: 70%;
+    height: 70%;
+    margin: 0 auto;
+    font-size: 14px;
+    line-height: 1.6;
+    -webkit-line-clamp: 6;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .clinic-item-list-img {
+    width: 80%;
+  }
+}
+
+// Medium devices (tablets, 768px and up)
+@include media-breakpoint-only(md) {
+}
+
+// Large devices (desktops, 992px and up)
+@include media-breakpoint-only(lg) {
+}
+
+// Extra large devices (large desktops, 1200px and up)
+@include media-breakpoint-only(xl) {
+}

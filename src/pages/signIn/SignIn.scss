@@ -1,0 +1,66 @@
+@import '../../styles/variable.scss';
+
+.signin-logo {
+  height: 60px;
+  width: 200px;
+}
+
+.signin-wrapper {
+  background-image: url('../../asset/img/signup-background.jpeg');
+  background-size: cover;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  z-index: 901;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.signin-wrapper b {
+  margin-top: 10px;
+}
+
+.signin-form {
+  border-radius: 0.4rem;
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.356);
+  background-color: white;
+  width: 40%;
+  height: 60%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.signin-title {
+  padding: 20px;
+  color: $primary-color-2;
+}
+
+.signin-form-input {
+  border-radius: 0.3rem;
+  background-color: white;
+  border: 1px solid $primary-color-3;
+  width: 60%;
+  margin-top: 10px;
+  padding: 5px;
+  outline: none;
+}
+
+.signin-error {
+  color: red;
+  font-size: 14px;
+}
+
+.signin-btn {
+  bottom: 0;
+  border: none;
+  height: 40px;
+  width: 70px;
+  border-radius: 0.3rem;
+  margin-top: 30px;
+  background-color: $primary-color-3;
+  color: white;
+  margin-bottom: 20px;
+}

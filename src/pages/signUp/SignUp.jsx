@@ -1,12 +1,11 @@
-import Header from '../../components/header/Header'
-import Footer from '../../components/footer/Footer'
+import Header from '../../components/header/Header';
+import Footer from '../../components/footer/Footer';
+import NewsList from '../../pages/newsList/NewsList';
 
 const SignUp = () => (
-    <div>
-        <Header />
-        <Footer />
-    </div>
-
+  <div>
+    <NewsList />
+  </div>
 );
 
 export default SignUp;

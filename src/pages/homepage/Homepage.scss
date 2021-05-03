@@ -1,5 +1,8 @@
 @import '../../styles/variable.scss';
+
 .main-search-on-homepage {
+  display: flex;
+  justify-content: center;
   height: 100%;
 }
 
@@ -11,35 +14,33 @@
 }
 
 .clinic-list {
-    margin-top:20px;
-    padding-bottom: 15px;
-    margin-bottom: 30px;
-    border-bottom: 1px solid $grey-color-3;
+  margin-top: 20px;
+  padding-bottom: 15px;
+  margin-bottom: 30px;
+  border-bottom: 1px solid $grey-color-3;
 }
 
-.seeall-link{ 
-    display: flex;
-    justify-content: flex-end;
-    margin: 20px;
-    .seeall-btn {
-      height: 35px;
-      border-radius:.2rem;
-      background-color: $primary-color-3;
-      padding:5px;
-      display:flex;
-      align-items: center;
-      border: none;
-      box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.356);
-    }
-    a{
-      text-decoration: none ;
-    }
-    svg {
-      margin-left: 10px;
-    }
-}
-
-.main-search-on-homepage{
+.seeall-link {
   display: flex;
-  justify-content: center;
+  justify-content: flex-end;
+  margin: 20px;
+
+  .seeall-btn {
+    height: 35px;
+    border-radius: 0.2rem;
+    background-color: $primary-color-3;
+    padding: 5px;
+    display: flex;
+    align-items: center;
+    border: none;
+    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.356);
+  }
+
+  a {
+    text-decoration: none;
+  }
+
+  svg {
+    margin-left: 10px;
+  }
 }

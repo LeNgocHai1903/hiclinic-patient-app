@@ -3,8 +3,6 @@ import { AiOutlineMenu } from 'react-icons/ai';
 import HeaderLogo from '../../asset/img/logo.png';
 import DirectMenu from '../directMenu/DirectMenu';
 
-import {CLINIC_URL} from '../../constant/apiUrl/apiUrl';
-
 import {useTranslation} from 'react-i18next';
 
 const Header = () => {
@@ -21,8 +19,8 @@ const Header = () => {
 
           <ul className="site-nav-desktop-nav">
             <li className="site-nav-desktop-item">
-              <a href={`${CLINIC_URL}`} target="_blank" rel="noreferrer" >
-                <button className="change-site-btn">{t('clinicWebsite')}</button>
+              <a href="https://hiclinic-clinic-portal.herokuapp.com/" target="_blank" rel="noreferrer" >
+                <button className="change-site-btn">{t('Clinic Website')}</button>
               </a>
             </li>
           </ul>
@@ -33,12 +31,12 @@ const Header = () => {
             <AiOutlineMenu className="hamburger-button" />
           </a>
           <div className="dropdown-content">
-            <a href="#">{t('signUp')}</a>
-            <a href="#">Your link</a>
-            <a href="#">Your link</a>
-            <a href="#">Your link</a>
-            <a href="#">Your link</a>
-            <a href="#">Your link</a>
+            <a href="#">{t('signIn')}</a>
+            <a href="#">{t('yourLink')}</a>
+            <a href="#">{t('yourLink')}</a>
+            <a href="#">{t('yourLink')}</a>
+            <a href="#">{t('yourLink')}</a>
+            <a href="#">{t('yourLink')}</a>
           </div>
         </div>
 

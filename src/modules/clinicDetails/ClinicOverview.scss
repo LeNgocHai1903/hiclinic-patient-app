@@ -1,0 +1,71 @@
+@import '../../styles/variable.scss';
+
+.clinic-overview-container {
+  display: flex;
+  flex-direction: row;
+  width: 60%;
+  // max-height: 400px;
+  margin: auto;
+  background-color: #fff;
+  border: 1px solid $grey-color-3;
+  // padding: 10px;
+  margin-bottom: 20px;
+  border-radius: 0.7rem;
+  cursor: pointer;
+
+  img {
+    max-height: 100%;
+    width: 50%;
+    padding-right: 10px;
+    border-radius: 0.7rem;
+  }
+
+  .clinic-information {
+    width: 50%;
+    line-height: 30px;
+    border-radius: 10px;
+    background: #fff;
+    padding: 10px;
+    justify-self: center;
+  }
+
+  p {
+    padding-bottom: 5px;
+  }
+
+  b {
+    margin-right: 10px;
+  }
+
+  .icon {
+    padding-right: 10px;
+    font-size: 34px;
+    color: $primary-color-3;
+  }
+
+  .clinic-name {
+    font-weight: bold;
+    color: $primary-color-3;
+    font-size: 24px;
+
+    &:hover {
+      color: $primary-color-2;
+    }
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .clinic-overview-container {
+    flex-direction: column;
+
+    img {
+      width: 100% !important;
+      padding-bottom: 10px;
+      padding-right: 0 !important;
+    }
+
+    .clinic-information {
+      width: 100% !important;
+    }
+  }
+}

@@ -1,0 +1,30 @@
+@import '../../styles/variable.scss';
+
+.doctor-item {
+  //to overwrite the default border radius of Reactstrap
+  border-radius: 0.7rem !important;
+  margin-bottom: 20px;
+  height: auto;
+
+  .button-book {
+    background-color: $primary-color-3;
+    font-weight: bolder;
+    margin-right: auto;
+    margin-left: auto;
+    width: 100%;
+  }
+
+  .button-book:hover {
+    background-color: $primary-color-2;
+  }
+
+  .doctor-name {
+    font-size: 18px;
+    font-weight: bolder;
+    text-align: center;
+  }
+
+  .doctor-image {
+    height: 50%;
+  }
+}
