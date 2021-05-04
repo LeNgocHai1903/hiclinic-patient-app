@@ -6,7 +6,7 @@ import Calendar from 'react-calendar';
 
 import { useTranslation } from 'react-i18next';
 
-import { useCounter } from '../../../store/bookingStore';
+import { useCounter } from '../../../store/booking/bookingStore';
 
 import { FaRegCalendarAlt } from 'react-icons/fa';
 import { UncontrolledPopover, PopoverHeader, PopoverBody } from 'reactstrap';

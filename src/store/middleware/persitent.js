@@ -1,6 +1,6 @@
 import { defaults } from 'react-sweet-state';
 
-import { AuthenticationStoreName } from '../authenticate/authenticate';
+import { AuthenticationStoreName } from '../authenticate/store';
 
 const WHITE_LIST = [AuthenticationStoreName];
 

@@ -1,6 +1,6 @@
 import { useState, useLayoutEffect } from 'react';
 
-import { AuthenticationContainer, AuthenticationStoreKey, initialState as initialStoreState } from './authenticate';
+import { AuthenticationContainer, AuthenticationStoreKey, initialState as initialStoreState } from './store';
 
 const withAuthPersist = (Component) => ({ ...props }) => {
   const [storePersisted, setStorePersisted] = useState(initialStoreState);

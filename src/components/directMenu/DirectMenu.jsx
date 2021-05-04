@@ -4,7 +4,7 @@ import SearchOnMenu from "../searchBar/searchOnMenu/SearchOnMenu";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 
-import { useAuth } from "../../store/authenticate/authenticate";
+import { useAuth } from "../../store/authenticate/store";
 
 import * as routeType from "../../constant/route/route.js";
 

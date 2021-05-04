@@ -9,7 +9,7 @@ import ClinicOverview from '../../modules/clinicDetails/ClinicOverview';
 import apiWrapper from '../../api/apiWrapper';
 import BookingModal from '../../modules/booking/bookingModal/BookingModal';
 
-import { useCounter } from '../../store/bookingStore';
+import { useCounter } from '../../store/booking/bookingStore';
 
 const ClinicDetails = () => {
   const [state, actions] = useCounter();

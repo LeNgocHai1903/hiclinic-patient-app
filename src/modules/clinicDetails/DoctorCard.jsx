@@ -1,7 +1,7 @@
 
 import { Card, Button, CardTitle, CardImg } from 'reactstrap';
 import { useTranslation } from 'react-i18next';
-import {useAuth} from '../../store/authenticate/authenticate';
+import {useAuth} from '../../store/authenticate/store';
 import './DoctorCard.scss';
 import MessageModal from '../../components/messageModal/MessageModal';
 

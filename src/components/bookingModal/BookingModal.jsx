@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import Modal from '../../modules/booking/bookingModal/BookingModal';
-import { useCounter } from '../../store/bookingStore';
+import { useCounter } from '../../store/booking/bookingStore';
 
 const BookingModal = (props) => {
   const [state, actions] = useCounter();

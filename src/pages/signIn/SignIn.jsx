@@ -7,7 +7,7 @@ import * as Yup from "yup";
 
 import { useTranslation } from "react-i18next";
 import { Link, useHistory } from "react-router-dom";
-import { useAuth } from "../../store/authenticate/authenticate";
+import { useAuth } from "../../store/authenticate/store";
 
 
 const SignIn = () => {
