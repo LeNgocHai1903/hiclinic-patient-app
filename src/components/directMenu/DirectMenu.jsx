@@ -1,55 +1,96 @@
-import { useContext } from 'react';
-import './DirectMenu.scss';
-import SearchOnMenu from '../searchBar/searchOnMenu/SearchOnMenu';
-import { useTranslation } from 'react-i18next';
-import { Link } from 'react-router-dom';
+import { useState } from "react";
+import "./DirectMenu.scss";
+import SearchOnMenu from "../searchBar/searchOnMenu/SearchOnMenu";
+import { useTranslation } from "react-i18next";
+import { Link } from "react-router-dom";
 
-import { AuthContext } from '../context/AuthContext';
+import { useAuth } from "../../store/authenticate/authenticate";
 
-import { FaAlignJustify, FaNewspaper, FaUserCircle, FaRegArrowAltCircleLeft } from 'react-icons/fa';
+import * as routeType from "../../constant/route/route.js";
+
+import {
+  FaAlignJustify,
+  FaNewspaper,
+  FaUserCircle,
+  FaRegArrowAltCircleLeft,
+  FaCheckCircle
+} from "react-icons/fa";
+import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 
 const DirectMenu = () => {
-  const auth = useContext(AuthContext);
+  const [isShowSignOutModal, setIsShowSignOutModal] = useState(false);
   const { t } = useTranslation();
+
+  const [state, actions] = useAuth();
+
+  const signOutHandler = () => {
+    setIsShowSignOutModal(true);
+
+  };
+
+  const closeModal = () => {
+    setIsShowSignOutModal(false);
+    actions.signOut();
+  }
+
   return (
-    <div className="dropdown" style={{ float: 'right' }}>
+    <div className="dropdown" style={{ float: "right" }}>
       <button className="dropbtn">
         <FaAlignJustify />
       </button>
       <div className="dr-dropdown-content">
-        {!auth.isLoggedIn ? (
+        {!state.accessToken ? (
           <>
-            <Link to="/news">
+            <Link to={`${routeType.ROUTE_NEWS_LIST}`}>
               <FaNewspaper />
-              {t('news')}
+              {t("news")}
             </Link>
-            <Link to="/signin">
+            <Link to={`${routeType.ROUTE_SIGN_IN}`}>
               <FaRegArrowAltCircleLeft />
-              {t('signIn')}
+              {t("signIn")}
             </Link>
           </>
         ) : (
           <>
             <p>
-              <img className="header-avatar" src={auth.authTokens.image} alt="avarta" />
-              {t('welcome')} {auth.authTokens.userName}{' '}
+              <img
+                className="header-avatar"
+                src={state.userImage}
+                alt="avarta"
+              />
+              {t("welcome")} {state.userName}{" "}
             </p>
             <SearchOnMenu />
-            <Link to="/news">
+            <Link to={`${routeType.ROUTE_NEWS_LIST}`}>
               <FaNewspaper />
-              {t('news')}
+              {t("news")}
             </Link>
             <Link to="/">
               <FaUserCircle />
-              {t('profile')}
+              {t("profile")}
             </Link>
-            <Link className="signout-area" onClick={auth.logout}>
+            <Link className="signout-area" onClick={signOutHandler}>
               <FaRegArrowAltCircleLeft />
-              {t('signOut')}
+              {t("signOut")}
             </Link>
           </>
         )}
       </div>
+      {isShowSignOutModal && (
+        <div>
+          <Modal isOpen={isShowSignOutModal} toggle={closeModal} >
+            <ModalHeader toggle={isShowSignOutModal}>{t('youHavedSignOut')}</ModalHeader>
+            <ModalBody>
+              <FaCheckCircle className="checked-icon"/>
+            </ModalBody>
+            <ModalFooter>
+              <Button color="success" onClick={closeModal}>
+                {t('confirm')}
+              </Button>
+            </ModalFooter>
+          </Modal>
+        </div>
+      )}
     </div>
   );
 };

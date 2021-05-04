@@ -1,12 +1,12 @@
-import { useContext } from 'react';
-import { AuthContext } from '../../components/context/AuthContext';
+
 import { Card, Button, CardTitle, CardImg } from 'reactstrap';
 import { useTranslation } from 'react-i18next';
+import {useAuth} from '../../store/authenticate/authenticate';
 import './DoctorCard.scss';
 import MessageModal from '../../components/messageModal/MessageModal';
 
 const DoctorCard = (props) => {
-  const auth = useContext(AuthContext);
+  const [state, actions] = useAuth();
   const { fullName, image } = props;
   const { t } = useTranslation();
   return (
@@ -15,7 +15,7 @@ const DoctorCard = (props) => {
         <CardImg className="doctor-image" top width="100%" src={image} alt="Card image cap" />
         <Card body>
           <CardTitle className="doctor-name">{fullName}</CardTitle>
-          {auth.isLoggedIn ? (
+          {state.accessToken ? (
             <Button className="button-book" onClick={() => props.onclick(props.fullName)}>
               {t('bookNow')}
             </Button>

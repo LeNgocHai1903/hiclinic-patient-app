@@ -59,5 +59,6 @@
   "email": "Email",
   "password": "Password",
   "youDontHaveAnyAccount?": "You don't have account?",
-  "clickHereToSignUp": "Click here to Sign Up"
+  "clickHereToSignUp": "Click here to Sign Up",
+  "youHavedSignOut": "You have signed out"
 }
