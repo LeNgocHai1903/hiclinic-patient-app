@@ -13,7 +13,7 @@ const actions = {
   signIn: (data) => async ({ setState, getState }) => {
     setState({ accessToken: '', userId: '',userImage: '', userName:'' });
     try {
-      const response = await axios.post(`http://localhost:5000/signin`,data);
+      const response = await axios.post(`https://hiclinic-patient-portal-server.herokuapp.com/signin`,data);
       setState({
         accessToken: response.data.accessToken,
         userId: response.data.email,
