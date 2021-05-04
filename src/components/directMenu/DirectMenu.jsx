@@ -10,7 +10,6 @@ import { FaAlignJustify, FaNewspaper, FaUserCircle, FaRegArrowAltCircleLeft } fr
 
 const DirectMenu = () => {
   const auth = useContext(AuthContext);
-  console.log(auth);
   const { t } = useTranslation();
   return (
     <div className="dropdown" style={{ float: 'right' }}>

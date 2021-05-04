@@ -1,6 +1,5 @@
-import { useState } from 'react';
+import { useState,useContext } from 'react';
 
-import { useContext } from 'react';
 import './SignIn.scss';
 import LogoImg from '../../asset/img/logo.png';
 
@@ -8,12 +7,13 @@ import { Formik } from 'formik';
 import * as Yup from 'yup';
 
 import { useTranslation } from 'react-i18next';
-import { Link, Redirect } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { AuthContext } from '../../components/context/AuthContext';
 
 import axios from 'axios';
 
 const SignIn = () => {
+  const history = useHistory();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const auth = useContext(AuthContext);
@@ -27,7 +27,7 @@ const SignIn = () => {
 
   const validateSchema = Yup.object().shape({
     email: Yup.string().email('Invalid email format').required('Email is required'),
-    password: Yup.string().min(8).max(50).required('Password is required'),
+    password: Yup.string().matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/,"Password must contain 1 upper character, 1 digit. ").min(8).max(50).required('Password is required'),
   });
 
   const submitForm = (values, actions) => {
@@ -49,13 +49,12 @@ const SignIn = () => {
           }
         })
         .catch((err) => {
-          console.log(err);
         });
     } catch (err) {}
   };
 
   if (isLoggedIn) {
-    return <Redirect to="/" />;
+    history.goBack();
   }
 
   return (

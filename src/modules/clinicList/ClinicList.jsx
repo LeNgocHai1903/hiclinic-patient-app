@@ -27,7 +27,6 @@ const ClinicList = (props) => {
       setIsLoading(false);
     });
   }, []);
-  console.log(data);
 
   const changeStyleHandler = (e) => {
     setListStyle(e.target.value);

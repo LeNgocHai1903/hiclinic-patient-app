@@ -16,7 +16,7 @@ const MainSearchBar = (props) => {
   const history = useHistory();
 
   const [data, setData] = useState([]);
-  const [searchType, setSearchType] = useState('Clinic');
+  const [searchType, setSearchType] = useState('clinic');
   const [display, setDisplay] = useState(false);
   const wrapperRef = useRef(null);
   const [searchValue, setSearchValue] = useState('');
@@ -25,10 +25,10 @@ const MainSearchBar = (props) => {
   const variableSearchType = [t('clinic'), t('department'), t('doctor')];
 
   useEffect(() => {
-    apiWrapper({ url: `${process.env.REACT_APP_PATIENT_SERVER_URL_FAKE}/clinic`, method: 'GET' }).then((res) => {
-      setData(res);
+    apiWrapper({ url: `${process.env.REACT_APP_PATIENT_SEARCH_SERVER}?field=${searchType}&value=${searchValue}`, method: 'GET' }).then((res) => {
+      setData(res.clinics);
     });
-  }, []);
+  }, [searchType,searchValue]);
 
   const changeHandler = (e) => {
     setSearchType(e.target.value);
@@ -90,6 +90,7 @@ const MainSearchBar = (props) => {
                   }}
                   value={searchValue}
                   onBlur={handleBlur}
+                  autoComplete = "off"
                 />
               </div>
 
@@ -118,7 +119,7 @@ const MainSearchBar = (props) => {
                           </Link>
                         ),
                     )
-                  : display && <ListGroupItem>{t('resultNotFound')}</ListGroupItem>}
+                  : display && <ListGroupItem >{t('resultNotFound')}</ListGroupItem>}
               </ListGroup>
             </div>
           </form>

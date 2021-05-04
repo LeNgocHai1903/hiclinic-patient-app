@@ -27,6 +27,9 @@ const Modal = (props) => {
     setModal(!modal);
   };
 
+  let date = new Date(); // Now
+  date.setDate(date.getDate() + 30);
+
   const confirmHandler = (time) => {
     setModal(!modal);
     actions.saveDateAndTime(value.toLocaleDateString('en-GB'), time);
@@ -96,7 +99,7 @@ const Modal = (props) => {
                   <UncontrolledPopover  trigger="legacy" placement="right" target="PopoverLegacy">
                     <PopoverHeader>{t('pickDate')}</PopoverHeader>
                     <PopoverBody>
-                      <Calendar minDate={new Date()} onChange={onChange} value={value} name="date" />
+                      <Calendar minDate={new Date()} maxDate={date} onChange={onChange} value={value} name="date" />
                     </PopoverBody>
                   </UncontrolledPopover>
                 </div>

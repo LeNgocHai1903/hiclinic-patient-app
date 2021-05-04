@@ -1,4 +1,4 @@
-@import '../../../styles/variable.scss';
+@import "../../../styles/variable.scss";
 
 .search {
   padding: 20px;
@@ -58,23 +58,22 @@
 }
 
 .clinic-list-for-search {
-  width: 400px;
-  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.356);
-  margin: auto;
   display: flex;
+  width: 100%;
+  z-index: 10;
+  position: absolute;
   justify-content: center;
 }
 
 .listgroup-item {
   width: 100%;
   cursor: pointer;
-
   &:hover {
     background-color: $grey-color-3;
   }
 }
 
 .main-search-bar-list {
-  list-style: none;
-  z-index: 3;
+  width: 400px;
+  margin-right: 113px;
 }

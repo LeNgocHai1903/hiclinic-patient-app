@@ -1,7 +1,6 @@
 import './GridView.scss';
 
 import { Link } from 'react-router-dom';
-import { AiFillStar } from 'react-icons/ai';
 import { useTranslation } from 'react-i18next';
 
 const GridClinicItem = (props) => {
@@ -10,6 +9,7 @@ const GridClinicItem = (props) => {
   const { t } = useTranslation();
 
   return (
+
     <div className={`col-lg-4 clinic-items`}>
       <Link to={`/clinics/detail/${data.id}`} className="clinic-item">
         <div className="clinic-item-img">
@@ -20,13 +20,6 @@ const GridClinicItem = (props) => {
             {' '}
             <div className="clinic-name">
               <b data-test-name="name">{data.clinicName}</b>
-              <span>
-                <AiFillStar style={{ color: 'yellow' }} />
-                <AiFillStar style={{ color: 'yellow' }} />
-                <AiFillStar style={{ color: 'yellow' }} />
-                <AiFillStar />
-                <AiFillStar />
-              </span>
             </div>
             <div data-test-time="time">
               <b>{t('workingTime')}:</b> {data.openAt} - {data.closeAt}

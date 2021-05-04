@@ -41,7 +41,6 @@ const ClinicDetails = () => {
     actions.saveClinicAndDoctor(data.clinicName, doctorName);
   };
 
-  console.log(data);
 
   return (
     <div>
