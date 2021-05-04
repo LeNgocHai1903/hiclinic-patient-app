@@ -16,8 +16,8 @@ const NewsList = (props) => {
   const { t } = useTranslation();
 
   useEffect(() => {
-    apiWrapper({ url: `${process.env.REACT_APP_PATIENT_SERVER_URL_FAKE}/news`, method: 'GET' }).then((res) => {
-      setData(res);
+    apiWrapper({ url: `${process.env.REACT_APP_PATIENT_NEWS_SERVER}`, method: 'GET' }).then((res) => {
+      setData(res.listNews);
       setLoading(false);
     });
   }, []);
@@ -54,7 +54,7 @@ const NewsList = (props) => {
                 </optgroup>
               </select>
             </div>
-            <Pagination data={data} type={'news'} itemPerPage={6}>
+            <Pagination data={data} type='news' itemPerPage={6}>
               <NewsItem />
             </Pagination>
           </div>

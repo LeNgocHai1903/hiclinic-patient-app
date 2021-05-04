@@ -12,6 +12,7 @@ import GridView from './clinicItem/gridView/GridView';
 import ListView from './clinicItem/listView/ListView';
 import Pagination from '../../components/pagination/Pagination';
 import LoadingSpinner from '../../components/loadingSpinner/LoadingSpinner';
+import MainSearchBar from '../../components/searchBar/mainSearchBar/MainSearchBar';
 
 const ClinicList = (props) => {
   const [isLoading, setIsLoading] = useState(true);
@@ -60,6 +61,7 @@ const ClinicList = (props) => {
   };
   return (
     <>
+    <MainSearchBar/>
       <div className="container">
         <div className="select-group">
           <select id="grid-list" className="style-option" onChange={changeStyleHandler}>

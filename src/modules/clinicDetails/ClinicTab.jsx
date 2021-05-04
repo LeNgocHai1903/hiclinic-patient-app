@@ -25,7 +25,7 @@ const ClinicTab = (props) => {
         <NavLink
           className={classnames({ active: activeTab === index.toString() })}
           onClick={() => {
-            toggle(index);
+            toggle(index.toString());
           }}
         >
           {item}

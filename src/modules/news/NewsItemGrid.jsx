@@ -15,7 +15,7 @@ const GridClinicItem = (props) => {
       <div onClick={moveToDetail}>
         <div className="news-grid-item">
           <div className="news-grid-item-img">
-            <img alt="news-grid-img" src={data.image} />
+            <img alt="news-grid-img" src={data.imageUrl} />
           </div>
           <div className="news-grid-item-content">
             <div className="news-grid-item-content-header">
@@ -24,7 +24,7 @@ const GridClinicItem = (props) => {
                 <b data-test-name="name">{data.title}</b>
               </div>
             </div>
-            <p className="news-grid-item-description">{data.shortDescription}</p>
+            <p className="news-grid-item-description">{data.description}</p>
           </div>
         </div>
       </div>

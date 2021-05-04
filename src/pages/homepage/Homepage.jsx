@@ -34,8 +34,8 @@ const Homepage = () => {
   }, []);
 
   useEffect(() => {
-    apiWrapper({ url: `${process.env.REACT_APP_PATIENT_SERVER_URL_FAKE}/top3news`, method: 'GET' }).then((res) => {
-      setTop3News(res);
+    apiWrapper({ url: `${process.env.REACT_APP_PATIENT_NEWS_SERVER}/?size=3`, method: 'GET' }).then((res) => {
+      setTop3News(res.listNews);
       setNewsIsLoading(false);
     });
   }, []);
