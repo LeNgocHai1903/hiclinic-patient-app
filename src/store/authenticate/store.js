@@ -9,6 +9,7 @@ export const initialState = {
   userId: '',
   userImage:'', 
   userName: '',
+  previousLocation : ''
 };
 
 

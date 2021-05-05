@@ -28,6 +28,19 @@ const actions = {
   signOut: () => async ({ setState, getState }) => {
     setState({ accessToken: '', userId: '',userImage: '', userName:'' });
   },
+
+
+  savePreviousLocation : (location) => ({getState, setState}) => {
+      setState({ 
+          previousLocation: location,
+      })
+  },
+
+  deletePreviousLocation : () => ({getState, setState}) => {
+    setState({ 
+        previousLocation: "",
+    })
+}
 };
 
 export default actions;

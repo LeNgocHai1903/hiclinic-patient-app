@@ -3,6 +3,8 @@ import './GridView.scss';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
+import * as routeType from '../../../../constant/route/route';
+
 const GridClinicItem = (props) => {
   const { data } = props;
 
@@ -11,7 +13,7 @@ const GridClinicItem = (props) => {
   return (
 
     <div className={`col-lg-4 clinic-items`}>
-      <Link to={`/clinics/detail/${data.id}`} className="clinic-item">
+      <Link to={`${routeType.ROUTE_CLINIC_DETAIL_BUILD(props.id)}`} className="clinic-item">
         <div className="clinic-item-img">
           <img alt="clinic-img" src={data.image} />
         </div>

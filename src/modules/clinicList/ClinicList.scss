@@ -1,11 +1,33 @@
 @import '../../styles/variable.scss';
-
+.list-pagination{
+  margin-top:20px;
+  display: flex;
+  justify-content:center;
+}
 .style-option {
   height: 1.8rem;
   width: 4rem;
   background-color: white;
   border-radius: 0.5rem;
   outline: none;
+}
+
+.pagination-link {
+  width: 40px;
+  padding: 5px 10px;
+  cursor: pointer;
+  margin-right: 10px;
+  margin-left: 5px;
+  border: 0.2px solid black;
+}
+
+.pagination-link-active {
+  width: 40px;
+  padding: 5px 10px;
+  margin-right: 10px;
+  margin-left: 5px;
+  border: 0.2px solid black;
+  background-color: $primary-color-3;
 }
 
 .select-group {

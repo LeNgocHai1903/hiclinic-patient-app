@@ -15,7 +15,7 @@ const SignIn = () => {
 
   const [state, actions] = useAuth();
 
-  state.accessToken && history.goBack();
+  state.accessToken && history.push(state.previousLocation);
 
   const { t } = useTranslation();
 
@@ -39,7 +39,6 @@ const SignIn = () => {
     await actions.signIn(data);
     formActions.setSubmitting(false);
   };
-
   return (
     <div className="signin-wrapper">
       <Formik
