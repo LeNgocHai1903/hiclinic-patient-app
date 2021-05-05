@@ -27,7 +27,7 @@ const Homepage = () => {
   const [newsIsLoading, setNewsIsLoading] = useState(true);
 
   useEffect(() => {
-    apiWrapper({ url: `${process.env.REACT_APP_PATIENT_CLINIC_SERVER}?size=6`, method: 'GET' }).then((res) => {
+    apiWrapper({ url: `${process.env.REACT_APP_PATIENT_HIGHTLIGHT_CLINIC}`, method: 'GET' }).then((res) => {
       setTop6Clinic(res.clinics);
       setClinicIsLoading(false);
     });

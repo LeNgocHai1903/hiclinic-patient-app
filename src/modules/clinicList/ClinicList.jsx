@@ -8,6 +8,7 @@ import apiWrapper from "../../api/apiWrapper";
 import * as routeType from "../../api/apiUrl";
 import * as sortType from "../../constant/sorting/sorting";
 import * as variableType from "../../constant/variable/variableNumber";
+import { useHistory } from "react-router-dom";
 
 import { useTranslation } from "react-i18next";
 
@@ -20,22 +21,41 @@ import MainSearchBar from "../../components/searchBar/mainSearchBar/MainSearchBa
 const ClinicList = (props) => {
   const [isLoading, setIsLoading] = useState(true);
   const [listStyle, setListStyle] = useState("grid");
-  const [numberOfPages, setNumberOfPages] = useState(null);
+  const [numberOfPages, setNumberOfPages] = useState(1);
   const [data, setData] = useState([]);
   const [changePage, setChangePage] = useState(1);
+  // const [searchValue,setSearchValue] = useState(null);
+  let searchValue;
+  const history = useHistory();
 
   const { t } = useTranslation();
 
+  if (history.location.state) {
+    searchValue = history.location.state.searchValue;
+  }
+
   useEffect(() => {
-    apiWrapper({
-      url: `${routeType.GET_ALL_CLINIC}?size=${variableType.NUMBER_OF_PAGE_CLINIC_LIST}&page=${changePage}`,
-      method: "GET",
-    }).then((res) => {
-      setData(res.clinics);
-      setNumberOfPages(res.numberOfPage);
-      setIsLoading(false);
-    });
-  }, [changePage]);
+    if (history.location.state) {
+      const { state } = history.location;
+      apiWrapper({
+        url: `${process.env.REACT_APP_PATIENT_SEARCH_SERVER}?field=${state.searchType}&value=${searchValue}&page=${changePage}`,
+        method: "GET",
+      }).then((res) => {
+        setData(res.clinics);
+        setNumberOfPages(res.numberOfPage);
+        setIsLoading(false);
+      });
+    } else {
+      apiWrapper({
+        url: `${routeType.GET_ALL_CLINIC}?size=${variableType.NUMBER_OF_PAGE_CLINIC_LIST}&page=${changePage}`,
+        method: "GET",
+      }).then((res) => {
+        setData(res.clinics);
+        setNumberOfPages(res.numberOfPage);
+        setIsLoading(false);
+      });
+    }
+  }, [changePage, searchValue]);
 
   const displayPagination = [];
 
@@ -46,7 +66,7 @@ const ClinicList = (props) => {
   if (numberOfPages) {
     for (let i = 1; i < numberOfPages; i++) {
       displayPagination.push(
-        <PaginationItem  active={i === changePage}>
+        <PaginationItem active={i === changePage} key={i}>
           <PaginationLink onClick={() => changePageHandler(i)}>
             {i}
           </PaginationLink>
@@ -122,17 +142,23 @@ const ClinicList = (props) => {
             <div className="row">
               {data.map((item) => {
                 if (listStyle === "grid") {
-                  return <GridView data={item} />;
-                } else return <ListView />;
+                  return <GridView key={item.id} data={item} />;
+                } else return <ListView key={item.id} data={item} />;
               })}
             </div>
             <Pagination className="list-pagination">
               <PaginationItem disabled={changePage === 1}>
-                <PaginationLink previous onClick={() => changePageHandler(changePage -1)}/>
+                <PaginationLink
+                  previous
+                  onClick={() => changePageHandler(changePage - 1)}
+                />
               </PaginationItem>
               {displayPagination}
-              <PaginationItem disabled={numberOfPages-1 === changePage}>
-                <PaginationLink next onClick={() => changePageHandler(changePage + 1)} />
+              <PaginationItem disabled={numberOfPages - 1 === changePage}>
+                <PaginationLink
+                  next
+                  onClick={() => changePageHandler(changePage + 1)}
+                />
               </PaginationItem>
             </Pagination>
           </>

@@ -1,50 +1,76 @@
 import React, { useState, useEffect, useRef } from 'react';
-
 import { useTranslation } from 'react-i18next';
-
-import { Link, withRouter, useHistory } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { ListGroup, ListGroupItem } from 'reactstrap';
+import apiWrapper from '../../../api/apiWrapper';
 import { Formik } from 'formik';
 import * as yup from 'yup';
 import './MainSearchBar.scss';
 import { FaSearch } from 'react-icons/fa';
-import apiWrapper from '../../../api/apiWrapper';
-
 import * as routeType from '../../../constant/route/route.js';
 
 const MainSearchBar = (props) => {
   const history = useHistory();
-
-  const [data, setData] = useState([]);
+  const [clinics, setClinics] = useState([]);
+  const [data,setData] = useState(null);
   const [searchType, setSearchType] = useState('clinic');
   const [display, setDisplay] = useState(false);
   const wrapperRef = useRef(null);
+  const typingTimeOutRef = useRef(null);
   const [searchValue, setSearchValue] = useState('');
-
+  const [loading, setLoading] = useState(false);
+  let dataOption = [];
   const { t } = useTranslation();
   const variableSearchType = [t('clinic'), t('department'), t('doctor')];
 
   useEffect(() => {
-    apiWrapper({ url: `${process.env.REACT_APP_PATIENT_SEARCH_SERVER}?field=${searchType}&value=${searchValue}`, method: 'GET' }).then((res) => {
-      setData(res.clinics);
-    });
-  }, [searchType,searchValue]);
+    if (searchValue) {
+      setLoading(true);
+      apiWrapper({
+        url: `${process.env.REACT_APP_PATIENT_SEARCH_SERVER}?field=${searchType}&value=${searchValue}`,
+        method: 'GET',
+      }).then((res) => {
+        setData(res);
+        setClinics(res.clinics)
+        setLoading(false);
+      });
+    }
+    return () => {
+      clearTimeout(typingTimeOutRef.current);
+    };
+  }, [searchValue]);
 
-  const changeHandler = (e) => {
+  const selectChangeHandler = (e) => {
     setSearchType(e.target.value);
+  };
+  const searchChangeHandler = (e) => {
+    const value = e.target.value;
+    if (typingTimeOutRef.current) {
+      clearTimeout(typingTimeOutRef.current);
+    }
+    typingTimeOutRef.current = setTimeout(() => {
+      setSearchValue(value);
+    }, 300);
+  };
+  const formSubmit = (e) => {
+    e.preventDefault();
+    history.push({
+      pathname: `${routeType.ROUTE_CLINICLIST_LIST}`,
+      state: {
+        searchValue: searchValue,
+        searchType: searchType
+      },
+      search: `?search=${searchValue}`,
+    });
   };
 
   //formik
   const initialValueSearch = {
-    searchValue: '',
+    searchValues: '',
   };
   const validationSchema = yup.object().shape({
     searchValue: yup.string().required(t('requiredField')),
   });
-
-  const onSubmit = (values, actions) => {
-    history.push(`/clinicList?searchValue=${searchValue}`)
-  };
 
   useEffect(() => {
     if (searchValue === '') {
@@ -66,44 +92,46 @@ const MainSearchBar = (props) => {
       setDisplay(false);
     }
   };
-  const dataOption = data
-    .filter((d) => {
-      return d.clinicName.toLowerCase().includes(searchValue.toLowerCase()) || !searchValue;
-    })
-    .sort((a, b) => a.clinicName.localeCompare(b.clinicName));
 
+  if (clinics !== null ){
+    dataOption = clinics.filter((d) => {
+        return d.clinicName.toLowerCase().includes(searchValue.toLowerCase()) || !searchValue;
+      })
+      .sort((a, b) => a.clinicName.localeCompare(b.clinicName));
+  }
   return (
     <>
       <Formik inititalValue={initialValueSearch} validationSchema={validationSchema}>
-        {({ handleBlur, searchValue }) => (
-          <form onSubmit={onSubmit}>
-            <div className="main-search-bar">
-              <div className="search-icon-input-area">
-                <FaSearch className="search-icon" />
-                <input
-                  name="searchValue"
-                  className="search-input"
-                  type="search"
-                  placeholder={t('searchFor') + ' ' + searchType}
-                  onChange={(e) => {
-                    setSearchValue(e.target.value);
-                  }}
-                  value={searchValue}
-                  onBlur={handleBlur}
-                  autoComplete = "off"
-                />
-              </div>
+        {(formik) => {
+          const { handleBlur, handleSubmit } = formik;
+          return (
+            <form onSubmit={formSubmit}>
+              <div className="main-search-bar">
+                <div className="search-icon-input-area">
+                  <FaSearch className="search-icon" />
+                  <input
+                    name="search"
+                    className="search-input"
+                    type="search"
+                    placeholder={t('searchFor') + ' ' + searchType}
+                    onChange={searchChangeHandler}
+                    // value={searchValue}
+                    onBlur={handleBlur}
+                    autoComplete="off"
+                  />
+                </div>
 
-              <select className="search-type" onChange={changeHandler}>
-                {variableSearchType.map((type) => (
-                  <option value={type}>{type}</option>
-                ))}
-              </select>
-            </div>
-            <div className="clinic-list-for-search" ref={wrapperRef}>
-              <ListGroup className="main-search-bar-list">
-                {dataOption.length > 0
-                  ? dataOption.map(
+                <select className="search-type" onChange={selectChangeHandler}>
+                  {variableSearchType.map((type) => (
+                    <option value={type}>{type}</option>
+                  ))}
+                </select>
+              </div>
+              <div className="clinic-list-for-search" ref={wrapperRef}>
+                <ListGroup className="main-search-bar-list">
+                  {!!dataOption &&
+                    !loading &&
+                    dataOption.map(
                       (item) =>
                         display && (
                           <Link
@@ -118,14 +146,17 @@ const MainSearchBar = (props) => {
                             </ListGroupItem>
                           </Link>
                         ),
-                    )
-                  : display && <ListGroupItem >{t('resultNotFound')}</ListGroupItem>}
-              </ListGroup>
-            </div>
-          </form>
-        )}
+                    )}
+                  {display && dataOption.length === 0 && !loading && (
+                    <ListGroupItem>{t('resultNotFound')}</ListGroupItem>
+                  )}
+                </ListGroup>
+              </div>
+            </form>
+          );
+        }}
       </Formik>
     </>
   );
 };
-export default withRouter(MainSearchBar);
+export default MainSearchBar;
