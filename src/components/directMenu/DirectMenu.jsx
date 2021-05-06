@@ -1,12 +1,12 @@
-import { useState } from "react";
-import "./DirectMenu.scss";
-import SearchOnMenu from "../searchBar/searchOnMenu/SearchOnMenu";
-import { useTranslation } from "react-i18next";
-import { Link,useHistory } from "react-router-dom";
+import { useState } from 'react';
+import './DirectMenu.scss';
+import SearchOnMenu from '../searchBar/searchOnMenu/SearchOnMenu';
+import { useTranslation } from 'react-i18next';
+import { Link,useHistory } from 'react-router-dom';
 
-import { useAuth } from "../../store/authenticate/store";
+import { useAuth } from '../../store/authenticate/store';
 
-import * as routeType from "../../constant/route/route.js";
+import * as routeType from '../../constant/route/route.js';
 
 import {
   FaAlignJustify,
@@ -14,8 +14,8 @@ import {
   FaUserCircle,
   FaRegArrowAltCircleLeft,
   FaCheckCircle
-} from "react-icons/fa";
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
+} from 'react-icons/fa';
+import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 
 const DirectMenu = () => {
   const history = useHistory();
@@ -60,12 +60,7 @@ const DirectMenu = () => {
         ) : (
           <>
             <p>
-              <img
-                className="header-avatar"
-                src={state.userImage}
-                alt="avarta"
-              />
-              {t("welcome")} {state.userName}{" "}
+              {t("welcome")} {state.email}{" "}
             </p>
             <SearchOnMenu />
             <Link to={`${routeType.ROUTE_NEWS_LIST}`}>

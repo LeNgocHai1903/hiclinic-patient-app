@@ -13,12 +13,11 @@ const actions = {
   signIn: (data) => async ({ setState, getState }) => {
     setState({ accessToken: '', userId: '',userImage: '', userName:'' });
     try {
-      const response = await axios.post(`https://hiclinic-patient-portal-server.herokuapp.com/signin`,data);
+      const response = await axios.post(`${process.env.REACT_APP_SIGNIN_FAKE}`,data);
       setState({
         accessToken: response.data.accessToken,
-        userId: response.data.email,
-        userImage: response.data.image,
-        userName: response.data.userName
+        // userId: response.data.email,
+        // userName: response.data.userName
       });
     } catch (error) {
       setState({ accessToken: '', userId: '',userImage: '', userName:''});

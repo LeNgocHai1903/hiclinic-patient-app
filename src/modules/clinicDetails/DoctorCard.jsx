@@ -1,9 +1,11 @@
 
 import { Card, Button, CardTitle, CardImg } from 'reactstrap';
 import { useTranslation } from 'react-i18next';
-import {useAuth} from '../../store/authenticate/store';
 import './DoctorCard.scss';
+
 import MessageModal from '../../components/messageModal/MessageModal';
+
+import {useAuth} from '../../store/authenticate/store';
 
 const DoctorCard = (props) => {
   const [state, actions] = useAuth();

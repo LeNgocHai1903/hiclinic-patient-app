@@ -23,8 +23,7 @@ const ClinicList = (props) => {
   const [listStyle, setListStyle] = useState("grid");
   const [numberOfPages, setNumberOfPages] = useState(1);
   const [data, setData] = useState([]);
-  const [changePage, setChangePage] = useState(1);
-  // const [searchValue,setSearchValue] = useState(null);
+  const [changePage, setChangePage] = useState(0);
   let searchValue;
   const history = useHistory();
 
@@ -33,6 +32,7 @@ const ClinicList = (props) => {
   if (history.location.state) {
     searchValue = history.location.state.searchValue;
   }
+  console.log(searchValue)
 
   useEffect(() => {
     if (history.location.state) {
@@ -41,6 +41,7 @@ const ClinicList = (props) => {
         url: `${process.env.REACT_APP_PATIENT_SEARCH_SERVER}?field=${state.searchType}&value=${searchValue}&page=${changePage}`,
         method: "GET",
       }).then((res) => {
+        console.log(res)
         setData(res.clinics);
         setNumberOfPages(res.numberOfPage);
         setIsLoading(false);
@@ -64,11 +65,11 @@ const ClinicList = (props) => {
   };
 
   if (numberOfPages) {
-    for (let i = 1; i < numberOfPages; i++) {
+    for (let i = 0; i < numberOfPages -1; i++) {
       displayPagination.push(
         <PaginationItem active={i === changePage} key={i}>
           <PaginationLink onClick={() => changePageHandler(i)}>
-            {i}
+            {i+1}
           </PaginationLink>
         </PaginationItem>
       );

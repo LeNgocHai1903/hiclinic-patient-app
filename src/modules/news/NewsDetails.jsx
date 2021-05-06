@@ -23,6 +23,9 @@ const NewsDetails = () => {
       setLoading(false);
     });
   }, [newsId.newsId]);
+  const createMarkup = (content) => { 
+    return {__html: content}
+  }
   return (
     <div>
       {loading ? (
@@ -35,11 +38,10 @@ const NewsDetails = () => {
             <p className="author">
               {t("author")} {data.authorName}
             </p>
-            <p className="created-date">
-              {t("createdOn")} {data.createdDate}
-            </p>
           </div>
-          <p className="content">{data.description}</p>
+          <p className="content">
+            <div dangerouslySetInnerHTML={createMarkup(data.content)} />
+          </p>
         </div>
       )}
     </div>

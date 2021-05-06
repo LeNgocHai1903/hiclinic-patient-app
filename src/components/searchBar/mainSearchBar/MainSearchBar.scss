@@ -1,4 +1,11 @@
-@import "../../../styles/variable.scss";
+@import '../../../styles/variable.scss';
+
+.main-form {
+  position: relative;
+  margin: auto;
+  width: 600px;
+  max-width: 100%;
+}
 
 .search {
   padding: 20px;
@@ -6,22 +13,18 @@
 
 .search-icon {
   position: absolute;
-  margin: 11px;
-}
-
-.main-search-bar {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  margin: 10px;
 }
 
 .search-icon-input-area {
   position: relative;
+  display: inline-block;
+  width: 70%;
 }
 
 .search-input {
   height: 40px;
-  width: 400px;
+  width: 100%;
   border: 1px solid rgb(62, 63, 61);
   border-radius: 10px;
   font-size: 16px;
@@ -34,12 +37,12 @@
 }
 
 .search-type {
-  background: #fff;
+  background: $primary-color-3;
   color: black;
-  //outline: #ffffff solid thick;
   outline-offset: -5px;
   font-size: 80%;
   height: 40px;
+  width: 20%;
 
   &:focus {
     outline: none;
@@ -50,30 +53,33 @@
   text-align: center;
 }
 
-.search-type option {
-  margin: 40px;
-  background: rgba(0, 0, 0, 0.3);
-  color: #fff;
-  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.4);
-}
-
 .clinic-list-for-search {
-  display: flex;
+  display: block;
   width: 100%;
   z-index: 10;
   position: absolute;
-  justify-content: center;
+  top: 40px;
+  left: 0;
 }
 
 .list-group-item {
   width: 100%;
   cursor: pointer;
+
   &:hover {
     background-color: $grey-color-3;
   }
 }
 
+.main-search-bar {
+  display: flex;
+}
+
 .main-search-bar-list {
-  width: 400px;
-  margin-right: 113px;
+  width: 100%;
+}
+
+.loading-result {
+  display: flex;
+  justify-content: center;
 }
