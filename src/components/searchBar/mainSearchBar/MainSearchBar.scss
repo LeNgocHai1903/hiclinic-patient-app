@@ -1,19 +1,19 @@
 @import '../../../styles/variable.scss';
 
-.main-form {
-  position: relative;
-  margin: auto;
-  width: 600px;
-  max-width: 100%;
-}
-
 .search {
   padding: 20px;
 }
 
 .search-icon {
   position: absolute;
-  margin: 10px;
+  margin: 11px;
+}
+
+.main-form {
+  position: relative;
+  margin: auto;
+  width: 600px;
+  max-width: 100%;
 }
 
 .search-icon-input-area {

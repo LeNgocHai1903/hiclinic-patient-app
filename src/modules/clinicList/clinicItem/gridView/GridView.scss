@@ -13,7 +13,7 @@
   width: 300px;
   padding: 5px;
   cursor: pointer;
-  text-decoration: none !important;
+  text-decoration: none;
   color: black;
 }
 
@@ -25,6 +25,7 @@
 }
 
 .clinic-item-img img {
+  max-height: 195px;
   border-top-left-radius: 0.7rem;
   border-top-right-radius: 0.7rem;
   width: 100%;

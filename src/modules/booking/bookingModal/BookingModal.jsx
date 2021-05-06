@@ -1,21 +1,19 @@
 import { useState } from 'react';
-
+import { useTranslation } from 'react-i18next';
 import './BookingModal.scss';
 import 'react-calendar/dist/Calendar.css';
-import Calendar from 'react-calendar';
+import { FaRegCalendarAlt } from 'react-icons/fa';
+import { UncontrolledPopover, PopoverHeader, PopoverBody } from 'reactstrap';
 
-import { useTranslation } from 'react-i18next';
+import Calendar from 'react-calendar';
 
 import { useCounter } from '../../../store/booking/bookingStore';
 
-import { FaRegCalendarAlt } from 'react-icons/fa';
-import { UncontrolledPopover, PopoverHeader, PopoverBody } from 'reactstrap';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 
 import Backdrop from '../../../components/backdrop/BackDrop';
 import MiniModal from '../../../components/modal/MiniModal';
-
 import testImg from '../../../asset/img/clinic-grid-example.jpeg';
 
 const Modal = (props) => {
@@ -38,15 +36,9 @@ const Modal = (props) => {
   const { t } = useTranslation();
 
   const timeList = [
-    { time: '9AM- 10AM', id: '1' },
-    { time: '10AM- 11AM', id: '2' },
-    { time: '11AM- 12PM', id: '3' },
-    { time: '12PM- 1PM', id: '4' },
-    { time: '1PM- 2PM', id: '5' },
-    { time: '2PM- 3PM', id: '6' },
-    { time: '3PM- 4PM', id: '7' },
-    { time: '4PM- 5PM', id: '8' },
-    { time: '5PM- 6PM', id: '9' },
+    { time: '9AM- 12AM', id: '1' },
+    { time: '12AM- 18AM', id: '2' },
+    { time: '18AM- 21PM', id: '3' },
   ];
 
   const initialValues = {
@@ -66,6 +58,8 @@ const Modal = (props) => {
       actions.setSubmitting(false);
     });
   };
+
+  console.log(props);
   return (
     <>
       <Backdrop show={props.show} clicked={props.modalClosed} />
@@ -77,17 +71,11 @@ const Modal = (props) => {
               <div className="booking-modal-title">{t('booking')}</div>
               <div className="booking-modal-content">
                 <div className="booking-modal-infomation">
-                  <img src={testImg} />
+                  <img src={props.doc.docImage} />
                   <div className="booking-modal-doctor">
-                    <h3>{props.data.fullName}</h3>
+                    <h3>{props.data.clinicName}</h3>
                     <label>
-                      <b>{t('experience')}:</b> {props.data.experience}{' '}
-                    </label>
-                    <label>
-                      <b>{t('licencseNumber')}:</b> {props.data.licenseNumber}
-                    </label>
-                    <label>
-                      <b>{t('departmentName')} :</b> {props.data.departmentName}
+                      <b>{t('doctorName')}:</b> {props.doc.docName}{' '}
                     </label>
                   </div>
                 </div>
@@ -96,7 +84,7 @@ const Modal = (props) => {
                     {initialValues.date}
                     <FaRegCalendarAlt />
                   </label>
-                  <UncontrolledPopover  trigger="legacy" placement="right" target="PopoverLegacy">
+                  <UncontrolledPopover trigger="legacy" placement="right" target="PopoverLegacy">
                     <PopoverHeader>{t('pickDate')}</PopoverHeader>
                     <PopoverBody>
                       <Calendar minDate={new Date()} maxDate={date} onChange={onChange} value={value} name="date" />
@@ -121,12 +109,12 @@ const Modal = (props) => {
                 </div>
               </div>
               <div className="booking-modal-btn">
-                <button className="btn btn-danger" onClick={props.modalClosed}>
+                <button className="btn btn-secondary" onClick={props.modalClosed}>
                   {t('cancle')}
                 </button>
                 <button
                   disabled={!dirty || !errors || !isValid}
-                  className="btn btn-success"
+                  className="btn btn-primary"
                   onClick={() => confirmHandler(values.time)}
                 >
                   {t('confirm')}

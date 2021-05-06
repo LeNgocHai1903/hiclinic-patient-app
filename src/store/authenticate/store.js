@@ -5,13 +5,14 @@ import actions from './actions';
 export const AuthenticationStoreName = 'AuthStore';
 
 export const initialState = {
+  errorMessage: '',
   accessToken: '',
   userId: '',
-  userImage:'', 
   userName: '',
-  previousLocation : ''
+  previousLocation: '',
+  OTP: '',
+  userEmail: '',
 };
-
 
 const AuthenticationStore = createStore({ initialState, actions, name: AuthenticationStoreName });
 export const AuthenticationStoreKey = `${AuthenticationStore.key.join('__')}@__global__`;

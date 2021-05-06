@@ -19,7 +19,6 @@ const GridClinicItem = (props) => {
           </div>
           <div className="news-grid-item-content">
             <div className="news-grid-item-content-header">
-              {' '}
               <div className="news-grid-title">
                 <b data-test-name="name">{data.title}</b>
               </div>

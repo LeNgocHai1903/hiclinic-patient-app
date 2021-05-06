@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useRef } from 'react';
-import apiWrapper from '../../../api/apiWrapper';
+import { useState, useEffect, useRef } from 'react';
+import './MainSearchBar.scss';
 import { useTranslation } from 'react-i18next';
 import { Link, useHistory, withRouter } from 'react-router-dom';
 import { ListGroup, ListGroupItem } from 'reactstrap';
@@ -7,6 +7,7 @@ import { FaSearch } from 'react-icons/fa';
 import { Formik } from 'formik';
 import * as yup from 'yup';
 import * as routeType from '../../../constant/route/route.js';
+import apiWrapper from '../../../api/apiWrapper';
 import LoadingSpinner from '../../loadingSpinner/LoadingSpinner';
 
 import './MainSearchBar.scss';
@@ -63,6 +64,7 @@ const MainSearchBar = (props) => {
       state: {
         searchValue: searchValue,
         searchType: searchType,
+        dataOption: dataOption,
       },
       search: `?search=${searchValue}`,
     });

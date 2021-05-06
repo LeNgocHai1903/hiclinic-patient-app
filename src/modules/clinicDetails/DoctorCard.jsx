@@ -1,15 +1,14 @@
-
 import { Card, Button, CardTitle, CardImg } from 'reactstrap';
 import { useTranslation } from 'react-i18next';
 import './DoctorCard.scss';
 
 import MessageModal from '../../components/messageModal/MessageModal';
 
-import {useAuth} from '../../store/authenticate/store';
+import { useAuth } from '../../store/authenticate/store';
 
 const DoctorCard = (props) => {
   const [state, actions] = useAuth();
-  const { fullName, image } = props;
+  const { id, fullName, image } = props;
   const { t } = useTranslation();
   return (
     <div>
@@ -18,7 +17,7 @@ const DoctorCard = (props) => {
         <Card body>
           <CardTitle className="doctor-name">{fullName}</CardTitle>
           {state.accessToken ? (
-            <Button className="button-book" onClick={() => props.onclick(props.fullName)}>
+            <Button className="button-book" onClick={() => props.onclick(fullName, image)}>
               {t('bookNow')}
             </Button>
           ) : (

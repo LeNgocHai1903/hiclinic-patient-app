@@ -105,6 +105,7 @@ body {
 
     .site-nav-action {
       display: flex;
+      align-items: center;
       margin-right: 40px;
       right: 0;
     }
@@ -118,8 +119,10 @@ body {
     }
 
     .direct-menu {
-      border-radius: 8px;
       position: relative;
+      margin: 20px;
+      color: $primary-color-3;
+      cursor: pointer;
     }
 
     a.sign-up {

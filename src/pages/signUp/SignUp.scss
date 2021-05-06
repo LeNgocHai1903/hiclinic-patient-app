@@ -1,12 +1,12 @@
 @import '../../styles/variable.scss';
 
-.signin-logo {
+.signup-logo {
   height: 60px;
   width: 200px;
   cursor: pointer;
 }
 
-.signin-wrapper {
+.signup-wrapper {
   background-image: url('../../asset/img/signup-background.jpeg');
   background-size: cover;
   height: 100%;
@@ -19,26 +19,26 @@
   align-items: center;
 }
 
-.signin-wrapper b {
+.signup-wrapper b {
   margin-top: 10px;
 }
 
-.signin-form {
+.signup-form {
   border-radius: 0.4rem;
   box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.356);
   background-color: white;
   width: 40%;
-  height: 65%;
+  height: 90%;
   display: flex;
   align-items: center;
   flex-direction: column;
 }
 
-.signin-title {
-  color: $primary-color-2;
+.signup-title {
+  color: $primary-color-3;
 }
 
-.signin-form-input {
+.signup-form-input {
   border-radius: 0.3rem;
   background-color: white;
   border: 1px solid $primary-color-3;
@@ -48,19 +48,39 @@
   outline: none;
 }
 
-.signin-error {
+.signup-error {
   color: red;
-  font-size: 12px;
+  font-size: 11px;
 }
 
-.signin-btn {
+.signup-btn {
   bottom: 0;
   border: none;
   height: 40px;
   width: 70px;
   border-radius: 0.3rem;
-  margin-top: 30px;
+  margin-top: 10px;
   background-color: $primary-color-3;
-  color: white;
   margin-bottom: 20px;
+  color: white;
+}
+
+.otp-wrapper {
+  display: flex;
+  justify-content: space-around;
+}
+
+.otp-input {
+  width: 300px;
+  height: 50px;
+  text-align: center;
+  outline: none;
+}
+
+.otp-retry {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 12px;
 }

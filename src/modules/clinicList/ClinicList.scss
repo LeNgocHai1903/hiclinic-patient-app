@@ -1,9 +1,11 @@
 @import '../../styles/variable.scss';
-.list-pagination{
-  margin-top:20px;
+
+.list-pagination {
+  margin-top: 20px;
   display: flex;
-  justify-content:center;
+  justify-content: center;
 }
+
 .style-option {
   height: 1.8rem;
   width: 4rem;
@@ -47,6 +49,12 @@
 .loading {
   display: flex;
   justify-content: center;
+}
+
+.clinic-list-error {
+  display: flex;
+  justify-content: center;
+  padding: 100px;
 }
 
 @include media-breakpoint-down(sm) {

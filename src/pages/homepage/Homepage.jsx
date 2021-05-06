@@ -1,5 +1,11 @@
 import { useEffect, useState } from 'react';
 
+//i18n
+import { useTranslation } from 'react-i18next';
+
+//scss
+import './Homepage.scss';
+
 import apiWrapper from '../../api/apiWrapper';
 import { Link } from 'react-router-dom';
 import { FaArrowCircleRight } from 'react-icons/fa';
@@ -7,27 +13,22 @@ import { FaArrowCircleRight } from 'react-icons/fa';
 //Component
 import MainSearchBar from '../../components/searchBar/mainSearchBar/MainSearchBar';
 import ClinicItem from '../../modules/clinicList/clinicItem/gridView/GridView';
-import News from '../../modules/news/NewsItemGrid';
 import LoaddingSpinner from '../../components/loadingSpinner/LoadingSpinner';
+import News from '../../modules/news/NewsItemGrid';
 
 //Route
 import * as routeType from '../../constant/route/route';
-
-//scss
-import './Homepage.scss';
-
-//i18n
-import { useTranslation } from 'react-i18next';
+import * as apiType from '../../api/apiUrl';
 
 const Homepage = () => {
   const { t } = useTranslation();
   const [top6Clinic, setTop6Clinic] = useState([]);
-  const [clinicIsLoading, setClinicIsLoading] = useState(true);
   const [top3News, setTop3News] = useState([]);
+  const [clinicIsLoading, setClinicIsLoading] = useState(true);
   const [newsIsLoading, setNewsIsLoading] = useState(true);
 
   useEffect(() => {
-    apiWrapper({ url: `${process.env.REACT_APP_PATIENT_HIGHTLIGHT_CLINIC}`, method: 'GET' }).then((res) => {
+    apiWrapper({ url: `${apiType.GET_HIGHTLIGHT_CLINIC}`, method: 'GET' }).then((res) => {
       setTop6Clinic(res.clinics);
       setClinicIsLoading(false);
     });

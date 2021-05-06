@@ -16,7 +16,6 @@ const GridClinicItem = (props) => {
     history.push(`${routeType.ROUTE_CLINIC_DETAIL_BUILD(props.data.id)}`);
   };
   return (
-    
     <div className={`col-lg-4 clinic-items`} onClick={moveToDetail}>
       <Link to={`${routeType.ROUTE_CLINIC_DETAIL_BUILD(props.data.id)}`} className="clinic-item">
         <div className="clinic-item-img">

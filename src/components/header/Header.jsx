@@ -1,11 +1,27 @@
 import './Header.scss';
+import { useTranslation } from 'react-i18next';
+
 import HeaderLogo from '../../asset/img/logo.png';
 import DirectMenu from '../directMenu/DirectMenu';
 
-import { useTranslation } from 'react-i18next';
+import * as routeType from '../../constant/route/route';
+import { useAuth } from '../../store/authenticate/store';
+import { useHistory } from 'react-router-dom';
 
 const Header = () => {
+  const history = useHistory();
   const { t } = useTranslation();
+  const [state, actions] = useAuth();
+
+  const changeToSigninPage = () => {
+    actions.savePreviousLocation(window.location.pathname);
+    history.push(`${routeType.ROUTE_SIGN_IN}`);
+  };
+
+  const changeToSignUpPage = () => {
+    history.push(`${routeType.ROUTE_SIGN_UP}`);
+  };
+
   return (
     <div className="header-container">
       <header className="site-nav site-nav-container">
@@ -44,8 +60,23 @@ const Header = () => {
             <img src={HeaderLogo} alt="HiClinic Logo" />
           </a>
         </div>
-
         <ul className="site-nav-action">
+          {state.accessToken ? (
+            <li>
+              {t('welcome')} {state.userEmail}
+            </li>
+          ) : (
+            <>
+              <li className="direct-menu " onClick={changeToSigninPage}>
+                {' '}
+                {t('signIn')}
+              </li>
+              <li className="direct-menu " onClick={changeToSignUpPage}>
+                {' '}
+                {t('signUp')}
+              </li>
+            </>
+          )}
           <li className="direct-menu ">
             <DirectMenu />
           </li>

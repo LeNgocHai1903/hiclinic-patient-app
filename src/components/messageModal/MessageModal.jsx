@@ -1,9 +1,11 @@
-import React, { useState } from 'react';
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
+import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import './MessageModal.scss';
 
+import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import { useHistory } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
+
+import * as routeType from '../../constant/route/route';
 
 const MessageModal = (props) => {
   const { t } = useTranslation();
@@ -17,7 +19,7 @@ const MessageModal = (props) => {
 
   const switchPageHander = (e) => {
     e.preventDefault();
-    history.push('/signin');
+    history.push(`${routeType.ROUTE_SIGN_IN}`);
   };
 
   return (

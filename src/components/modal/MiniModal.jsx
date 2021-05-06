@@ -1,7 +1,7 @@
 import './MiniModal.scss';
+import { useTranslation } from 'react-i18next';
 
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
-import { useTranslation } from 'react-i18next';
 
 const ModalExample = (props) => {
   const { t } = useTranslation();
@@ -16,10 +16,10 @@ const ModalExample = (props) => {
           <div className="mini-modal">{props.children}</div>
         </ModalBody>
         <ModalFooter>
-          <Button color="danger" onClick={props.toggle}>
+          <Button color="secondary" onClick={props.toggle}>
             {t('cancle')}
           </Button>
-          <Button color="success" onClick={props.onclick}>
+          <Button color="primary" onClick={props.onclick}>
             {t('submit')}
           </Button>{' '}
         </ModalFooter>

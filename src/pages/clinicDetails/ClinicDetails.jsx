@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import { useTranslation } from 'react-i18next';
 
 import { useParams } from 'react-router-dom';
 
@@ -20,7 +19,6 @@ const ClinicDetails = () => {
   const [isModalShow, setIsModalShow] = useState(false);
   const [chooseDoctor, setChooseDoctor] = useState();
 
-  const { t } = useTranslation();
   const clinicId = useParams();
 
   useEffect(() => {
@@ -47,11 +45,15 @@ const ClinicDetails = () => {
     setIsModalShow(!isModalShow);
   };
 
-  const bookingHandler = (doctorName) => {
-    setChooseDoctor(data.doctors.find((i) => i.fullName === doctorName));
+  const bookingHandler = (docName, docImage) => {
+    setChooseDoctor({
+      docName,
+      docImage,
+    });
     setIsModalShow(true);
-    actions.saveClinicAndDoctor(data.clinicName, doctorName);
+    actions.saveClinicAndDoctor(data.clinicName, docName);
   };
+
   return (
     <div>
       {loading || overviewLoading ? (
@@ -64,7 +66,7 @@ const ClinicDetails = () => {
           <ClinicTab data={data} onclick={bookingHandler} />
         </div>
       )}
-      {isModalShow ? <BookingModal data={data} show={isModalShow} modalClosed={closeModal} /> : null}
+      {isModalShow ? <BookingModal data={data} show={isModalShow} modalClosed={closeModal} doc={chooseDoctor} /> : null}
     </div>
   );
 };

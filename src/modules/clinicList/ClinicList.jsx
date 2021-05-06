@@ -1,47 +1,48 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect } from 'react';
 
-import "./ClinicList.scss";
+import './ClinicList.scss';
 
-import { Pagination, PaginationItem, PaginationLink } from "reactstrap";
+import { Pagination, PaginationItem, PaginationLink } from 'reactstrap';
 
-import apiWrapper from "../../api/apiWrapper";
-import * as routeType from "../../api/apiUrl";
-import * as sortType from "../../constant/sorting/sorting";
-import * as variableType from "../../constant/variable/variableNumber";
-import { useHistory } from "react-router-dom";
+import apiWrapper from '../../api/apiWrapper';
+import * as routeType from '../../api/apiUrl';
+import * as sortType from '../../constant/sorting/sorting';
+import * as variableType from '../../constant/variable/variableNumber';
+import { useHistory } from 'react-router-dom';
 
-import { useTranslation } from "react-i18next";
+import { useTranslation } from 'react-i18next';
 
-import GridView from "./clinicItem/gridView/GridView";
-import ListView from "./clinicItem/listView/ListView";
+import GridView from './clinicItem/gridView/GridView';
+import ListView from './clinicItem/listView/ListView';
 
-import LoadingSpinner from "../../components/loadingSpinner/LoadingSpinner";
-import MainSearchBar from "../../components/searchBar/mainSearchBar/MainSearchBar";
+import LoadingSpinner from '../../components/loadingSpinner/LoadingSpinner';
+import MainSearchBar from '../../components/searchBar/mainSearchBar/MainSearchBar';
 
 const ClinicList = (props) => {
   const [isLoading, setIsLoading] = useState(true);
-  const [listStyle, setListStyle] = useState("grid");
+  const [listStyle, setListStyle] = useState('grid');
   const [numberOfPages, setNumberOfPages] = useState(1);
   const [data, setData] = useState([]);
   const [changePage, setChangePage] = useState(0);
   let searchValue;
+  let dataOption;
   const history = useHistory();
 
   const { t } = useTranslation();
 
   if (history.location.state) {
     searchValue = history.location.state.searchValue;
+    dataOption = history.location.state.dataOption.length;
   }
-  console.log(searchValue)
 
   useEffect(() => {
     if (history.location.state) {
       const { state } = history.location;
       apiWrapper({
         url: `${process.env.REACT_APP_PATIENT_SEARCH_SERVER}?field=${state.searchType}&value=${searchValue}&page=${changePage}`,
-        method: "GET",
+        method: 'GET',
       }).then((res) => {
-        console.log(res)
+        console.log(res);
         setData(res.clinics);
         setNumberOfPages(res.numberOfPage);
         setIsLoading(false);
@@ -49,7 +50,7 @@ const ClinicList = (props) => {
     } else {
       apiWrapper({
         url: `${routeType.GET_ALL_CLINIC}?size=${variableType.NUMBER_OF_PAGE_CLINIC_LIST}&page=${changePage}`,
-        method: "GET",
+        method: 'GET',
       }).then((res) => {
         setData(res.clinics);
         setNumberOfPages(res.numberOfPage);
@@ -65,13 +66,11 @@ const ClinicList = (props) => {
   };
 
   if (numberOfPages) {
-    for (let i = 0; i < numberOfPages -1; i++) {
+    for (let i = 0; i < numberOfPages; i++) {
       displayPagination.push(
         <PaginationItem active={i === changePage} key={i}>
-          <PaginationLink onClick={() => changePageHandler(i)}>
-            {i+1}
-          </PaginationLink>
-        </PaginationItem>
+          <PaginationLink onClick={() => changePageHandler(i)}>{i + 1}</PaginationLink>
+        </PaginationItem>,
       );
     }
   }
@@ -85,21 +84,21 @@ const ClinicList = (props) => {
       case sortType.SORT_BY_ALPHABET_INC:
         setData(
           [...data].sort((a, b) => {
-            a = a.name || "";
-            b = b.name || "";
+            a = a.name || '';
+            b = b.name || '';
             return a.localeCompare(b);
-          })
+          }),
         );
         break;
       case sortType.SORT_BY_ALPHABET_DECS:
         setData(
           [...data]
             .sort((a, b) => {
-              a = a.name || "";
-              b = b.name || "";
+              a = a.name || '';
+              b = b.name || '';
               return a.localeCompare(b);
             })
-            .reverse()
+            .reverse(),
         );
         break;
       default:
@@ -110,61 +109,51 @@ const ClinicList = (props) => {
   return (
     <>
       <MainSearchBar />
-      <div className="container">
-        <div className="select-group">
-          <select
-            id="grid-list"
-            className="style-option"
-            onChange={changeStyleHandler}
-          >
-            <optgroup label="View Styles">
-              <option value="grid"> {t("grid")} </option>
-              <option value="list"> {t("list")} </option>
-            </optgroup>
-          </select>
+      {dataOption === 0 && history.location.state === 0 ? (
+        <div className="clinic-list-error"> {t('resultNotFound')} </div>
+      ) : (
+        <div className="container">
+          <div className="select-group">
+            <select id="grid-list" className="style-option" onChange={changeStyleHandler}>
+              <optgroup label="View Styles">
+                <option value="grid"> {t('grid')} </option>
+                <option value="list"> {t('list')} </option>
+              </optgroup>
+            </select>
 
-          <select
-            id="sort-list"
-            onChange={changeSortHandler}
-            className="sort-option"
-          >
-            <optgroup label="Alphabet">
-              <option value="alphabet inc"> {t("a_z")}</option>
-              <option value="alphabet desc"> {t("z_a")}</option>
-            </optgroup>
-          </select>
-        </div>
-        {isLoading ? (
-          <div className="loading">
-            <LoadingSpinner />
+            <select id="sort-list" onChange={changeSortHandler} className="sort-option">
+              <optgroup label="Alphabet">
+                <option value="alphabet inc"> {t('a_z')}</option>
+                <option value="alphabet desc"> {t('z_a')}</option>
+              </optgroup>
+            </select>
           </div>
-        ) : (
-          <>
-            <div className="row">
-              {data.map((item) => {
-                if (listStyle === "grid") {
-                  return <GridView key={item.id} data={item} />;
-                } else return <ListView key={item.id} data={item} />;
-              })}
+          {isLoading ? (
+            <div className="loading">
+              <LoadingSpinner />
             </div>
-            <Pagination className="list-pagination">
-              <PaginationItem disabled={changePage === 1}>
-                <PaginationLink
-                  previous
-                  onClick={() => changePageHandler(changePage - 1)}
-                />
-              </PaginationItem>
-              {displayPagination}
-              <PaginationItem disabled={numberOfPages - 1 === changePage}>
-                <PaginationLink
-                  next
-                  onClick={() => changePageHandler(changePage + 1)}
-                />
-              </PaginationItem>
-            </Pagination>
-          </>
-        )}
-      </div>
+          ) : (
+            <>
+              <div className="row">
+                {data.map((item) => {
+                  if (listStyle === 'grid') {
+                    return <GridView key={item.id} data={item} />;
+                  } else return <ListView key={item.id} data={item} />;
+                })}
+              </div>
+              <Pagination className="list-pagination">
+                <PaginationItem disabled={changePage === 0}>
+                  <PaginationLink previous onClick={() => changePageHandler(changePage - 1)} />
+                </PaginationItem>
+                {displayPagination}
+                <PaginationItem disabled={numberOfPages - 1 === changePage}>
+                  <PaginationLink next onClick={() => changePageHandler(changePage + 1)} />
+                </PaginationItem>
+              </Pagination>
+            </>
+          )}
+        </div>
+      )}
     </>
   );
 };
