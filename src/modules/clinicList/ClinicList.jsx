@@ -5,10 +5,10 @@ import './ClinicList.scss';
 import { Pagination, PaginationItem, PaginationLink } from 'reactstrap';
 
 import apiWrapper from '../../api/apiWrapper';
-import * as routeType from '../../api/apiUrl';
 import * as sortType from '../../constant/sorting/sorting';
 import * as variableType from '../../constant/variable/variableNumber';
 import { useHistory } from 'react-router-dom';
+import { SEARCH_CLINICS, GET_ALL_CLINIC } from '../../api/apiUrl';
 
 import { useTranslation } from 'react-i18next';
 
@@ -24,22 +24,23 @@ const ClinicList = (props) => {
   const [numberOfPages, setNumberOfPages] = useState(1);
   const [data, setData] = useState([]);
   const [changePage, setChangePage] = useState(0);
-  let searchValue;
-  let dataOption;
+  let getSearchValue;
+  let getDataOption;
+  let getSearchType;
   const history = useHistory();
 
   const { t } = useTranslation();
 
   if (history.location.state) {
-    searchValue = history.location.state.searchValue;
-    dataOption = history.location.state.dataOption.length;
+    getSearchValue = history.location.state.searchValue;
+    getDataOption = history.location.state.dataOption.length;
   }
 
   useEffect(() => {
     if (history.location.state) {
       const { state } = history.location;
       apiWrapper({
-        url: `${process.env.REACT_APP_PATIENT_SEARCH_SERVER}?field=${state.searchType}&value=${searchValue}&page=${changePage}`,
+        url: `${SEARCH_CLINICS}?field=${state.searchType}&value=${getSearchValue}&page=${changePage}`,
         method: 'GET',
       }).then((res) => {
         console.log(res);
@@ -49,7 +50,7 @@ const ClinicList = (props) => {
       });
     } else {
       apiWrapper({
-        url: `${routeType.GET_ALL_CLINIC}?size=${variableType.NUMBER_OF_PAGE_CLINIC_LIST}&page=${changePage}`,
+        url: `${GET_ALL_CLINIC}?size=${variableType.NUMBER_OF_PAGE_CLINIC_LIST}&page=${changePage}`,
         method: 'GET',
       }).then((res) => {
         setData(res.clinics);
@@ -57,7 +58,7 @@ const ClinicList = (props) => {
         setIsLoading(false);
       });
     }
-  }, [changePage, searchValue]);
+  }, [changePage, getSearchValue]);
 
   const displayPagination = [];
 
@@ -109,7 +110,7 @@ const ClinicList = (props) => {
   return (
     <>
       <MainSearchBar />
-      {dataOption === 0 && history.location.state === 0 ? (
+      {getDataOption === 0 && history.location.state === 0 ? (
         <div className="clinic-list-error"> {t('resultNotFound')} </div>
       ) : (
         <div className="container">

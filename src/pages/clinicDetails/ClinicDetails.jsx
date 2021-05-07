@@ -9,6 +9,8 @@ import BookingModal from '../../modules/booking/bookingModal/BookingModal';
 import { useCounter } from '../../store/booking/bookingStore';
 import LoadingSpinner from '../../components/loadingSpinner/LoadingSpinner';
 
+import { CLINIC_DETAILS, GET_ALL_CLINIC } from '../../api/apiUrl';
+
 const ClinicDetails = () => {
   const [state, actions] = useCounter();
 
@@ -23,7 +25,7 @@ const ClinicDetails = () => {
 
   useEffect(() => {
     apiWrapper({
-      url: `${process.env.REACT_APP_PATIENT_CLINIC_SERVER}/${clinicId.clinicId}`,
+      url: `${GET_ALL_CLINIC}/${clinicId.clinicId}`,
       method: 'GET',
     }).then((res) => {
       setOverviewData(res);
@@ -33,7 +35,7 @@ const ClinicDetails = () => {
 
   useEffect(() => {
     apiWrapper({
-      url: `${process.env.REACT_APP_PATIENT_CLINIC_DETAILS_SERVER}/${clinicId.clinicId}`,
+      url: `${CLINIC_DETAILS}/${clinicId.clinicId}`,
       method: 'GET',
     }).then((res) => {
       setData(res);

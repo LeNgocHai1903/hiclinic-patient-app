@@ -8,7 +8,7 @@ import { useAuth } from '../../store/authenticate/store';
 
 const DoctorCard = (props) => {
   const [state, actions] = useAuth();
-  const { id, fullName, image } = props;
+  const { fullName, image } = props;
   const { t } = useTranslation();
   return (
     <div>

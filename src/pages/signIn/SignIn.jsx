@@ -25,12 +25,13 @@ const SignIn = () => {
   };
 
   const validateSchema = Yup.object().shape({
-    email: Yup.string().email('Invalid email format').required('Email is required'),
+    email: Yup.string()
+      .email(`${t('invalidEmail')}`)
+      .required(`${t('emailIsRequired')}`),
     password: Yup.string()
-      .matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/, 'Password must contain 1 upper character, 1 digit. ')
       .min(8)
       .max(50)
-      .required('Password is required'),
+      .required(`${t('passwordRequired')}`),
   });
 
   const submitForm = async (values, formActions) => {
@@ -66,7 +67,7 @@ const SignIn = () => {
                 name="email"
                 autoComplete="off"
               />
-              {errors.email && touched.email && <div className="signin-error">{errors.email}</div>}
+              {errors.email && touched.email  && <div className="signin-error">{errors.email}</div>}
               <b>{t('password')}</b>
               <input
                 className="signin-form-input"

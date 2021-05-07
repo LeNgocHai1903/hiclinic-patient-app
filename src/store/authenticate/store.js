@@ -10,7 +10,6 @@ export const initialState = {
   userId: '',
   userName: '',
   previousLocation: '',
-  OTP: '',
   userEmail: '',
 };
 

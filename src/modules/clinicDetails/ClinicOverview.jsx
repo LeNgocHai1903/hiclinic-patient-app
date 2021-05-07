@@ -3,7 +3,6 @@ import { useTranslation } from 'react-i18next';
 
 import { MdLocationOn } from 'react-icons/md';
 import { BiTime } from 'react-icons/bi';
-import { GrStatusGood } from 'react-icons/gr';
 
 const ClinicOverview = (props) => {
   const { t } = useTranslation();
@@ -14,7 +13,7 @@ const ClinicOverview = (props) => {
       {clinicDetails ? (
         <div>
           <div className="clinic-overview-container">
-            <img src={clinicDetails.clinicImage} />
+            <img src={clinicDetails.clinicImage} alt={`${clinicDetails.clinicName}`} />
             <div className="clinic-information">
               <h2 className="clinic-details-name">{clinicDetails.clinicName}</h2>
               <p>

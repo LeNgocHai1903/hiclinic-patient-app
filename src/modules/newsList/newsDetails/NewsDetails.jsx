@@ -3,7 +3,10 @@ import { useParams } from 'react-router-dom';
 
 import { useTranslation } from 'react-i18next';
 
-import apiWrapper from '../../api/apiWrapper';
+import apiWrapper from '../../../api/apiWrapper';
+import LoadingSpinner from '../../../components/loadingSpinner/LoadingSpinner';
+
+import {NEWS_URL} from '../../../api/apiUrl';
 
 import './NewsDetails.scss';
 
@@ -11,12 +14,15 @@ const NewsDetails = () => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   const newsId = useParams();
+  // const createMarkup = (content) => {
+  //   return { __html: content };
+  // };
 
   const { t } = useTranslation();
 
   useEffect(() => {
     apiWrapper({
-      url: `${process.env.REACT_APP_PATIENT_NEWS_DETAILS_SERVER}/${newsId.newsId}`,
+      url: `${NEWS_URL}/${newsId.newsId}`,
       method: 'GET',
     }).then((res) => {
       setData(res);
@@ -30,7 +36,9 @@ const NewsDetails = () => {
     return (
       <div>
         {loading ? (
-          <div className="loading">{t('loading')}</div>
+          <div className="loading">
+            <LoadingSpinner />
+          </div>
         ) : (
           <div className="news-details">
             <h1 className="news-title">{data.title}</h1>
@@ -41,16 +49,13 @@ const NewsDetails = () => {
               </p>
             </div>
             <p className="content">
-              <div dangerouslySetInnerHTML={createMarkup()} />
+              <div dangerouslySetInnerHTML={createMarkup(data.content)} />
             </p>
           </div>
         )}
       </div>
     );
   }
-  // else {
-  //   return <div></div>;
-  // }
 };
 
 export default NewsDetails;

@@ -69,5 +69,12 @@
   "OTPCode": "OTP Code",
   "ifYouDontHaveAnyOTPCodeSendToYourEmail?": "If you dont have any OTP code send to your email?",
   "pleaseComebackAndRetry": "Please comeback and retry",
-  "fullName": "Full Name"
+  "fullName": "Full Name",
+  "emailIsRequired": "Email is required",
+  "noSpecialCharacters": "No special characters",
+  "thisFieldIsRequired": "This field is required",
+  "passwordRequired": "Password is required",
+  "confirmPasswordRequired": "Confirm password is required",
+  "matchPassword": "Password not match",
+  "invalidEmail" : "Invalid email"
 }

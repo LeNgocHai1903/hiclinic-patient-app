@@ -7,6 +7,7 @@ import { FaSearch } from 'react-icons/fa';
 import { Formik } from 'formik';
 import * as yup from 'yup';
 import * as routeType from '../../../constant/route/route.js';
+import { SEARCH_CLINICS } from '../../../api/apiUrl';
 import apiWrapper from '../../../api/apiWrapper';
 import LoadingSpinner from '../../loadingSpinner/LoadingSpinner';
 
@@ -28,7 +29,7 @@ const MainSearchBar = (props) => {
     if (searchValue) {
       setLoading(true);
       apiWrapper({
-        url: `${process.env.REACT_APP_PATIENT_SEARCH_SERVER}?field=${searchType.toLowerCase()}&value=${searchValue}`,
+        url: `${SEARCH_CLINICS}?field=${searchType.toLowerCase()}&value=${searchValue}`,
         method: 'GET',
       })
         .then((res) => {
@@ -77,10 +78,6 @@ const MainSearchBar = (props) => {
   const validationSchema = yup.object().shape({
     searchValue: yup.string().required(t('requiredField')),
   });
-
-  const onSubmit = (values, actions) => {
-    history.push(`/clinicList?searchValue=${searchValue}`);
-  };
 
   useEffect(() => {
     if (searchValue === '') {

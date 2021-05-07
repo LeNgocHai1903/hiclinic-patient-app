@@ -14,12 +14,13 @@ import * as Yup from 'yup';
 
 import Backdrop from '../../../components/backdrop/BackDrop';
 import MiniModal from '../../../components/modal/MiniModal';
-import testImg from '../../../asset/img/clinic-grid-example.jpeg';
 
 const Modal = (props) => {
   const [state, actions] = useCounter();
   const [value, onChange] = useState(new Date());
   const [modal, setModal] = useState(false);
+
+  const { data, doc } = props;
 
   const toggle = () => {
     setModal(!modal);
@@ -71,11 +72,11 @@ const Modal = (props) => {
               <div className="booking-modal-title">{t('booking')}</div>
               <div className="booking-modal-content">
                 <div className="booking-modal-infomation">
-                  <img src={props.doc.docImage} />
+                  <img src={doc.docImage} alt={`${doc.docName}`} />
                   <div className="booking-modal-doctor">
-                    <h3>{props.data.clinicName}</h3>
+                    <h3>{data.clinicName}</h3>
                     <label>
-                      <b>{t('doctorName')}:</b> {props.doc.docName}{' '}
+                      <b>{t('doctorName')}:</b> {doc.docName}{' '}
                     </label>
                   </div>
                 </div>

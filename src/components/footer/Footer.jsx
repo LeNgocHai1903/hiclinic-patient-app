@@ -1,11 +1,10 @@
 import { FaFacebookSquare, FaLinkedin, FaYoutubeSquare } from 'react-icons/fa';
-import {useTranslation} from 'react-i18next';
+import { useTranslation } from 'react-i18next';
 
 import './Footer.scss';
 
 const Footer = () => {
-
-  const {t} = useTranslation();
+  const { t } = useTranslation();
 
   return (
     <footer>

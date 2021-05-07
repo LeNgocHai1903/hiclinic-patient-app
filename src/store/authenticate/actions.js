@@ -34,7 +34,6 @@ const actions = {
     setState({ userEmail: '', accessToken: '', userId: '', userName: fullName });
     try {
       const response = await axios.post(`${process.env.REACT_APP_PATIENT_SIGNUP}`, data);
-
       setState({
         userEmail: response.data.email,
         userName: fullName,

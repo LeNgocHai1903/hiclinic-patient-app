@@ -1,6 +1,6 @@
 import './NewsItem.scss';
 import { Link, withRouter } from 'react-router-dom';
-import * as routeType from '../../constant/route/route';
+import * as routeType from '../../../constant/route/route';
 
 import { useTranslation } from 'react-i18next';
 
@@ -11,7 +11,7 @@ const NewsItem = (props) => {
     e.preventDefault();
     props.history.push(`${routeType.ROUTE_NEWS_DETAIL_BUILD(props.data.id)}`);
   };
-  console.log(props);
+
   return (
     <div className="news-item-container">
       <Link to={`${routeType.ROUTE_NEWS_DETAIL_BUILD(props.data.id)}`} className="news-href">

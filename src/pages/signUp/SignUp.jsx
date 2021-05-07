@@ -30,26 +30,28 @@ const SignUp = () => {
   };
 
   const validateSchema = Yup.object().shape({
-    email: Yup.string().email('Email is not valid').required('Email is required').max(50),
+    email: Yup.string()
+      .email(`${t('invalidEmail')}`)
+      .required(`${t('emailIsRequired')}`)
+      .max(50),
     fullName: Yup.string()
-      .matches(/^[_A-z0-9]*((-|\s)*[_A-z0-9])*$/, 'No special characters')
-      .required('This field is required')
+      .matches(/^[_A-z0-9]*((-|\s)*[_A-z0-9])*$/, `${'noSpecialCharacters'}`)
+      .required(`${t('thisFieldIsRequired')}`)
       .max(20),
     password: Yup.string()
-      .matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/, 'Password must contain 1 upper character, 1 digit. ')
       .min(8)
       .max(50)
-      .required('Password is required'),
+      .required(`${t('passwordRequired')}`),
     confirmPassword: Yup.string()
-      .required('Confirm Password is required')
-      .oneOf([Yup.ref('password'), null], 'Confirm password must match'),
+      .required(`${t('confirmPasswordRequired')}`)
+      .oneOf([Yup.ref('password'), null], `${t('matchPassword')}`),
   });
 
   const submitForm = async (values, formActions) => {
     const data = {
       email: values.email,
       password: values.password,
-      fullName: values.fullName
+      fullName: values.fullName,
     };
     await actions.signUp(data, values.fullName);
     setOTPModal(true);

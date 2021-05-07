@@ -9,25 +9,23 @@
 
 .clinic-item {
   border-radius: 0.5rem;
-  background-color: $primary-color-3;
+  border: 1px solid $primary-color-3;
   width: 300px;
-  padding: 5px;
   cursor: pointer;
   text-decoration: none;
   color: black;
+  overflow: hidden;
 }
 
 .clinic-item-img {
   height: 200px;
   display: flex;
+  background-color: $primary-color-3;
   align-items: center;
   justify-content: center;
 }
 
 .clinic-item-img img {
-  max-height: 195px;
-  border-top-left-radius: 0.7rem;
-  border-top-right-radius: 0.7rem;
   width: 100%;
   margin-bottom: 5px;
 }

@@ -14,11 +14,11 @@ import { FaArrowCircleRight } from 'react-icons/fa';
 import MainSearchBar from '../../components/searchBar/mainSearchBar/MainSearchBar';
 import ClinicItem from '../../modules/clinicList/clinicItem/gridView/GridView';
 import LoaddingSpinner from '../../components/loadingSpinner/LoadingSpinner';
-import News from '../../modules/news/NewsItemGrid';
+import News from '../../modules/newsList/newsItem/NewsItemGrid';
 
 //Route
 import * as routeType from '../../constant/route/route';
-import * as apiType from '../../api/apiUrl';
+import { GET_HIGHTLIGHT_CLINIC, NEWS_URL } from '../../api/apiUrl';
 
 const Homepage = () => {
   const { t } = useTranslation();
@@ -28,14 +28,14 @@ const Homepage = () => {
   const [newsIsLoading, setNewsIsLoading] = useState(true);
 
   useEffect(() => {
-    apiWrapper({ url: `${apiType.GET_HIGHTLIGHT_CLINIC}`, method: 'GET' }).then((res) => {
+    apiWrapper({ url: `${GET_HIGHTLIGHT_CLINIC}`, method: 'GET' }).then((res) => {
       setTop6Clinic(res.clinics);
       setClinicIsLoading(false);
     });
   }, []);
 
   useEffect(() => {
-    apiWrapper({ url: `${process.env.REACT_APP_PATIENT_NEWS_SERVER}/?size=3`, method: 'GET' }).then((res) => {
+    apiWrapper({ url: `${NEWS_URL}/?size=3`, method: 'GET' }).then((res) => {
       setTop3News(res.listNews);
       setNewsIsLoading(false);
     });
