@@ -1,17 +1,21 @@
-import './Header.scss';
-import { useTranslation } from 'react-i18next';
+import { useState } from "react";
+import "./Header.scss";
+import { useTranslation } from "react-i18next";
 
-import HeaderLogo from '../../asset/img/logo.png';
-import DirectMenu from '../directMenu/DirectMenu';
+import HeaderLogo from "../../asset/img/logo.png";
+import DirectMenu from "../directMenu/DirectMenu";
+import Noti from "../Noti/Notification";
 
-import * as routeType from '../../constant/route/route';
-import { useAuth } from '../../store/authenticate/store';
-import { useHistory } from 'react-router-dom';
+import * as routeType from "../../constant/route/route";
+import { useAuth } from "../../store/authenticate/store";
+import { useHistory } from "react-router-dom";
+import { MdNotificationsActive } from "react-icons/md";
 
 const Header = () => {
   const history = useHistory();
   const { t } = useTranslation();
   const [state, actions] = useAuth();
+  const [isShow, setIsShow] = useState(false);
 
   const changeToSigninPage = () => {
     actions.savePreviousLocation(history.location.pathname);
@@ -22,26 +26,37 @@ const Header = () => {
     history.push(`${routeType.ROUTE_SIGN_UP}`);
   };
 
+  const showNoti = () => {
+    setIsShow(!isShow);
+  };
+
   return (
-    <div className="header-container">
-      <header className="site-nav site-nav-container">
-        <div className="site-nav-desktop-only align-center">
-          <div className="header-logo">
-            <a href="/">
-              <img src={HeaderLogo} alt="HiClinic Logo" />
-            </a>
+    <>
+      <div className="header-container">
+        <header className="site-nav site-nav-container">
+          <div className="site-nav-desktop-only align-center">
+            <div className="header-logo">
+              <a href="/">
+                <img src={HeaderLogo} alt="HiClinic Logo" />
+              </a>
+            </div>
+
+            <ul className="site-nav-desktop-nav">
+              <li className="site-nav-desktop-item">
+                <a
+                  href="https://hiclinic-clinic-portal.herokuapp.com/"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  <button className="change-site-btn">
+                    {t("Clinic Website")}
+                  </button>
+                </a>
+              </li>
+            </ul>
           </div>
 
-          <ul className="site-nav-desktop-nav">
-            <li className="site-nav-desktop-item">
-              <a href="https://hiclinic-clinic-portal.herokuapp.com/" target="_blank" rel="noreferrer">
-                <button className="change-site-btn">{t('Clinic Website')}</button>
-              </a>
-            </li>
-          </ul>
-        </div>
-
-        {/* <div className="site-nav-mobile-only site-nav-mobile-menu align-center">
+          {/* <div className="site-nav-mobile-only site-nav-mobile-menu align-center">
           <a href="#">
             <AiOutlineMenu className="hamburger-button" />
           </a>
@@ -54,35 +69,41 @@ const Header = () => {
             <a href="#">{t('yourLink')}</a>
           </div>
         </div> */}
-    {console.log(state)}
-        <div className="site-nav-mobile-only mobile-logo">
-          <a href="/">
-            <img src={HeaderLogo} alt="HiClinic Logo" />
-          </a>
-        </div>
-        <ul className="site-nav-action">
-          {state.accessToken ? (
-            <li>
-              {t('welcome')} {state.userName}
+          <div className="site-nav-mobile-only mobile-logo">
+            <a href="/">
+              <img src={HeaderLogo} alt="HiClinic Logo" />
+            </a>
+          </div>
+          <ul className="site-nav-action">
+            {state.accessToken ? (
+              <>
+                <li>
+                  {t("welcome")} {state.userName}
+                </li>
+                <li onClick={showNoti} className="noti-icon">
+                  <MdNotificationsActive />
+                </li>
+              </>
+            ) : (
+              <>
+                <li className="direct-menu " onClick={changeToSigninPage}>
+                  {" "}
+                  {t("signIn")}
+                </li>
+                <li className="direct-menu " onClick={changeToSignUpPage}>
+                  {" "}
+                  {t("signUp")}
+                </li>
+              </>
+            )}
+            <li className="direct-menu ">
+              <DirectMenu />
             </li>
-          ) : (
-            <>
-              <li className="direct-menu " onClick={changeToSigninPage}>
-                {' '}
-                {t('signIn')}
-              </li>
-              <li className="direct-menu " onClick={changeToSignUpPage}>
-                {' '}
-                {t('signUp')}
-              </li>
-            </>
-          )}
-          <li className="direct-menu ">
-            <DirectMenu />
-          </li>
-        </ul>
-      </header>
-    </div>
+          </ul>
+        </header>
+      </div>
+      {isShow ? <Noti isShow={isShow}></Noti> : null}
+    </>
   );
 };
 

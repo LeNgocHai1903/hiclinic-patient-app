@@ -1,14 +1,13 @@
 import { useState } from "react";
 import "./DirectMenu.scss";
 import { useTranslation } from "react-i18next";
-import { Link, useHistory, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import SearchOnMenu from "../searchBar/searchOnMenu/SearchOnMenu";
 
 import { useAuth } from "../../store/authenticate/store";
 
 import * as routeType from "../../constant/route/route";
-import Noti from "../Noti/Notification";
 
 import {
   FaAlignJustify,
@@ -18,14 +17,10 @@ import {
   FaCheckCircle,
   FaClinicMedical,
 } from "react-icons/fa";
-import { MdNotificationsActive } from "react-icons/md";
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 
 const DirectMenu = () => {
-  const history = useHistory();
-  const location = useLocation();
   const [isShowSignOutModal, setIsShowSignOutModal] = useState(false);
-  const [isShow, setIsShow] = useState(false);
   const [state, actions] = useAuth();
 
   const { t } = useTranslation();
@@ -40,9 +35,7 @@ const DirectMenu = () => {
     actions.signOut();
   };
 
-  const showNoti = () => {
-    setIsShow(!isShow);
-  };
+
 
   return (
     <>
@@ -65,10 +58,6 @@ const DirectMenu = () => {
           ) : (
             <>
               <SearchOnMenu />
-              <Link onClick={showNoti}>
-                <MdNotificationsActive />
-                {t("notification")}
-              </Link>
               <Link to={`${routeType.ROUTE_NEWS_LIST}`}>
                 <FaNewspaper />
                 {t("news")}
@@ -106,7 +95,7 @@ const DirectMenu = () => {
           </div>
         )}
       </div>
-      {isShow ? <Noti isShow={isShow}></Noti> : null}
+
     </>
   );
 };
