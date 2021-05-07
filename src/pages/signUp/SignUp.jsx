@@ -25,11 +25,16 @@ const SignUp = () => {
   const initialValues = {
     email: '',
     password: '',
+    fullName: '',
     confirmPassword: '',
   };
 
   const validateSchema = Yup.object().shape({
     email: Yup.string().email('Email is not valid').required('Email is required').max(50),
+    fullName: Yup.string()
+      .matches(/^[_A-z0-9]*((-|\s)*[_A-z0-9])*$/, 'No special characters')
+      .required('This field is required')
+      .max(20),
     password: Yup.string()
       .matches(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/, 'Password must contain 1 upper character, 1 digit. ')
       .min(8)
@@ -44,8 +49,9 @@ const SignUp = () => {
     const data = {
       email: values.email,
       password: values.password,
+      fullName: values.fullName
     };
-    await actions.signUp(data);
+    await actions.signUp(data, values.fullName);
     setOTPModal(true);
     formActions.setSubmitting(false);
   };
@@ -90,6 +96,16 @@ const SignUp = () => {
                 name="email"
               />
               {errors.email && touched.email && <div className="signup-error">{errors.email}</div>}
+              <b>{t('fullName')}</b>
+              <input
+                className="signup-form-input"
+                type="text"
+                onChange={handleChange}
+                onBlur={handleBlur}
+                value={values.fullName}
+                name="fullName"
+              />
+              {errors.fullName && touched.fullName && <div className="signup-error">{errors.fullName}</div>}
               <b>{t('password')}</b>
               <input
                 className="signup-form-input"
@@ -128,7 +144,7 @@ const SignUp = () => {
             <input className="otp-input" onChange={OTPChange}></input>
           </ModalBody>
           <div className="otp-retry">
-            <span>{t('ifYouDontHaveAnyOTPCodeSendToYourEmail')} </span>
+            <span>{t('ifYouDontHaveAnyOTPCodeSendToYourEmail?')} </span>
             <b>{t('pleaseComebackAndRetry')}</b>
           </div>
           <ModalFooter>

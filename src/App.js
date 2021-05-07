@@ -13,7 +13,7 @@ import Header from './components/header/Header';
 import Footer from './components/footer/Footer';
 import SignIn from './pages/signIn/SignIn';
 import SignUp from './pages/signUp/SignUp';
-
+import Noti from './components/Noti/Notification';
 function App() {
   const routes = (
     <Switch>

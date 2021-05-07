@@ -14,18 +14,20 @@ const NewsItem = (props) => {
 
   return (
     <div className="news-item-container">
-      <div onClick={moveToDetail} className="news-href">
-        <div className="news-item">
-          <img src={props.data.image} alt="" />
-          <div className="news-item-content">
-            <h3>{props.data.title}</h3>
-            <p className="news-item-description">{props.data.shortDescription}</p>
-            <Link to={`${routeType.ROUTE_NEWS_DETAIL_BUILD(props.data.id)}`} className="news-item-details">
-              {t('moreDetails')}
-            </Link>
+      <Link to={`${routeType.ROUTE_NEWS_DETAIL_BUILD(props.data.id)}`} className="news-href">
+        <div onClick={moveToDetail} className="news-href">
+          <div className="news-item">
+            <img src={props.data.imageUrl} alt="" />
+            <div className="news-item-content">
+              <h3>{props.data.title}</h3>
+              <p className="news-item-description">{props.data.description}</p>
+              <Link to={`${routeType.ROUTE_NEWS_DETAIL_BUILD(props.data.id)}`} className="news-item-details">
+                {t('moreDetails')}
+              </Link>
+            </div>
           </div>
         </div>
-      </div>
+      </Link>
     </div>
   );
 };

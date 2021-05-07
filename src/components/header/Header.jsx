@@ -14,7 +14,7 @@ const Header = () => {
   const [state, actions] = useAuth();
 
   const changeToSigninPage = () => {
-    actions.savePreviousLocation(window.location.pathname);
+    actions.savePreviousLocation(history.location.pathname);
     history.push(`${routeType.ROUTE_SIGN_IN}`);
   };
 
@@ -54,7 +54,7 @@ const Header = () => {
             <a href="#">{t('yourLink')}</a>
           </div>
         </div> */}
-
+    {console.log(state)}
         <div className="site-nav-mobile-only mobile-logo">
           <a href="/">
             <img src={HeaderLogo} alt="HiClinic Logo" />
@@ -63,7 +63,7 @@ const Header = () => {
         <ul className="site-nav-action">
           {state.accessToken ? (
             <li>
-              {t('welcome')} {state.userEmail}
+              {t('welcome')} {state.userName}
             </li>
           ) : (
             <>

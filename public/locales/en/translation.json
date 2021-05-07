@@ -68,5 +68,6 @@
   "clinicDescription": "Description",
   "OTPCode": "OTP Code",
   "ifYouDontHaveAnyOTPCodeSendToYourEmail?": "If you dont have any OTP code send to your email?",
-  "pleaseComebackAndRetry": "Please comeback and retry"
+  "pleaseComebackAndRetry": "Please comeback and retry",
+  "fullName": "Full Name"
 }

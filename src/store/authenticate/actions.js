@@ -10,29 +10,37 @@ const actions = {
   },
 
   //TODO: Handler error code from BE
-  signIn: (data, email) => async ({ setState, getState }) => {
-    setState({ accessToken: '', userId: '', userEmail: email, errorMessage: '' });
+  signIn: (data) => async ({ setState, getState }) => {
+    setState({ accessToken: '', userId: '', userEmail: '', errorMessage: '', userName: '' });
     try {
       const response = await axios.post(`${process.env.REACT_APP_SIGNIN_FAKE}`, data);
       setState({
         accessToken: response.data.accessToken,
-        userEmail: email,
+        userEmail: response.data.email,
+        userName: response.data.fullName,
       });
     } catch (error) {
-      setState({ accessToken: '', userId: '', userName: '', errorMessage: error.response.data.errorMessage });
+      setState({
+        accessToken: '',
+        userId: '',
+        userEmail: '',
+        userName: '',
+        errorMessage: error.response.data.errorMessage,
+      });
     }
   },
 
-  signUp: (data) => async ({ setState, getState }) => {
-    setState({ userEmail: '', accessToken: '', userId: '' });
+  signUp: (data, fullName) => async ({ setState, getState }) => {
+    setState({ userEmail: '', accessToken: '', userId: '', userName: fullName });
     try {
       const response = await axios.post(`${process.env.REACT_APP_PATIENT_SIGNUP}`, data);
 
       setState({
         userEmail: response.data.email,
+        userName: fullName,
       });
     } catch (error) {
-      setState({ accessToken: '', userId: '', userName: '' });
+      setState({ accessToken: '', userId: '', userName: '', userEmail: '' });
     }
   },
 
@@ -47,12 +55,12 @@ const actions = {
         userId: response.data.id,
       });
     } catch (error) {
-      setState({ accessToken: '', userId: '', userEmail: '' });
+      setState({ accessToken: '', userId: '', userEmail: '', userName: '' });
     }
   },
 
   signOut: () => async ({ setState, getState }) => {
-    setState({ accessToken: '', userId: '', userEmail: '' });
+    setState({ accessToken: '', userId: '', userEmail: '', userName: '' });
   },
 
   savePreviousLocation: (location) => ({ getState, setState }) => {
