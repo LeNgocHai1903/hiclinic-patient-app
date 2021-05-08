@@ -20,8 +20,6 @@ const SignUp = () => {
   const [OTPValue, setOTPValue] = useState('');
   const history = useHistory();
 
-  console.log(state);
-
   const initialValues = {
     email: '',
     password: '',
@@ -31,7 +29,7 @@ const SignUp = () => {
 
   const validateSchema = Yup.object().shape({
     email: Yup.string()
-      .email(`${t('invalidEmail')}`)
+      .email('Email is not valid')
       .required(`${t('emailIsRequired')}`)
       .max(50),
     fullName: Yup.string()

@@ -49,13 +49,11 @@ const NewsList = (props) => {
 
   if (numberOfPages) {
     for (let i = 0; i < numberOfPages; i++) {
-      console.log(i);
       displayPagination.push(
         <PaginationItem active={i === changePage}>
           <PaginationLink onClick={() => changePageHandler(i)}>{i + 1}</PaginationLink>
         </PaginationItem>,
       );
-      console.log(i);
     }
   }
 
@@ -81,7 +79,6 @@ const NewsList = (props) => {
             {/* <Pagination data={data} type={'news'} itemPerPage={3}>
               <NewsItemGrid />
             </Pagination> */}
-            {console.log('data: ', data)}
             {data.listNews.map((item) => {
               return <NewsItem data={item} />;
             })}

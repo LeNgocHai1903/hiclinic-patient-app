@@ -75,6 +75,8 @@
   "thisFieldIsRequired": "This field is required",
   "passwordRequired": "Password is required",
   "confirmPasswordRequired": "Confirm password is required",
-  "matchPassword": "Password not match",
-  "invalidEmail" : "Invalid email"
+  "matchPassword": "Confirm password must match",
+  "invalidEmail": "Invalid email format",
+  "notAvailable": "Not Available",
+  "years": "Years"
 }

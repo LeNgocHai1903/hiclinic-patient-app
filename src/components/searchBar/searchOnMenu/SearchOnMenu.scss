@@ -1,19 +1,28 @@
-.search-on-menu {
-  margin: 12px 16px;
+.search-on-menu-container {
   display: flex;
   align-items: center;
+  justify-content: center;
 }
 
-.search-on-menu-input {
+.search-on-menu {
+  display: flex;
+}
+
+.search-input-on-menu {
   height: 30px;
-  width: 250px;
+  width: 220px;
   border: 1px solid rgb(62, 63, 61);
   border-radius: 10px;
-  text-align: center;
   font-size: 16px;
+  text-align: center;
+
+  &:focus {
+    outline: none;
+  }
 }
 
-.search-on-menu i {
+.search-icon-on-menu {
   position: absolute;
   margin-left: 10px;
+  margin-top: 8px;
 }

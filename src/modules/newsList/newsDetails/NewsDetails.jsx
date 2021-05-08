@@ -5,8 +5,7 @@ import { useTranslation } from 'react-i18next';
 
 import apiWrapper from '../../../api/apiWrapper';
 import LoadingSpinner from '../../../components/loadingSpinner/LoadingSpinner';
-
-import {NEWS_URL} from '../../../api/apiUrl';
+import { NEWS_URL } from '../../../api/apiUrl';
 
 import './NewsDetails.scss';
 
@@ -14,9 +13,6 @@ const NewsDetails = () => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   const newsId = useParams();
-  // const createMarkup = (content) => {
-  //   return { __html: content };
-  // };
 
   const { t } = useTranslation();
 

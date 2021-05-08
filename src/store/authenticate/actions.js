@@ -20,13 +20,23 @@ const actions = {
         userName: response.data.fullName,
       });
     } catch (error) {
-      setState({
-        accessToken: '',
-        userId: '',
-        userEmail: '',
-        userName: '',
-        errorMessage: error.response.data.errorMessage,
-      });
+      if (error.response.data.status === 401) {
+        setState({
+          accessToken: '',
+          userId: '',
+          userEmail: '',
+          userName: '',
+          errorMessage: 'Email or password is incorrect',
+        });
+      } else {
+        setState({
+          accessToken: '',
+          userId: '',
+          userEmail: '',
+          userName: '',
+          errorMessage: error.response.data.errorMessage,
+        });
+      }
     }
   },
 
@@ -45,7 +55,6 @@ const actions = {
 
   confirmOTP: (data) => async ({ setState, getState }) => {
     try {
-      console.log(getState().userEmail);
       const response = await axios.get(
         `${process.env.REACT_APP_PATIENT_SIGNUP}/confirm?token=${data}&email=${getState().userEmail}`,
       );

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import './BookingModal.scss';
 import 'react-calendar/dist/Calendar.css';
@@ -11,6 +11,8 @@ import { useCounter } from '../../../store/booking/bookingStore';
 
 import { Formik } from 'formik';
 import * as Yup from 'yup';
+import apiWrapper from '../../../api/apiWrapper';
+import { DOCTORS_DETAIL } from '../../../api/apiUrl';
 
 import Backdrop from '../../../components/backdrop/BackDrop';
 import MiniModal from '../../../components/modal/MiniModal';
@@ -20,7 +22,35 @@ const Modal = (props) => {
   const [value, onChange] = useState(new Date());
   const [modal, setModal] = useState(false);
 
+  const [doctor, setDoctor] = useState([]);
+  const [schedule, setSchedule] = useState([]);
+
+  let timeList = [];
+
   const { data, doc } = props;
+
+  function convert(str) {
+    var date = new Date(str),
+      mnth = ('0' + (date.getMonth() + 1)).slice(-2),
+      day = ('0' + date.getDate()).slice(-2);
+    return [date.getFullYear(), mnth, day].join('-');
+  }
+
+  useEffect(() => {
+    apiWrapper({
+      url: `${DOCTORS_DETAIL}/${doc.docId}`,
+      method: 'GET',
+    }).then((res) => {
+      setDoctor(res);
+      setSchedule(res.workingSchedule);
+    });
+  }, [doc.docId]);
+
+  switch (convert(value)) {
+    case `${convert(value)}`:
+      timeList = schedule.find((item) => item.workingDate === convert(value));
+      break;
+  }
 
   const toggle = () => {
     setModal(!modal);
@@ -36,20 +66,16 @@ const Modal = (props) => {
 
   const { t } = useTranslation();
 
-  const timeList = [
-    { time: '9AM- 12AM', id: '1' },
-    { time: '12AM- 18AM', id: '2' },
-    { time: '18AM- 21PM', id: '3' },
-  ];
-
   const initialValues = {
     date: value.toLocaleDateString('en-GB'),
-    time: '',
+    time: {
+      startAt: '',
+      endAt: '',
+    },
   };
 
   const validateSchema = Yup.object().shape({
     date: Yup.string().required('Please pick a date before make a book'),
-
     time: Yup.string().required('Please choose one timebox'),
   });
 
@@ -59,8 +85,6 @@ const Modal = (props) => {
       actions.setSubmitting(false);
     });
   };
-
-  console.log(props);
   return (
     <>
       <Backdrop show={props.show} clicked={props.modalClosed} />
@@ -76,7 +100,10 @@ const Modal = (props) => {
                   <div className="booking-modal-doctor">
                     <h3>{data.clinicName}</h3>
                     <label>
-                      <b>{t('doctorName')}:</b> {doc.docName}{' '}
+                      <b>{t('doctorName')}:</b> {doctor.fullName}{' '}
+                    </label>
+                    <label>
+                      <b>{t('experience')}: </b> {doctor.experience} {t('years')}
                     </label>
                   </div>
                 </div>
@@ -94,18 +121,26 @@ const Modal = (props) => {
                 </div>
                 <div className="booking-modal-time">
                   <div className="booking-modal-time-list">
-                    {timeList.map((item) => (
-                      <button
-                        key={item.id}
-                        className={item.time === values.time ? 'time-selected-active' : 'time-selected'}
-                        value={item.time}
-                        id={item.id}
-                        name="time"
-                        onClick={handleChange}
-                      >
-                        {item.time}
-                      </button>
-                    ))}
+                    {!timeList ? (
+                      <div>{t('notAvailable')}</div>
+                    ) : (
+                      <>
+                        {timeList.availableShifts.map((item) => (
+                          <button
+                            className={
+                              item.startAt + ' - ' + item.endAt === values.time
+                                ? 'time-selected-active'
+                                : 'time-selected'
+                            }
+                            value={item.startAt + ' - ' + item.endAt}
+                            name="time"
+                            onClick={handleChange}
+                          >
+                            {item.startAt} - {item.endAt}
+                          </button>
+                        ))}
+                      </>
+                    )}
                   </div>
                 </div>
               </div>

@@ -67,7 +67,7 @@ const SignIn = () => {
                 name="email"
                 autoComplete="off"
               />
-              {errors.email && touched.email  && <div className="signin-error">{errors.email}</div>}
+              {errors.email && touched.email && <div className="signin-error">{errors.email}</div>}
               <b>{t('password')}</b>
               <input
                 className="signin-form-input"

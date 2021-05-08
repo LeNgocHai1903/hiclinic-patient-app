@@ -26,7 +26,6 @@ const ClinicList = (props) => {
   const [changePage, setChangePage] = useState(0);
   let getSearchValue;
   let getDataOption;
-  let getSearchType;
   const history = useHistory();
 
   const { t } = useTranslation();
@@ -43,7 +42,6 @@ const ClinicList = (props) => {
         url: `${SEARCH_CLINICS}?field=${state.searchType}&value=${getSearchValue}&page=${changePage}`,
         method: 'GET',
       }).then((res) => {
-        console.log(res);
         setData(res.clinics);
         setNumberOfPages(res.numberOfPage);
         setIsLoading(false);

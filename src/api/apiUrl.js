@@ -8,3 +8,7 @@ export const CLINIC_DETAILS = `${process.env.REACT_APP_PATIENT_SERVER_URL}/clini
 
 //NEWS
 export const NEWS_URL = `${process.env.REACT_APP_PATIENT_NEWS_SERVER}`;
+
+//doctors
+
+export const DOCTORS_DETAIL = `${process.env.REACT_APP_DOCTOR_DETAIL}`;
