@@ -63,8 +63,9 @@ const actions = {
     });
   },
   makeBooking: (data) => async ({ setState, getState }) => {
-    const response = await axios.post('https://hiclinic-ms-api-gateway.herokuapp.com/booking/patient/booking', data);
+    const response = await axios.post(`${process.env.REACT_APP_PATIENT_BOOKING}`, data);
   },
+
 };
 
 export default actions;

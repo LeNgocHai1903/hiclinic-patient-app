@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react';
 import './Header.scss';
 import { useTranslation } from 'react-i18next';
+import { Media, Button } from 'reactstrap';
+import { FaGenderless } from 'react-icons/fa';
 import Pusher from 'pusher-js';
 
 import HeaderLogo from '../../asset/img/logo.png';
@@ -12,117 +14,16 @@ import { useAuth } from '../../store/authenticate/store';
 import { useHistory } from 'react-router-dom';
 
 import { MdNotificationsActive } from 'react-icons/md';
-
+//import constant
+import { APP_KEY } from '../../constant/pusher/appKey';
 const Header = () => {
   const history = useHistory();
   const { t } = useTranslation();
   const [state, actions] = useAuth();
-  const [noti, setNoti] = useState([]);
   const [notiModal, setNotiModal] = useState(false);
-  const noti1 = [
-    {
-      bookingNotification: {
-        map: {
-          doctor: {
-            map: {
-              departmentName: 'SURGICAL',
-              fullName: 'John',
-              id: '609016bc6953fc209e695e9d',
-            },
-          },
-          bookFrom: '11:00',
-          patient: {
-            map: {
-              phone: '0983333333',
-              fullName: 'Patient 03',
-              id: '608fc1009a2345833cd489e3',
-              email: 'patient03@gmail.com',
-            },
-          },
-          reasonCancelled: {},
-          bookingStatus: 'CONFIRMED',
-          bookingDate: '2021-05-04',
-          id: '609019be33a8ea1f813c7644',
-          clinic: {
-            map: {
-              clinicName: 'HiClinic',
-              id: '609016bc6953fc209e695e9d',
-            },
-          },
-          updatedAt: '2021-05-03T11:36:23',
-        },
-      },
-    },
-    {
-      bookingNotification: {
-        map: {
-          doctor: {
-            map: {
-              departmentName: 'SURGICAL',
-              fullName: 'John',
-              id: '609016bc6953fc209e695e9d',
-            },
-          },
-          bookFrom: '11:00',
-          patient: {
-            map: {
-              phone: '0983333333',
-              fullName: 'Patient 03',
-              id: '608fc1009a2345833cd489e3',
-              email: 'patient03@gmail.com',
-            },
-          },
-          reasonCancelled: {},
-          bookingStatus: 'CANCELLED',
-          bookingDate: '2021-05-04',
-          id: '609019be33a8ea1f813c7644',
-          clinic: {
-            map: {
-              clinicName: 'HiClinic',
-              id: '609016bc6953fc209e695e9d',
-            },
-          },
-          updatedAt: '2021-05-03T11:36:23',
-        },
-      },
-    },
-    {
-      bookingNotification: {
-        map: {
-          doctor: {
-            map: {
-              departmentName: 'SURGICAL',
-              fullName: 'John',
-              id: '609016bc6953fc209e695e9d',
-            },
-          },
-          bookFrom: '11:00',
-          patient: {
-            map: {
-              phone: '0983333333',
-              fullName: 'Patient 03',
-              id: '608fc1009a2345833cd489e3',
-              email: 'patient03@gmail.com',
-            },
-          },
-          reasonCancelled: {},
-          bookingStatus: 'CONFIRMED',
-          bookingDate: '2021-05-04',
-          id: '609019be33a8ea1f813c7644',
-          clinic: {
-            map: {
-              clinicName: 'HiClinic',
-              id: '609016bc6953fc209e695e9d',
-            },
-          },
-          updatedAt: '2021-05-03T11:36:23',
-        },
-      },
-    },
-  ];
 
   useEffect(() => {
-    const pusher = new Pusher('468b6ccde7891ded73ef', {
+    const pusher = new Pusher(APP_KEY, {
       cluster: 'ap1',
       encrypted: true,
     });
@@ -130,7 +31,7 @@ const Header = () => {
     channel.bind(`booking-response-handler-${state.userEmail}`, (data) => {
       console.log(data);
       if (data) {
-        setNoti((noti) => [...noti, data]);
+        actions.saveNoti(data);
       }
     });
   }, []);
@@ -189,15 +90,36 @@ const Header = () => {
                 <MdNotificationsActive onClick={openNotiModal} />
                 <span class="badge badge-warning" id="lblCartCount">
                   {' '}
-                  {noti.length}{' '}
+                  {state.noti.length}{' '}
                 </span>
-                {notiModal ? (
+                {notiModal && (
                   <div className="noti-wrraper">
-                    {noti1.map((item) => (
-                      <Noti data={item} closeNotiModal={closeNotiModal} />
-                    ))}
+                    {state.noti.length === 0 ? (
+                      <Media className="notificaiton-modal">
+                        <Media middle left className="mr-3">
+                          <FaGenderless size={35} color="primary" />
+                        </Media>
+                        <Media body>
+                          <Media heading tag="h6">
+                            {t('empty')}
+                          </Media>
+                          <Media className="noti-content">{t('noNotification')}</Media>
+                          <div className="d-flex mt-2">
+                            <Button color="link" onClick={closeNotiModal} className={`ml-2 text-success`}>
+                                {t('confirm')}
+                            </Button>
+                          </div>
+                        </Media>
+                      </Media>
+                    ) : (
+                      <>
+                        {state.noti.map((item,index) => (
+                          <Noti data={item} index={index} closeNotiModal={closeNotiModal} />
+                        ))}
+                      </>
+                    )}
                   </div>
-                ) : null}
+                )}
               </li>
             </>
           ) : (

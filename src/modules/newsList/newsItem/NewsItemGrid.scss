@@ -9,10 +9,9 @@
 
 .news-grid-item {
   border-radius: 0.5rem;
-  background-color: $primary-color-3;
+  border: 1px solid $primary-color-3;
   width: 300px;
   height: 330px;
-  padding: 5px;
   cursor: pointer;
 }
 

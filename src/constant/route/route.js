@@ -12,5 +12,6 @@ export const ROUTE_NEWS_DETAIL_BUILD = (newsId) => `/news/detail/${newsId}`;
 export const ROUTE_SIGN_IN = '/signin';
 
 //Sign Out
-
 export const ROUTE_SIGN_UP = '/signup';
+
+export const ROUTE_MY_PROFILE = '/profile';

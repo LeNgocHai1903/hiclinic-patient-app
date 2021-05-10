@@ -1,0 +1,85 @@
+@import '../../styles/variable.scss';
+
+.profile {
+  height: calc(100vh - 293px);
+}
+#patient-profile {
+  width: 70%;
+  margin: auto;
+  line-height: 1.6;
+  flex-direction: row;
+
+
+  .patient-profile-image {
+    width: 30%;
+    padding-top: 0;
+    height: fit-content;
+    margin-bottom: auto;
+  }
+  .form-control:disabled {
+    background-color: transparent;
+  }
+  .patient-profile-name {
+    font-size: 28px;
+    font-weight: bold;
+    text-align: center;
+    outline: none;
+  }
+  .patient-profile-label {
+    font-size: 20px;
+  }
+  .card-subtitle {
+    margin-bottom: 20px;
+  }
+
+  .patient-profile-email {
+    font-size: 20px;
+    //margin-bottom: 30px;
+  }
+
+  .patient-profile-phone {
+    font-size: 20px;
+  }
+  .patient-profile-input-active {
+    border-color: $primary-color-3;
+  }
+
+  #patient-profile-edit-button {
+    background-color: $primary-color-3;
+    margin-top: 20px;
+    width: 100%;
+    &:hover {
+      background-color: $primary-color-2;
+    }
+  }
+  .patient-profile-edit-true {
+    display: none;
+  }
+  .patient-profile-edit-false {
+    display: none;
+  }
+  .profile-edit-buttons {
+    justify-content: space-evenly;
+    margin-left: 0;
+    margin-right: 0;
+    margin-top: 20px;
+    .patient-profile-save {
+      background-color: $primary-color-3;
+      &:hover {
+        background-color: $primary-color-2;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 920px) {
+  #patient-profile {
+    width: 50%;
+    flex-direction: column;
+
+    .patient-profile-image {
+      width: 100%;
+    }
+  }
+
+}

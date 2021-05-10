@@ -29,7 +29,8 @@ const BookingModal = (props) => {
   const [schedule, setSchedule] = useState([]);
   const [userId, setUserId] = useState('');
 
-  let timeList = [];
+  let timeLists = [];
+  let listTimeAvailable = [];
 
   const { data, doc } = props;
 
@@ -50,22 +51,26 @@ const BookingModal = (props) => {
     });
   }, [doc.docId]);
 
-  useEffect(() => {
-    apiWrapper({
-      url: `${process.env.REACT_APP_PATIENT_SERVER_URL}/info`,
-      method: 'GET',
-      headers: {
-        Authorization: `Bearer ${authState.accessToken}`,
-      },
-    }).then((res) => {
-      setUserId(res.id);
-    });
-  }, []);
-
-  switch (convert(value)) {
-    case `${convert(value)}`:
-      timeList = schedule.find((item) => item.workingDate === convert(value));
-      break;
+  timeLists = schedule.find((item) => item.workingDate === convert(value));
+  console.log('time list', timeLists);
+  if (timeLists) {
+    var i;
+    var j;
+    for (j = 0; j < timeLists.availableShifts.length; j++) {
+      var timeEndConverted = Number(timeLists.availableShifts[j].endAt.split(':', 1));
+      var timeStartConverted = Number(timeLists.availableShifts[j].startAt.split(':', 1));
+      var shiftAmount = timeEndConverted - timeStartConverted;
+      console.log(shiftAmount);
+      for (i = 0; i < shiftAmount; i++) {
+        listTimeAvailable.push({
+          startAt: (timeStartConverted + i).toString() + ':00',
+          endAt: (timeStartConverted + i + 1).toString() + ':00',
+        });
+      }
+      console.log('result', listTimeAvailable);
+    }
+  } else {
+    console.log('not available');
   }
 
   const toggle = () => {
@@ -84,8 +89,10 @@ const BookingModal = (props) => {
     setModal(!modal);
     actions.saveDoctorSchedule(schedule, doctor.experience);
     actions.saveDateAndTime(value.toLocaleDateString('en-CA'), time);
-    actions.savePatientData(userId, authState.userName, authState.userEmail);
+    actions.savePatientData(authState.userId, authState.userName, authState.userEmail);
   };
+
+  console.log(authState);
 
   const confirmBooking = async () => {
     await actions.makeBooking(state.dataBooking);
@@ -114,6 +121,7 @@ const BookingModal = (props) => {
       actions.setSubmitting(false);
     });
   };
+
 
   return (
     <>
@@ -151,11 +159,11 @@ const BookingModal = (props) => {
                 </div>
                 <div className="booking-modal-time">
                   <div className="booking-modal-time-list">
-                    {!timeList ? (
-                      <div>{t('notAvailable')}</div>
+                    {listTimeAvailable.length === 0 ? (
+                      <div className="booking-no-result">{t('notAvailable')}</div>
                     ) : (
                       <>
-                        {timeList.availableShifts.map((item) => (
+                        {listTimeAvailable.map((item) => (
                           <button
                             className={item.startAt === values.time ? 'time-selected-active' : 'time-selected'}
                             value={item.startAt}
@@ -198,7 +206,7 @@ const BookingModal = (props) => {
             {t('date')}: {state.dataBooking.bookingDate}
           </label>
           <label>
-            {t('time')}: {state.dataBooking.bookingFrom}
+            {t('time')}: {state.dataBooking.bookingFrom} - {(parseInt(state.dataBooking.bookingFrom.slice(0,-3))+1).toString() + ':00'}
           </label>
         </MiniModal>
       )}

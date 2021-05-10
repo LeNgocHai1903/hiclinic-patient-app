@@ -83,5 +83,9 @@
   "bookingStatusSuccess": "Your booking was successful, Please be there on time",
   "bookingStatusReject": "Your booking was rejected",
   "reason": "Reason",
-  "successBookingMessage": "Your booking was successful!"
+  "successBookingMessage": "Your booking was successful!",
+  "empty": "It's empty!",
+  "noNotification": "There is no notification for you.",
+  "department" : "Department",
+  "clinicList" : "Clinic List" 
 }

@@ -39,7 +39,7 @@ const ClinicList = (props) => {
     if (history.location.state) {
       const { state } = history.location;
       apiWrapper({
-        url: `${SEARCH_CLINICS}?field=${state.searchType}&value=${getSearchValue}&page=${changePage}`,
+        url: `${SEARCH_CLINICS}?field=${state.searchType.toLowerCase()}&value=${getSearchValue}&page=${changePage}`,
         method: 'GET',
       }).then((res) => {
         setData(res.clinics);

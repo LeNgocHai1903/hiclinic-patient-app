@@ -19,9 +19,11 @@ const actions = {
       userName: '',
     });
     try {
-      const response = await axios.post(`${process.env.REACT_APP_SIGNIN_FAKE}`, data);
+      const response = await axios.post(`${process.env.REACT_APP_PATIENT_SERVER_URL}/signin`, data);
+      console.log(response)
       setState({
         accessToken: response.data.accessToken,
+        userId : response.data.id,
         userEmail: response.data.email,
         userName: response.data.fullName,
       });
@@ -73,7 +75,7 @@ const actions = {
   confirmOTP: (data) => async ({ setState, getState }) => {
     try {
       const response = await axios.get(
-        `${process.env.REACT_APP_PATIENT_SIGNUP}/confirm?token=${data}&email=${getState().userEmail}`,
+        `${process.env.REACT_APP_PATIENT_SERVER_URL}/registration/confirm?token=${data}&email=${getState().userEmail}`,
       );
       setState({
         accessToken: response.data.token,
@@ -106,6 +108,7 @@ const actions = {
       userEmail: '',
       userName: '',
       errorMessage: '',
+      noti: [],
     });
   },
 
@@ -126,6 +129,20 @@ const actions = {
       errorMessage: '',
     });
   },
+
+  saveNoti: (data) =>  ({ setState, getState }) => {
+    const currNoti = [...getState().noti];
+    setState({
+      ...getState(),
+      noti: [data,...currNoti]
+    });
+  },
+  removeNoti: (data) =>  ({ setState, getState }) => {
+    setState({
+      ...getState(),
+      noti: data
+    });
+  }
 };
 
 export default actions;

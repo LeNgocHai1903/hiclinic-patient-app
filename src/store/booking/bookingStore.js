@@ -3,7 +3,6 @@ import actions from './actions';
 
 const Store = createStore({
   initialState: {
-    noti: [],
     dataBooking: {
       doctor: {
         id: '',

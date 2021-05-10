@@ -64,7 +64,7 @@ const DirectMenu = () => {
               <FaClinicMedical />
               {t('clinicList')}
             </Link>
-            <Link to="/">
+            <Link to={`${routeType.ROUTE_MY_PROFILE}`}>
               <FaUserCircle />
               {t('profile')}
             </Link>
