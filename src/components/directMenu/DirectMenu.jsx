@@ -43,6 +43,7 @@ const DirectMenu = () => {
       <div className="dr-dropdown-content">
         {!state.accessToken ? (
           <>
+            <SearchOnMenu />
             <Link to={`${routeType.ROUTE_NEWS_LIST}`}>
               <FaNewspaper />
               {t('news')}

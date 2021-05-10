@@ -14,8 +14,6 @@ const SearchOnMenu = (props) => {
   const { t } = useTranslation();
   const searchType = 'clinic';
 
-  let dataOption = [];
-
   const searchChangeHandler = (e) => {
     const value = e.target.value;
     if (typingTimeOutRef.current) {
@@ -34,12 +32,12 @@ const SearchOnMenu = (props) => {
     searchValue: yup.string().required(t('requiredField')),
   });
   const formSubmit = (e) => {
+    e.preventDefault();
     history.push({
       pathname: `${routeType.ROUTE_CLINICLIST_LIST}`,
       state: {
         searchValue: searchValue,
         searchType: searchType,
-        dataOption: dataOption,
       },
       search: `?search=${searchValue}`,
     });

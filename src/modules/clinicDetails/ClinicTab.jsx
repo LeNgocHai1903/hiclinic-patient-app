@@ -45,7 +45,14 @@ const ClinicTab = (props) => {
           {docNamesOfDep[index].map(function (doctor) {
             return (
               <Col lg="4" sm="6">
-                <DoctorCard fullName={doctor.fullName} image={doctor.image} docId={doctor.id} onclick={props.onclick} />
+                {console.log(docNamesOfDep[index])}
+                <DoctorCard
+                  fullName={doctor.fullName}
+                  image={doctor.image}
+                  docId={doctor.id}
+                  onclick={props.onclick}
+                  depName={depTab}
+                />
               </Col>
             );
           })}

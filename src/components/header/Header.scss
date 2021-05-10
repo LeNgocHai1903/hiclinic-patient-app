@@ -8,6 +8,45 @@ body {
   background-color: #fff;
 }
 
+.badge {
+  padding-left: 9px;
+  padding-right: 9px;
+  -webkit-border-radius: 9px;
+  -moz-border-radius: 9px;
+  border-radius: 9px;
+}
+
+.label-warning[href],
+.badge-warning[href] {
+  background-color: #c67605;
+}
+#lblCartCount {
+  font-size: 10px;
+  background: $primary-color-3;
+  color: #fff;
+  padding: 0 5px;
+  vertical-align: top;
+  margin-left: -10px;
+}
+
+.notification-icon {
+  margin-left: 10px;
+  font-size: 20px;
+
+  svg {
+    cursor: pointer;
+  }
+}
+
+.noti-wrraper {
+  display: flex;
+  flex-direction: column;
+  z-index: 40;
+  position: absolute;
+  right: 0;
+  width: 400px;
+}
+
 .change-site-btn {
   height: 100%;
   border-radius: 0.5rem;
@@ -108,6 +147,7 @@ body {
       align-items: center;
       margin-right: 40px;
       right: 0;
+      position: absolute;
     }
 
     .site-nav-action-item {

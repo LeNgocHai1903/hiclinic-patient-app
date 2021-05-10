@@ -65,7 +65,6 @@ const MainSearchBar = (props) => {
       state: {
         searchValue: searchValue,
         searchType: searchType,
-        dataOption: dataOption,
       },
       search: `?search=${searchValue}`,
     });
@@ -139,9 +138,7 @@ const MainSearchBar = (props) => {
                               display && (
                                 <Link
                                   to={{
-                                    pathname: `${routeType.ROUTE_CLINICLIST_LIST}`,
-                                    state: item,
-                                    search: `?search=${item.clinicName}`,
+                                    pathname: `${routeType.ROUTE_CLINIC_DETAIL_BUILD(item.id)}`,
                                   }}
                                 >
                                   <ListGroupItem className="list-group-item" key={item.id}>

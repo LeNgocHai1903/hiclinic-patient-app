@@ -38,8 +38,8 @@
   "anonymousUserMsg": "Anonymous User Detected!",
   "signinMsg": "Please sign in to book a doctor.",
   "clinicDetails": "Clinic Details",
-  "clinicName": "Clinic Name",
-  "doctorName": "Doctor Name",
+  "clinicName": "Clinic's Name",
+  "doctorName": "Doctor's Name",
   "date": "Date",
   "time": "Time",
   "cancle": "Cancel",
@@ -78,5 +78,10 @@
   "matchPassword": "Confirm password must match",
   "invalidEmail": "Invalid email format",
   "notAvailable": "Not Available",
-  "years": "Years"
+  "years": "Years",
+  "signInError": "Email or password is incorrect",
+  "bookingStatusSuccess": "Your booking was successful, Please be there on time",
+  "bookingStatusReject": "Your booking was rejected",
+  "reason" : "Reason",
+  "successBookingMessage": "Your booking was successful!"
 }

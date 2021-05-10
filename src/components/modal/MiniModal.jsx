@@ -19,7 +19,7 @@ const ModalExample = (props) => {
           <Button color="secondary" onClick={props.toggle}>
             {t('cancle')}
           </Button>
-          <Button color="primary" onClick={props.onclick}>
+          <Button color="primary" onClick={props.confirmBooking}>
             {t('submit')}
           </Button>{' '}
         </ModalFooter>

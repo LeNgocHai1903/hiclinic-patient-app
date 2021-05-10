@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios from 'axios';
 
 const actions = {
   setUserId: (value) => ({ setState, getState }) => {
@@ -12,18 +12,14 @@ const actions = {
   //TODO: Handler error code from BE
   signIn: (data) => async ({ setState, getState }) => {
     setState({
-      accessToken: "",
-      userId: "",
-      userEmail: "",
-      errorMessage: "",
-      userName: "",
-      errorMessage: "",
+      accessToken: '',
+      userId: '',
+      userEmail: '',
+      errorMessage: '',
+      userName: '',
     });
     try {
-      const response = await axios.post(
-        `${process.env.REACT_APP_SIGNIN_FAKE}`,
-        data
-      );
+      const response = await axios.post(`${process.env.REACT_APP_SIGNIN_FAKE}`, data);
       setState({
         accessToken: response.data.accessToken,
         userEmail: response.data.email,
@@ -32,18 +28,18 @@ const actions = {
     } catch (error) {
       if (error.response.data.status === 401) {
         setState({
-          accessToken: "",
-          userId: "",
-          userEmail: "",
-          userName: "",
-          errorMessage: "Email or password is incorrect",
+          accessToken: '',
+          userId: '',
+          userEmail: '',
+          userName: '',
+          errorMessage: 'Email or password is incorrect',
         });
       } else {
         setState({
-          accessToken: "",
-          userId: "",
-          userEmail: "",
-          userName: "",
+          accessToken: '',
+          userId: '',
+          userEmail: '',
+          userName: '',
           errorMessage: error.response.data.errorMessage,
         });
       }
@@ -52,26 +48,23 @@ const actions = {
 
   signUp: (data, fullName) => async ({ setState, getState }) => {
     setState({
-      userEmail: "",
-      accessToken: "",
-      userId: "",
+      userEmail: '',
+      accessToken: '',
+      userId: '',
       userName: fullName,
     });
     try {
-      const response = await axios.post(
-        `${process.env.REACT_APP_PATIENT_SIGNUP}`,
-        data
-      );
+      const response = await axios.post(`${process.env.REACT_APP_PATIENT_SIGNUP}`, data);
       setState({
         userEmail: response.data.email,
         userName: fullName,
       });
     } catch (error) {
       setState({
-        accessToken: "",
-        userId: "",
-        userName: "",
-        userEmail: "",
+        accessToken: '',
+        userId: '',
+        userName: '',
+        userEmail: '',
         errorMessage: error.response.data.errorMessage,
       });
     }
@@ -80,9 +73,7 @@ const actions = {
   confirmOTP: (data) => async ({ setState, getState }) => {
     try {
       const response = await axios.get(
-        `${process.env.REACT_APP_PATIENT_SIGNUP}/confirm?token=${data}&email=${
-          getState().userEmail
-        }`
+        `${process.env.REACT_APP_PATIENT_SIGNUP}/confirm?token=${data}&email=${getState().userEmail}`,
       );
       setState({
         accessToken: response.data.token,
@@ -90,10 +81,10 @@ const actions = {
       });
     } catch (error) {
       setState({
-        accessToken: "",
-        userId: "",
+        accessToken: '',
+        userId: '',
         userEmail: getState().userEmail,
-        userName: "",
+        userName: '',
         errorMessage: error.response.data.errorMessage,
       });
     }
@@ -101,24 +92,20 @@ const actions = {
 
   resendOTP: () => async ({ setState, getState }) => {
     setState({
-      errorMessage: "",
+      errorMessage: '',
     });
     try {
-      await axios.get(
-        `${process.env.REACT_APP_PATIENT_SERVER_URL}/sendtoken&email=${
-          getState().userEmail
-        }`
-      );
+      await axios.get(`${process.env.REACT_APP_PATIENT_SERVER_URL}/sendtoken&email=${getState().userEmail}`);
     } catch (error) {}
   },
 
   signOut: () => async ({ setState, getState }) => {
     setState({
-      accessToken: "",
-      userId: "",
-      userEmail: "",
-      userName: "",
-      errorMessage: "",
+      accessToken: '',
+      userId: '',
+      userEmail: '',
+      userName: '',
+      errorMessage: '',
     });
   },
 
@@ -130,13 +117,13 @@ const actions = {
 
   deletePreviousLocation: () => ({ getState, setState }) => {
     setState({
-      previousLocation: "",
+      previousLocation: '',
     });
   },
 
   clearErrorMessage: () => async ({ setState, getState }) => {
     setState({
-      errorMessage: "",
+      errorMessage: '',
     });
   },
 };

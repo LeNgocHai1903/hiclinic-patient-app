@@ -47,14 +47,14 @@ const ClinicDetails = () => {
     setIsModalShow(!isModalShow);
   };
 
-  const bookingHandler = (docName, docImage, docId) => {
+  const bookingHandler = (docName, docImage, depName, docId) => {
     setChooseDoctor({
       docName,
       docImage,
       docId,
     });
     setIsModalShow(true);
-    actions.saveClinicAndDoctor(data.clinicName, docName);
+    actions.saveClinicAndDoctor(data.clinicName, depName, docName);
   };
   return (
     <div>

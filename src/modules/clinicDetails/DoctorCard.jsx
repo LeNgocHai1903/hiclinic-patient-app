@@ -8,7 +8,7 @@ import { useAuth } from '../../store/authenticate/store';
 
 const DoctorCard = (props) => {
   const [state, actions] = useAuth();
-  const { docId, fullName, image } = props;
+  const { docId, fullName, image, depName } = props;
   const { t } = useTranslation();
   return (
     <div>
@@ -17,7 +17,7 @@ const DoctorCard = (props) => {
         <Card body>
           <CardTitle className="doctor-name">{fullName}</CardTitle>
           {state.accessToken ? (
-            <Button className="button-book" onClick={() => props.onclick(fullName, image, docId)}>
+            <Button className="button-book" onClick={() => props.onclick(fullName, image, depName, docId)}>
               {t('bookNow')}
             </Button>
           ) : (

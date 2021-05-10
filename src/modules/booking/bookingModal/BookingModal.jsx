@@ -3,11 +3,12 @@ import { useTranslation } from 'react-i18next';
 import './BookingModal.scss';
 import 'react-calendar/dist/Calendar.css';
 import { FaRegCalendarAlt } from 'react-icons/fa';
-import { UncontrolledPopover, PopoverHeader, PopoverBody } from 'reactstrap';
+import { UncontrolledPopover, PopoverHeader, PopoverBody,Button, Modal, ModalBody, ModalFooter } from 'reactstrap';
 
 import Calendar from 'react-calendar';
 
 import { useCounter } from '../../../store/booking/bookingStore';
+import { useAuth } from '../../../store/authenticate/store';
 
 import { Formik } from 'formik';
 import * as Yup from 'yup';
@@ -17,10 +18,12 @@ import { DOCTORS_DETAIL } from '../../../api/apiUrl';
 import Backdrop from '../../../components/backdrop/BackDrop';
 import MiniModal from '../../../components/modal/MiniModal';
 
-const Modal = (props) => {
+const BookingModal = (props) => {
   const [state, actions] = useCounter();
+  const [authState, authActions] = useAuth();
   const [value, onChange] = useState(new Date());
   const [modal, setModal] = useState(false);
+  const [successBookingModal, setSuccessBookingModal] = useState(false);
 
   const [doctor, setDoctor] = useState([]);
   const [schedule, setSchedule] = useState([]);
@@ -56,12 +59,23 @@ const Modal = (props) => {
     setModal(!modal);
   };
 
+  const closeBookingMessageModal = () => {
+    setSuccessBookingModal(false);
+  }
+
   let date = new Date(); // Now
   date.setDate(date.getDate() + 30);
 
   const confirmHandler = (time) => {
     setModal(!modal);
     actions.saveDateAndTime(value.toLocaleDateString('en-GB'), time);
+    actions.savePatientData(authState.userName, authState.userEmail);
+  };
+
+  const confirmBooking = async () => {
+    await actions.makeBooking(state.dataBooking);
+    setSuccessBookingModal(true);
+    setModal(!modal);
   };
 
   const { t } = useTranslation();
@@ -85,6 +99,7 @@ const Modal = (props) => {
       actions.setSubmitting(false);
     });
   };
+  console.log(state);
   return (
     <>
       <Backdrop show={props.show} clicked={props.modalClosed} />
@@ -160,22 +175,36 @@ const Modal = (props) => {
           );
         }}
       </Formik>
-      <MiniModal toggle={toggle} modal={modal}>
+      <MiniModal toggle={toggle} modal={modal} confirmBooking={confirmBooking}>
         <h3>
-          {t('clinicName')} : {state.clinicName}
+          {t('clinicName')} : {state.dataBooking.clinic.clinicName}
         </h3>
         <label>
-          {t('doctorName')}: {state.doctorName}
+          {t('doctorName')}: {state.dataBooking.doctor.fullName}
         </label>
         <label>
-          {t('date')}: {state.bookingDate}
+          {t('date')}: {state.dataBooking.bookingDate}
         </label>
         <label>
-          {t('time')}: {state.bookingTime}
+          {t('time')}: {state.dataBooking.bookingFrom}
         </label>
       </MiniModal>
+      {successBookingModal && (
+        <div>
+          <Modal isOpen={successBookingModal} >
+            <ModalBody>
+              <div className="mini-modal">{t('successBookingMessage')}</div>
+            </ModalBody>
+            <ModalFooter>
+              <Button color="primary" onClick={closeBookingMessageModal}>
+                {t('confirm')}
+              </Button>{' '}
+            </ModalFooter>
+          </Modal>
+        </div>
+      )}
     </>
   );
 };
 
-export default Modal;
+export default BookingModal;

@@ -1,0 +1,17 @@
+@import '../../styles/variable.scss';
+
+.notificaiton-modal {
+  font-size: 12px;
+  margin-top: 10px;
+  margin-right: 10px;
+  padding: 5px;
+  background-color: white;
+  // position: absolute;
+  border: 0.2px solid $grey-color-3;
+  opacity: 0.9;
+}
+
+.noti-content {
+  display: flex;
+  flex-direction: column;
+}

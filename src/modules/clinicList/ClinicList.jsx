@@ -32,7 +32,7 @@ const ClinicList = (props) => {
 
   if (history.location.state) {
     getSearchValue = history.location.state.searchValue;
-    getDataOption = history.location.state.dataOption.length;
+    // getDataOption = history.location.state.dataOption.length;
   }
 
   useEffect(() => {
@@ -108,7 +108,7 @@ const ClinicList = (props) => {
   return (
     <>
       <MainSearchBar />
-      {getDataOption === 0 && history.location.state === 0 ? (
+      {!data ? (
         <div className="clinic-list-error"> {t('resultNotFound')} </div>
       ) : (
         <div className="container">
