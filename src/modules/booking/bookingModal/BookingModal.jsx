@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import './BookingModal.scss';
 import 'react-calendar/dist/Calendar.css';
 import { FaRegCalendarAlt } from 'react-icons/fa';
-import { UncontrolledPopover, PopoverHeader, PopoverBody,Button, Modal, ModalBody, ModalFooter } from 'reactstrap';
+import { UncontrolledPopover, PopoverHeader, PopoverBody, Button, Modal, ModalBody, ModalFooter } from 'reactstrap';
 
 import Calendar from 'react-calendar';
 
@@ -27,6 +27,7 @@ const BookingModal = (props) => {
 
   const [doctor, setDoctor] = useState([]);
   const [schedule, setSchedule] = useState([]);
+  const [userId, setUserId] = useState('');
 
   let timeList = [];
 
@@ -49,6 +50,18 @@ const BookingModal = (props) => {
     });
   }, [doc.docId]);
 
+  useEffect(() => {
+    apiWrapper({
+      url: `${process.env.REACT_APP_PATIENT_SERVER_URL}/info`,
+      method: 'GET',
+      headers: {
+        Authorization: `Bearer ${authState.accessToken}`,
+      },
+    }).then((res) => {
+      setUserId(res.id);
+    });
+  }, []);
+
   switch (convert(value)) {
     case `${convert(value)}`:
       timeList = schedule.find((item) => item.workingDate === convert(value));
@@ -60,16 +73,18 @@ const BookingModal = (props) => {
   };
 
   const closeBookingMessageModal = () => {
+    props.modalClosed();
     setSuccessBookingModal(false);
-  }
+  };
 
   let date = new Date(); // Now
   date.setDate(date.getDate() + 30);
 
   const confirmHandler = (time) => {
     setModal(!modal);
-    actions.saveDateAndTime(value.toLocaleDateString('en-GB'), time);
-    actions.savePatientData(authState.userName, authState.userEmail);
+    actions.saveDoctorSchedule(schedule, doctor.experience);
+    actions.saveDateAndTime(value.toLocaleDateString('en-CA'), time);
+    actions.savePatientData(userId, authState.userName, authState.userEmail);
   };
 
   const confirmBooking = async () => {
@@ -99,6 +114,7 @@ const BookingModal = (props) => {
       actions.setSubmitting(false);
     });
   };
+
   return (
     <>
       <Backdrop show={props.show} clicked={props.modalClosed} />
@@ -141,12 +157,8 @@ const BookingModal = (props) => {
                       <>
                         {timeList.availableShifts.map((item) => (
                           <button
-                            className={
-                              item.startAt + ' - ' + item.endAt === values.time
-                                ? 'time-selected-active'
-                                : 'time-selected'
-                            }
-                            value={item.startAt + ' - ' + item.endAt}
+                            className={item.startAt === values.time ? 'time-selected-active' : 'time-selected'}
+                            value={item.startAt}
                             name="time"
                             onClick={handleChange}
                           >
@@ -174,23 +186,25 @@ const BookingModal = (props) => {
           );
         }}
       </Formik>
-      <MiniModal toggle={toggle} modal={modal} confirmBooking={confirmBooking}>
-        <h3>
-          {t('clinicName')} : {state.dataBooking.clinic.clinicName}
-        </h3>
-        <label>
-          {t('doctorName')}: {state.dataBooking.doctor.fullName}
-        </label>
-        <label>
-          {t('date')}: {state.dataBooking.bookingDate}
-        </label>
-        <label>
-          {t('time')}: {state.dataBooking.bookingFrom}
-        </label>
-      </MiniModal>
+      {modal && (
+        <MiniModal toggle={toggle} modal={modal} confirmBooking={confirmBooking}>
+          <h3>
+            {t('clinicName')} : {state.dataBooking.clinic.clinicName}
+          </h3>
+          <label>
+            {t('doctorName')}: {state.dataBooking.doctor.fullName}
+          </label>
+          <label>
+            {t('date')}: {state.dataBooking.bookingDate}
+          </label>
+          <label>
+            {t('time')}: {state.dataBooking.bookingFrom}
+          </label>
+        </MiniModal>
+      )}
       {successBookingModal && (
         <div>
-          <Modal isOpen={successBookingModal} >
+          <Modal isOpen={successBookingModal}>
             <ModalBody>
               <div className="mini-modal">{t('successBookingMessage')}</div>
             </ModalBody>

@@ -6,22 +6,22 @@ const Store = createStore({
     noti: [],
     dataBooking: {
       doctor: {
-        id: 'Not use',
+        id: '',
         fullName: '',
-        experience: 'Not use',
+        experience: '',
         departmentName: '',
         workingSchedule: [],
       },
       patient: {
-        id: 'Not use',
+        id: '',
         fullName: '',
         email: '',
       },
       clinic: {
-        id: 'Not use',
+        id: '',
         clinicName: '',
-        phone: 'Not use',
-        address: 'Not use',
+        phone: '',
+        address: '',
       },
       bookingDate: '',
       bookingFrom: '',

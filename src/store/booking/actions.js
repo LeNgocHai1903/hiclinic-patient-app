@@ -1,18 +1,42 @@
 import axios from 'axios';
 
 const actions = {
-  saveClinicAndDoctor: (clinicName, departmentName, doctorName) => ({ setState, getState }) => {
+  saveDoctor: (departmentName, doctorName, docId) => ({ setState, getState }) => {
     setState({
       dataBooking: {
         ...getState().dataBooking,
         doctor: {
           ...getState().dataBooking.doctor,
+          id: docId,
           fullName: doctorName,
           departmentName,
         },
+      },
+    });
+  },
+
+  saveDoctorSchedule: (schedule, experience) => ({ setState, getState }) => {
+    setState({
+      dataBooking: {
+        ...getState().dataBooking,
+        doctor: {
+          ...getState().dataBooking.doctor,
+          experience,
+          workingSchedule: schedule,
+        },
+      },
+    });
+  },
+
+  saveClinic: (data) => ({ setState, getState }) => {
+    setState({
+      dataBooking: {
+        ...getState().dataBooking,
         clinic: {
-          ...getState().dataBooking.clinic,
-          clinicName,
+          id: data.id,
+          clinicName: data.clinicName,
+          phone: 'empty',
+          address: data.address,
         },
       },
     });
@@ -26,12 +50,12 @@ const actions = {
       },
     });
   },
-  savePatientData: (userName, userEmail) => ({ setState, getState }) => {
+  savePatientData: (id, userName, userEmail) => ({ setState, getState }) => {
     setState({
       dataBooking: {
         ...getState().dataBooking,
         patient: {
-          ...getState().dataBooking.patient,
+          id,
           email: userEmail,
           fullName: userName,
         },
@@ -39,7 +63,7 @@ const actions = {
     });
   },
   makeBooking: (data) => async ({ setState, getState }) => {
-    const response = await axios.post('https://test-depoy-ms-booking.herokuapp.com/booking/patient/booking', data);
+    const response = await axios.post('https://hiclinic-ms-api-gateway.herokuapp.com/booking/patient/booking', data);
   },
 };
 

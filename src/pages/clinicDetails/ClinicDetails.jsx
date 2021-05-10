@@ -54,8 +54,10 @@ const ClinicDetails = () => {
       docId,
     });
     setIsModalShow(true);
-    actions.saveClinicAndDoctor(data.clinicName, depName, docName);
+    actions.saveClinic(data);
+    actions.saveDoctor(depName, docName, docId);
   };
+
   return (
     <div>
       {loading || overviewLoading ? (

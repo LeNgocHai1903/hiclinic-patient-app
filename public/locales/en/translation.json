@@ -82,6 +82,6 @@
   "signInError": "Email or password is incorrect",
   "bookingStatusSuccess": "Your booking was successful, Please be there on time",
   "bookingStatusReject": "Your booking was rejected",
-  "reason" : "Reason",
+  "reason": "Reason",
   "successBookingMessage": "Your booking was successful!"
 }
