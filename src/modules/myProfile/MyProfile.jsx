@@ -83,7 +83,6 @@ const MyProfile = () => {
     email: Yup.string().matches(emailRegex, 'Invalid email').email('Invalid email').required('Required'),
   });
   const submitForm = async (values) => {
-    console.log('token ', token);
     const data = {
       email: values.email,
       fullName: values.fullName,
@@ -121,7 +120,6 @@ const MyProfile = () => {
                 }}
                 validationSchema={ProfileSchema}
                 onSubmit={(values) => {
-                  console.log('values: ', values);
 
                   //2 lines below will be moved to then
                   setVisible(true);

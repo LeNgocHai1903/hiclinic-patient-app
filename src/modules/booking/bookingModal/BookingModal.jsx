@@ -52,7 +52,7 @@ const BookingModal = (props) => {
   }, [doc.docId]);
 
   timeLists = schedule.find((item) => item.workingDate === convert(value));
-  console.log('time list', timeLists);
+
   if (timeLists) {
     var i;
     var j;
@@ -60,17 +60,14 @@ const BookingModal = (props) => {
       var timeEndConverted = Number(timeLists.availableShifts[j].endAt.split(':', 1));
       var timeStartConverted = Number(timeLists.availableShifts[j].startAt.split(':', 1));
       var shiftAmount = timeEndConverted - timeStartConverted;
-      console.log(shiftAmount);
       for (i = 0; i < shiftAmount; i++) {
         listTimeAvailable.push({
           startAt: (timeStartConverted + i).toString() + ':00',
           endAt: (timeStartConverted + i + 1).toString() + ':00',
         });
       }
-      console.log('result', listTimeAvailable);
     }
   } else {
-    console.log('not available');
   }
 
   const toggle = () => {
@@ -92,7 +89,6 @@ const BookingModal = (props) => {
     actions.savePatientData(authState.userId, authState.userName, authState.userEmail);
   };
 
-  console.log(authState);
 
   const confirmBooking = async () => {
     await actions.makeBooking(state.dataBooking);

@@ -20,7 +20,7 @@ const actions = {
     });
     try {
       const response = await axios.post(`${process.env.REACT_APP_PATIENT_SERVER_URL}/signin`, data);
-      console.log(response)
+
       setState({
         accessToken: response.data.accessToken,
         userId : response.data.id,

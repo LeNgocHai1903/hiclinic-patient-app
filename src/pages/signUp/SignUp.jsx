@@ -47,7 +47,6 @@ const SignUp = () => {
       .required(`${t('confirmPasswordRequired')}`)
       .oneOf([Yup.ref('password'), null], `${t('matchPassword')}`),
   });
-  console.log(state);
   const submitForm = async (values, formActions) => {
     const data = {
       email: values.email,

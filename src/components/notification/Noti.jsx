@@ -31,8 +31,6 @@ const Noti = (props) => {
     actions.removeNoti(state.noti.splice(index, 1));
   };
 
-  console.log(props.index);
-
   return (
     <Media className="notificaiton-modal">
       <Media middle left className="mr-3">
