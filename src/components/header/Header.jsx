@@ -19,6 +19,7 @@ const Header = () => {
   const [state, actions] = useAuth();
   const [noti, setNoti] = useState([]);
   const [notiModal, setNotiModal] = useState(false);
+
   const noti1 = [
     {
       bookingNotification: {
@@ -26,7 +27,7 @@ const Header = () => {
           doctor: {
             map: {
               departmentName: 'SURGICAL',
-              fullName: 'John',
+              fullName: 'John1',
               id: '609016bc6953fc209e695e9d',
             },
           },
@@ -45,7 +46,7 @@ const Header = () => {
           id: '609019be33a8ea1f813c7644',
           clinic: {
             map: {
-              clinicName: 'HiClinic',
+              clinicNamez: 'HiClinic',
               id: '609016bc6953fc209e695e9d',
             },
           },
@@ -59,7 +60,7 @@ const Header = () => {
           doctor: {
             map: {
               departmentName: 'SURGICAL',
-              fullName: 'John',
+              fullName: 'John2',
               id: '609016bc6953fc209e695e9d',
             },
           },
@@ -92,7 +93,139 @@ const Header = () => {
           doctor: {
             map: {
               departmentName: 'SURGICAL',
-              fullName: 'John',
+              fullName: 'John3',
+              id: '609016bc6953fc209e695e9d',
+            },
+          },
+          bookFrom: '11:00',
+          patient: {
+            map: {
+              phone: '0983333333',
+              fullName: 'Patient 03',
+              id: '608fc1009a2345833cd489e3',
+              email: 'patient03@gmail.com',
+            },
+          },
+          reasonCancelled: {},
+          bookingStatus: 'CONFIRMED',
+          bookingDate: '2021-05-04',
+          id: '609019be33a8ea1f813c7644',
+          clinic: {
+            map: {
+              clinicName: 'HiClinic',
+              id: '609016bc6953fc209e695e9d',
+            },
+          },
+          updatedAt: '2021-05-03T11:36:23',
+        },
+      },
+    },
+    {
+      bookingNotification: {
+        map: {
+          doctor: {
+            map: {
+              departmentName: 'SURGICAL',
+              fullName: 'John4',
+              id: '609016bc6953fc209e695e9d',
+            },
+          },
+          bookFrom: '11:00',
+          patient: {
+            map: {
+              phone: '0983333333',
+              fullName: 'Patient 03',
+              id: '608fc1009a2345833cd489e3',
+              email: 'patient03@gmail.com',
+            },
+          },
+          reasonCancelled: {},
+          bookingStatus: 'CONFIRMED',
+          bookingDate: '2021-05-04',
+          id: '609019be33a8ea1f813c7644',
+          clinic: {
+            map: {
+              clinicName: 'HiClinic',
+              id: '609016bc6953fc209e695e9d',
+            },
+          },
+          updatedAt: '2021-05-03T11:36:23',
+        },
+      },
+    },
+    {
+      bookingNotification: {
+        map: {
+          doctor: {
+            map: {
+              departmentName: 'SURGICAL',
+              fullName: 'John5',
+              id: '609016bc6953fc209e695e9d',
+            },
+          },
+          bookFrom: '11:00',
+          patient: {
+            map: {
+              phone: '0983333333',
+              fullName: 'Patient 03',
+              id: '608fc1009a2345833cd489e3',
+              email: 'patient03@gmail.com',
+            },
+          },
+          reasonCancelled: {},
+          bookingStatus: 'CONFIRMED',
+          bookingDate: '2021-05-04',
+          id: '609019be33a8ea1f813c7644',
+          clinic: {
+            map: {
+              clinicName: 'HiClinic',
+              id: '609016bc6953fc209e695e9d',
+            },
+          },
+          updatedAt: '2021-05-03T11:36:23',
+        },
+      },
+    },
+    {
+      bookingNotification: {
+        map: {
+          doctor: {
+            map: {
+              departmentName: 'SURGICAL',
+              fullName: 'John6',
+              id: '609016bc6953fc209e695e9d',
+            },
+          },
+          bookFrom: '11:00',
+          patient: {
+            map: {
+              phone: '0983333333',
+              fullName: 'Patient 03',
+              id: '608fc1009a2345833cd489e3',
+              email: 'patient03@gmail.com',
+            },
+          },
+          reasonCancelled: {},
+          bookingStatus: 'CONFIRMED',
+          bookingDate: '2021-05-04',
+          id: '609019be33a8ea1f813c7644',
+          clinic: {
+            map: {
+              clinicName: 'HiClinic',
+              id: '609016bc6953fc209e695e9d',
+            },
+          },
+          updatedAt: '2021-05-03T11:36:23',
+        },
+      },
+    },
+    {
+      bookingNotification: {
+        map: {
+          doctor: {
+            map: {
+              departmentName: 'SURGICAL',
+              fullName: 'John7',
               id: '609016bc6953fc209e695e9d',
             },
           },
@@ -120,6 +253,8 @@ const Header = () => {
       },
     },
   ];
+  
+  
 
   useEffect(() => {
     const pusher = new Pusher('468b6ccde7891ded73ef', {
@@ -154,6 +289,17 @@ const Header = () => {
   const closeNotiModal = () => {
     setNotiModal(false);
   };
+  const visibleNoti = noti1.filter((item, index) =>
+    index > noti1.length - 4 - 1
+  )
+
+
+  const reactNoti = visibleNoti.map((item) => {
+    return (
+      <Noti data={item} closeNotiModal={closeNotiModal} />
+    )
+  })
+
 
   return (
     <div className="header-container">
@@ -187,12 +333,9 @@ const Header = () => {
               </li>
               <li className="notification-icon">
                 <MdNotificationsActive onClick={openNotiModal} />
-                <span class='badge badge-warning' id='lblCartCount'> {noti.length} </span>
                 {notiModal ? (
                   <div className="noti-wrraper">
-                    {noti1.map((item) => (
-                      <Noti data={item} closeNotiModal={closeNotiModal} />
-                    ))}
+                    {reactNoti}
                   </div>
                 ) : null}
               </li>
