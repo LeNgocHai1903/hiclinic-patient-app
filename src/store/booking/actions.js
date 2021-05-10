@@ -27,7 +27,6 @@ const actions = {
     });
   },
   savePatientData: (userName, userEmail) => ({ setState, getState }) => {
-    console.log(getState());
     setState({
       dataBooking: {
         ...getState().dataBooking,

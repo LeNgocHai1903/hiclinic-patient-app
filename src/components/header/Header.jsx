@@ -263,7 +263,6 @@ const Header = () => {
     });
     const channel = pusher.subscribe(`booking-response-${state.userEmail}`);
     channel.bind(`booking-response-handler-${state.userEmail}`, (data) => {
-      console.log(data);
       if (data) {
         setNoti((noti) => [...noti, data]);
       }

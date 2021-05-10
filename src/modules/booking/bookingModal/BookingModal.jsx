@@ -99,7 +99,6 @@ const BookingModal = (props) => {
       actions.setSubmitting(false);
     });
   };
-  console.log(state);
   return (
     <>
       <Backdrop show={props.show} clicked={props.modalClosed} />

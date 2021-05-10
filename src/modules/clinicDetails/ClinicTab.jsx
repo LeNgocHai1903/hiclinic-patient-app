@@ -45,7 +45,6 @@ const ClinicTab = (props) => {
           {docNamesOfDep[index].map(function (doctor) {
             return (
               <Col lg="4" sm="6">
-                {console.log(docNamesOfDep[index])}
                 <DoctorCard
                   fullName={doctor.fullName}
                   image={doctor.image}
