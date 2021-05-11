@@ -38,6 +38,7 @@ const MainSearchBar = (props) => {
           setLoading(false);
         })
         .catch((error) => {
+          console.log(error);
         });
     }
     return () => {
@@ -136,6 +137,7 @@ const MainSearchBar = (props) => {
                             (item) =>
                               display && (
                                 <Link
+                                  key={item.id}
                                   to={{
                                     pathname: `${routeType.ROUTE_CLINIC_DETAIL_BUILD(item.id)}`,
                                   }}
@@ -153,8 +155,10 @@ const MainSearchBar = (props) => {
                 </div>
 
                 <select className="search-type" onChange={selectChangeHandler}>
-                  {variableSearchType.map((type) => (
-                    <option value={type}>{type}</option>
+                  {variableSearchType.map((type, index) => (
+                    <option key={index} value={type}>
+                      {type}
+                    </option>
                   ))}
                 </select>
               </div>

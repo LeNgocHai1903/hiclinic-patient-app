@@ -38,7 +38,7 @@ const SignIn = () => {
       email: values.email,
       password: values.password,
     };
-    await actions.signIn(data, values.email);
+    await actions.signIn(data);
     formActions.setSubmitting(false);
   };
 

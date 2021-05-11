@@ -79,7 +79,7 @@ const DirectMenu = () => {
         <div>
           <Modal isOpen={isShowSignOutModal} toggle={closeModal}>
             <ModalHeader toggle={isShowSignOutModal}>{t('youHavedSignOut')}</ModalHeader>
-            <ModalBody>
+            <ModalBody className="signout-icon-success">
               <FaCheckCircle className="checked-icon" />
             </ModalBody>
             <ModalFooter>

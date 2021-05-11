@@ -1,5 +1,6 @@
 import './ListView.scss';
 import { useTranslation } from 'react-i18next';
+import { useHistory } from 'react-router-dom';
 
 import { Link } from 'react-router-dom';
 
@@ -7,11 +8,12 @@ import * as routeType from '../../../../constant/route/route';
 
 const ListClinicItem = (props) => {
   const { data } = props;
+  const history = useHistory();
 
   const { t } = useTranslation();
   const moveToDetail = (e) => {
     e.preventDefault();
-    props.history.push(`${routeType.ROUTE_CLINIC_DETAIL_BUILD(props.data.id)}`);
+    history.push(`${routeType.ROUTE_CLINIC_DETAIL_BUILD(props.data.id)}`);
   };
   return (
     <div className="clinic-item-list-row">

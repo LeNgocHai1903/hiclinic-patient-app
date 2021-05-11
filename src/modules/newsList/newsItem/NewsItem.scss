@@ -8,6 +8,7 @@
   margin-right: auto;
   margin-left: auto;
   border-radius: 0.7rem;
+  overflow: hidden;
 }
 
 .news-href {
@@ -29,7 +30,7 @@
 .news-item img {
   width: 40%;
   padding-right: 10px;
-  border-radius: 0.7rem;
+  background-color: $primary-color-3;
 }
 
 .news-item-content {
@@ -39,6 +40,7 @@
   padding: 10px;
   height: 100%;
   width: 60%;
+  overflow: hidden;
 }
 
 .news-item-content h3 {

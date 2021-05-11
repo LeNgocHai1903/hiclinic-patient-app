@@ -21,7 +21,7 @@ const SearchOnMenu = (props) => {
     }
     typingTimeOutRef.current = setTimeout(() => {
       setSearchValue(value);
-    }, 300);
+    }, 30);
   };
 
   //formik

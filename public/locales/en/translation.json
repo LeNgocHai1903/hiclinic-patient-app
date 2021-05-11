@@ -32,7 +32,7 @@
   "resultNotFound": "Result not found",
   "clinicWebsite": "Clinic Website",
   "moreDetails": "More Details",
-  "seeAllClinic": "See all clinic",
+  "seeAllClinic": "See all clinics",
   "seeAllNews": "See all news",
   "booking": "BOOKING",
   "anonymousUserMsg": "Anonymous User Detected!",
@@ -82,10 +82,16 @@
   "signInError": "Email or password is incorrect",
   "bookingStatusSuccess": "Your booking was successful, Please be there on time",
   "bookingStatusReject": "Your booking was rejected",
+  "bookingStatusCompelete": "Your booking is compeleted. Thank you!",
   "reason": "Reason",
   "successBookingMessage": "Your booking was successful!",
   "empty": "It's empty!",
   "noNotification": "There is no notification for you.",
-  "department" : "Department",
-  "clinicList" : "Clinic List" 
+  "department": "Department",
+  "clinicList": "Clinic List",
+  "editProfile": "Edit Profile",
+  "saveProfile": "Save",
+  "confirmProfileCancel": "Are you sure you want to discard changes?",
+  "ok": "OK",
+  "readonlyEmail": "You cannot make changes to e-mail"
 }

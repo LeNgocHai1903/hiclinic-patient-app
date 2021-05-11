@@ -3,12 +3,12 @@
 .clinic-item-list {
   width: 70%;
   margin-top: 20px;
-  background-color: $primary-color-3;
   align-items: center;
   justify-content: center;
   border-radius: 0.5rem;
   cursor: pointer;
   height: 300px;
+  border: 1px solid $primary-color-3;
 }
 
 .clinic-item-list-row {
@@ -30,7 +30,7 @@
 // }
 
 .clinic-item-list-img {
-  width: 60%;
+  width: 400px;
   border-radius: 0.7rem;
   padding-right: 10px;
 }
@@ -45,6 +45,8 @@
 
 .clinic-item-description {
   font-size: 14px;
+  max-height: 170px;
+  overflow: hidden;
 }
 
 @include media-breakpoint-only(xs) {

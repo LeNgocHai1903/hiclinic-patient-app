@@ -11,7 +11,8 @@ export const initialState = {
   userName: '',
   previousLocation: '',
   userEmail: '',
-  noti :[],
+  noti: [],
+  phone: '',
 };
 
 const AuthenticationStore = createStore({ initialState, actions, name: AuthenticationStoreName });

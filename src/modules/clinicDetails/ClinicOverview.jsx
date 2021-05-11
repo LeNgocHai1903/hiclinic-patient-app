@@ -8,6 +8,7 @@ const ClinicOverview = (props) => {
   const { t } = useTranslation();
   const data = props;
   const clinicDetails = data.data;
+  var today = new Date();
   return (
     <div>
       {clinicDetails ? (
@@ -22,7 +23,7 @@ const ClinicOverview = (props) => {
               </p>
               <p>
                 <BiTime className="icon time-icon" />
-                {clinicDetails.openAt}:00 - {clinicDetails.closeAt}:00
+                {clinicDetails.openAt} - {clinicDetails.closeAt}
               </p>
             </div>
           </div>

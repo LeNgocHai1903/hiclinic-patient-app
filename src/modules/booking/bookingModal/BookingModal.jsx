@@ -27,7 +27,6 @@ const BookingModal = (props) => {
 
   const [doctor, setDoctor] = useState([]);
   const [schedule, setSchedule] = useState([]);
-  const [userId, setUserId] = useState('');
 
   let timeLists = [];
   let listTimeAvailable = [];
@@ -45,26 +44,33 @@ const BookingModal = (props) => {
     apiWrapper({
       url: `${DOCTORS_DETAIL}/${doc.docId}`,
       method: 'GET',
-    }).then((res) => {
-      setDoctor(res);
-      setSchedule(res.workingSchedule);
-    });
+    })
+      .then((res) => {
+        setDoctor(res);
+        setSchedule(res.workingSchedule);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }, [doc.docId]);
 
   timeLists = schedule.find((item) => item.workingDate === convert(value));
-
   if (timeLists) {
-    var i;
-    var j;
-    for (j = 0; j < timeLists.availableShifts.length; j++) {
-      var timeEndConverted = Number(timeLists.availableShifts[j].endAt.split(':', 1));
-      var timeStartConverted = Number(timeLists.availableShifts[j].startAt.split(':', 1));
-      var shiftAmount = timeEndConverted - timeStartConverted;
-      for (i = 0; i < shiftAmount; i++) {
-        listTimeAvailable.push({
-          startAt: (timeStartConverted + i).toString() + ':00',
-          endAt: (timeStartConverted + i + 1).toString() + ':00',
-        });
+    if (!timeLists.availableShifts) {
+      listTimeAvailable = [];
+    } else {
+      var i;
+      var j;
+      for (j = 0; j < timeLists.availableShifts.length; j++) {
+        var timeEndConverted = Number(timeLists.availableShifts[j].endAt.split(':', 1));
+        var timeStartConverted = Number(timeLists.availableShifts[j].startAt.split(':', 1));
+        var shiftAmount = timeEndConverted - timeStartConverted;
+        for (i = 0; i < shiftAmount; i++) {
+          listTimeAvailable.push({
+            startAt: (timeStartConverted + i).toString() + ':00',
+            endAt: (timeStartConverted + i + 1).toString() + ':00',
+          });
+        }
       }
     }
   } else {
@@ -72,11 +78,6 @@ const BookingModal = (props) => {
 
   const toggle = () => {
     setModal(!modal);
-  };
-
-  const closeBookingMessageModal = () => {
-    props.modalClosed();
-    setSuccessBookingModal(false);
   };
 
   let date = new Date(); // Now
@@ -88,7 +89,6 @@ const BookingModal = (props) => {
     actions.saveDateAndTime(value.toLocaleDateString('en-CA'), time);
     actions.savePatientData(authState.userId, authState.userName, authState.userEmail);
   };
-
 
   const confirmBooking = async () => {
     await actions.makeBooking(state.dataBooking);
@@ -117,8 +117,6 @@ const BookingModal = (props) => {
       actions.setSubmitting(false);
     });
   };
-
-
   return (
     <>
       <Backdrop show={props.show} clicked={props.modalClosed} />
@@ -202,23 +200,24 @@ const BookingModal = (props) => {
             {t('date')}: {state.dataBooking.bookingDate}
           </label>
           <label>
-            {t('time')}: {state.dataBooking.bookingFrom} - {(parseInt(state.dataBooking.bookingFrom.slice(0,-3))+1).toString() + ':00'}
+            {t('time')}: {state.dataBooking.bookingFrom} -{' '}
+            {(parseInt(state.dataBooking.bookingFrom.slice(0, -3)) + 1).toString() + ':00'}
           </label>
         </MiniModal>
       )}
       {successBookingModal && (
-        <div>
-          <Modal isOpen={successBookingModal}>
-            <ModalBody>
-              <div className="mini-modal">{t('successBookingMessage')}</div>
-            </ModalBody>
-            <ModalFooter>
-              <Button color="primary" onClick={closeBookingMessageModal}>
-                {t('confirm')}
-              </Button>{' '}
-            </ModalFooter>
-          </Modal>
-        </div>
+        <>
+          <div>
+            <Modal isOpen={successBookingModal}>
+              <ModalBody>
+                <div className="mini-modal">{t('successBookingMessage')}</div>
+              </ModalBody>
+            </Modal>
+          </div>
+          {setTimeout(() => {
+            setSuccessBookingModal(false);
+          }, 2000)}
+        </>
       )}
     </>
   );

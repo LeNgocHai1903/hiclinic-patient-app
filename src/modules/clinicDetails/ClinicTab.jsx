@@ -16,7 +16,7 @@ const ClinicTab = (props) => {
 
   const depTab = depNames.map((item, index) => {
     return (
-      <NavItem className="nav-item">
+      <NavItem key={index} className="nav-item">
         <NavLink
           className={classnames({ active: activeTab === index.toString() })}
           onClick={() => {
@@ -36,6 +36,7 @@ const ClinicTab = (props) => {
   const tabPaneContent = depNames.map((depTab, index) => {
     return (
       <TabPane
+        key={index}
         tabId={index}
         className={classnames({
           active: activeTab === index.toString(),
@@ -44,7 +45,7 @@ const ClinicTab = (props) => {
         <Row>
           {docNamesOfDep[index].map(function (doctor) {
             return (
-              <Col lg="4" sm="6">
+              <Col lg="4" sm="6" key={doctor.id}>
                 <DoctorCard
                   fullName={doctor.fullName}
                   image={doctor.image}

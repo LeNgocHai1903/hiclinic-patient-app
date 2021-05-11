@@ -24,7 +24,7 @@ const MessageModal = (props) => {
 
   return (
     <div>
-      <Button className="button-modal" onClick={toggle}>
+      <Button id="button-modal" onClick={toggle}>
         {buttonLabel}
       </Button>
       <Modal isOpen={modal} toggle={toggle} className={className}>

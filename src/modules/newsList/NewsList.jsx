@@ -68,14 +68,14 @@ const NewsList = (props) => {
           <div>
             <MainSearchBar />
             <h1>{t('newsList')}</h1>
-            <div className="news-sort">
+            {/* <div className="news-sort">
               <select id="sort-list" onChange={changeSortHandler} className="sort-option">
                 <optgroup label="Alphabet">
                   <option value="alphabet inc"> {t('a_z')} </option>
                   <option value="alphabet desc"> {t('z_a')} </option>
                 </optgroup>
               </select>
-            </div>
+            </div> */}
             {/* <Pagination data={data} type={'news'} itemPerPage={3}>
               <NewsItemGrid />
             </Pagination> */}

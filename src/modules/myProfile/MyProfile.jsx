@@ -10,6 +10,7 @@ import { Tooltip, InputGroup, InputGroupAddon, InputGroupText, Input, Row, FormF
 import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
 import { useAuth } from '../../store/authenticate/store';
+import { useHistory } from 'react-router-dom';
 
 const MyProfile = () => {
   const { t } = useTranslation();
@@ -24,19 +25,26 @@ const MyProfile = () => {
   const [visible, setVisible] = useState(false);
   const [tooltipOpen, setTooltipOpen] = useState(false);
   const [state, actions] = useAuth();
+  const [cancel, setCancel] = useState(false);
+  const history = useHistory();
 
   const token = state.accessToken;
+
   useEffect(() => {
-    apiWrapper({
-      url: `${process.env.REACT_APP_PATIENT_SERVER_URL}/info`,
-      method: 'GET',
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    }).then((res) => {
-      setData(res);
-      setLoading(false);
-    });
+    if (token) {
+      apiWrapper({
+        url: `${process.env.REACT_APP_PATIENT_SERVER_URL}/info`,
+        method: 'GET',
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }).then((res) => {
+        setData(res);
+        setLoading(false);
+      });
+    } else {
+      history.push('/');
+    }
   }, [profileId.profileId]);
 
   const changeFullName = (value) => {
@@ -68,6 +76,7 @@ const MyProfile = () => {
   };
   const cancelHandler = () => {
     setEdit(false);
+    setCancel(true);
   };
 
   const fullNameRegex = /^[_A-z0-9]*((-|\s)*[_A-z0-9])*$/;
@@ -76,7 +85,6 @@ const MyProfile = () => {
   const ProfileSchema = Yup.object().shape({
     fullName: Yup.string()
       .required('Please enter the required field')
-      .min(8, 'Minimum 8 characters')
       .max(30, 'Maximum 30 characters')
       .matches(fullNameRegex, 'Invalid name'),
     phone: Yup.string().matches(phoneRegex, 'Invalid phone'),
@@ -120,12 +128,10 @@ const MyProfile = () => {
                 }}
                 validationSchema={ProfileSchema}
                 onSubmit={(values) => {
-
                   //2 lines below will be moved to then
                   setVisible(true);
                   setEdit(false);
                   submitForm(values);
-
                 }}
               >
                 {({ errors, touched, values, handleBlur, handleChange, setFieldValue, handleSubmit, status }) => (
@@ -152,7 +158,11 @@ const MyProfile = () => {
                           tag={Field}
                           component="input"
                           invalid={!!errors.fullName && touched.fullName && edit}
-                          value={edit || (!edit && visible) || (!edit && !visible) ? values.fullName : data.fullName}
+                          value={
+                            edit || (!edit && visible) || (!edit && !visible && !cancel) || !cancel
+                              ? values.fullName
+                              : data.fullName
+                          }
                           disabled={edit === false}
                           onChange={handleChange}
                           onBlur={handleBlur}
@@ -176,15 +186,10 @@ const MyProfile = () => {
                           name="email"
                           id="email"
                           type="email"
-                          // onChange={handleChange}
-                          // onBlur={handleBlur}
-                          // invalid={!!errors.email && touched.email && edit}
-                          // value={edit || (!edit && visible) || (!edit && !visible) ? values.email : data.email}
-                          // disabled={edit === false}
                           readOnly
                         />
                         <Tooltip placement="right" isOpen={tooltipOpen} target="email" toggle={tooltipToggle}>
-                          {t("readonlyEmail")}
+                          {t('readonlyEmail')}
                         </Tooltip>
                         <FormFeedback>{errors.email}</FormFeedback>
                       </InputGroup>
@@ -200,7 +205,9 @@ const MyProfile = () => {
                           id="phone"
                           name="phone"
                           invalid={!!errors.phone && touched.phone && edit}
-                          value={edit || (!edit && visible) || (!edit && !visible) ? values.phone : data.phone}
+                          value={
+                            edit || (!edit && visible) || (!edit && !visible && !cancel) ? values.phone : data.phone
+                          }
                           disabled={edit === false}
                           onChange={handleChange}
                           onBlur={handleBlur}

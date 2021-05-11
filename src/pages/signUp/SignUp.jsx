@@ -36,9 +36,9 @@ const SignUp = () => {
       .required(`${t('emailIsRequired')}`)
       .max(50),
     fullName: Yup.string()
-      .matches(/^[_A-z0-9]*((-|\s)*[_A-z0-9])*$/, `${'noSpecialCharacters'}`)
+      .matches(/^[_A-z0-9]*((-|\s)*[_A-z0-9])*$/, `${t('noSpecialCharacters')}`)
       .required(`${t('thisFieldIsRequired')}`)
-      .max(20),
+      .max(30),
     password: Yup.string()
       .min(8)
       .max(50)
@@ -47,6 +47,7 @@ const SignUp = () => {
       .required(`${t('confirmPasswordRequired')}`)
       .oneOf([Yup.ref('password'), null], `${t('matchPassword')}`),
   });
+  console.log(state);
   const submitForm = async (values, formActions) => {
     const data = {
       email: values.email,
@@ -59,11 +60,6 @@ const SignUp = () => {
     if (checkError === 'true') {
       setOTPModal(true);
     }
-    // if (!state.errorMessage) {
-    //   setOTPModal(true);
-    // } else {
-    //   setOTPModal(false);
-    // }
     formActions.setSubmitting(false);
   };
 

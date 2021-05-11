@@ -83,11 +83,11 @@
   display: flex;
   justify-content: center;
   height: 150px;
-  width: 80%;
+  width: 60%;
 }
 
 .time-selected {
-  width: 250px;
+  width: 20%;
   margin-left: 20px;
   margin-top: 10px;
   height: 50px;
@@ -97,7 +97,7 @@
 }
 
 .time-selected-active {
-  width: 250px;
+  width: 20%;
   margin-left: 20px;
   margin-top: 10px;
   height: 50px;
@@ -105,6 +105,7 @@
   border-radius: 0.5rem;
   background-color: $primary-color-3;
 }
+
 .booking-no-result {
   color: $primary-color-3;
   font-size: 18px;

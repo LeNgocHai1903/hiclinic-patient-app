@@ -25,14 +25,12 @@ const ClinicList = (props) => {
   const [data, setData] = useState([]);
   const [changePage, setChangePage] = useState(0);
   let getSearchValue;
-  let getDataOption;
   const history = useHistory();
 
   const { t } = useTranslation();
 
   if (history.location.state) {
     getSearchValue = history.location.state.searchValue;
-    // getDataOption = history.location.state.dataOption.length;
   }
 
   useEffect(() => {

@@ -23,7 +23,7 @@ const actions = {
 
       setState({
         accessToken: response.data.accessToken,
-        userId : response.data.id,
+        userId: response.data.id,
         userEmail: response.data.email,
         userName: response.data.fullName,
       });
@@ -47,6 +47,46 @@ const actions = {
       }
     }
   },
+  myProfile: (data, header) => async ({ setState, getState }) => {
+    setState({
+      userId: '',
+      userEmail: '',
+      errorMessage: '',
+      userName: '',
+      phone: '',
+      errorMessage: '',
+    });
+    try {
+      console.log('get into the function');
+      const response = await axios.put(`${process.env.REACT_APP_PATIENT_SERVER_URL}/info`, data, {
+        headers: header,
+      });
+      setState({
+        userEmail: response.data.email,
+        userName: response.data.fullName,
+        phone: response.data.phone,
+        userId: response.data.id,
+      });
+    } catch (error) {
+      if (error.response.data.status === 401) {
+        setState({
+          userId: '',
+          userEmail: '',
+          userName: '',
+          phone: '',
+          errorMessage: 'Unauthorized',
+        });
+      } else {
+        setState({
+          userId: '',
+          userEmail: '',
+          userName: '',
+          phone: '',
+          errorMessage: error.response.data.errorMessage,
+        });
+      }
+    }
+  },
 
   signUp: (data, fullName) => async ({ setState, getState }) => {
     setState({
@@ -56,7 +96,7 @@ const actions = {
       userName: fullName,
     });
     try {
-      const response = await axios.post(`${process.env.REACT_APP_PATIENT_SIGNUP}`, data);
+      const response = await axios.post(`${process.env.REACT_APP_PATIENT_SERVER_URL}/registration`, data);
       setState({
         userEmail: response.data.email,
         userName: fullName,
@@ -130,19 +170,19 @@ const actions = {
     });
   },
 
-  saveNoti: (data) =>  ({ setState, getState }) => {
+  saveNoti: (data) => ({ setState, getState }) => {
     const currNoti = [...getState().noti];
     setState({
       ...getState(),
-      noti: [data,...currNoti]
+      noti: [data, ...currNoti],
     });
   },
-  removeNoti: (data) =>  ({ setState, getState }) => {
+  removeNoti: () => ({ setState, getState }) => {
     setState({
       ...getState(),
-      noti: data
+      noti: getState().noti,
     });
-  }
+  },
 };
 
 export default actions;

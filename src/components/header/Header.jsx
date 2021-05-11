@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { Media, Button } from 'reactstrap';
 import { FaGenderless } from 'react-icons/fa';
 import Pusher from 'pusher-js';
+import BackDrop from '../backdrop/BackDrop';
 
 import HeaderLogo from '../../asset/img/logo.png';
 import DirectMenu from '../directMenu/DirectMenu';
@@ -28,11 +29,13 @@ const Header = () => {
       encrypted: true,
     });
     const channel = pusher.subscribe(`booking-response-${state.userEmail}`);
-    channel.bind(`booking-response-handler-${state.userEmail}`, (data) => {
+    var callback = (data) => {
       if (data) {
+        console.log(data);
         actions.saveNoti(data);
       }
-    });
+    };
+    channel.bind(`booking-response-handler-${state.userEmail}`, callback);
   }, []);
 
   const changeToSigninPage = () => {
@@ -64,14 +67,6 @@ const Header = () => {
               <img src={HeaderLogo} alt="HiClinic Logo" />
             </a>
           </div>
-
-          <ul className="site-nav-desktop-nav">
-            <li className="site-nav-desktop-item">
-              <a href={`${process.env.REACT_APP_CLINIC_PORTAL}`} target="_blank" rel="noreferrer">
-                <button className="btn btn-primary">{t('Clinic Website')}</button>
-              </a>
-            </li>
-          </ul>
         </div>
 
         <div className="site-nav-mobile-only mobile-logo">
@@ -87,37 +82,40 @@ const Header = () => {
               </li>
               <li className="notification-icon">
                 <MdNotificationsActive onClick={openNotiModal} />
-                <span class="badge badge-warning" id="lblCartCount">
+                <span className="badge badge-warning" id="lblCartCount">
                   {' '}
                   {state.noti.length}{' '}
                 </span>
                 {notiModal && (
-                  <div className="noti-wrraper">
-                    {state.noti.length === 0 ? (
-                      <Media className="notificaiton-modal">
-                        <Media middle left className="mr-3">
-                          <FaGenderless size={35} color="primary" />
-                        </Media>
-                        <Media body>
-                          <Media heading tag="h6">
-                            {t('empty')}
+                  <>
+                    <BackDrop show={true} clicked={closeNotiModal} />
+                    <div className="noti-wrraper">
+                      {state.noti.length === 0 ? (
+                        <Media className="notificaiton-modal">
+                          <Media middle left className="mr-3">
+                            <FaGenderless size={35} color="primary" />
                           </Media>
-                          <Media className="noti-content">{t('noNotification')}</Media>
-                          <div className="d-flex mt-2">
-                            <Button color="link" onClick={closeNotiModal} className={`ml-2 text-success`}>
-                                {t('confirm')}
-                            </Button>
-                          </div>
+                          <Media body>
+                            <Media heading tag="h6">
+                              {t('empty')}
+                            </Media>
+                            <Media className="noti-content">{t('noNotification')}</Media>
+                            <div className="d-flex mt-2">
+                              <Button color="link" onClick={closeNotiModal} className={`ml-2 text-success`}>
+                                  {t('confirm')}
+                              </Button>
+                            </div>
+                          </Media>
                         </Media>
-                      </Media>
-                    ) : (
-                      <>
-                        {state.noti.map((item,index) => (
-                          <Noti data={item} index={index} closeNotiModal={closeNotiModal} />
-                        ))}
-                      </>
-                    )}
-                  </div>
+                      ) : (
+                        <>
+                          {state.noti.map((item, index) => (
+                            <Noti data={item} index={index} closeNotiModal={closeNotiModal} />
+                          ))}
+                        </>
+                      )}
+                    </div>
+                  </>
                 )}
               </li>
             </>
