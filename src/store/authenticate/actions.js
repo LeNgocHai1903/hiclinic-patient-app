@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios from "axios";
 
 const actions = {
   setUserId: (value) => ({ setState, getState }) => {
@@ -12,14 +12,17 @@ const actions = {
   //TODO: Handler error code from BE
   signIn: (data) => async ({ setState, getState }) => {
     setState({
-      accessToken: '',
-      userId: '',
-      userEmail: '',
-      errorMessage: '',
-      userName: '',
+      accessToken: "",
+      userId: "",
+      userEmail: "",
+      errorMessage: "",
+      userName: "",
     });
     try {
-      const response = await axios.post(`${process.env.REACT_APP_PATIENT_SERVER_URL}/signin`, data);
+      const response = await axios.post(
+        `${process.env.REACT_APP_PATIENT_SERVER_URL}/signin`,
+        data
+      );
 
       setState({
         accessToken: response.data.accessToken,
@@ -30,18 +33,18 @@ const actions = {
     } catch (error) {
       if (error.response.data.status === 401) {
         setState({
-          accessToken: '',
-          userId: '',
-          userEmail: '',
-          userName: '',
-          errorMessage: 'Email or password is incorrect',
+          accessToken: "",
+          userId: "",
+          userEmail: "",
+          userName: "",
+          errorMessage: "Email or password is incorrect",
         });
       } else {
         setState({
-          accessToken: '',
-          userId: '',
-          userEmail: '',
-          userName: '',
+          accessToken: "",
+          userId: "",
+          userEmail: "",
+          userName: "",
           errorMessage: error.response.data.errorMessage,
         });
       }
@@ -49,18 +52,22 @@ const actions = {
   },
   myProfile: (data, header) => async ({ setState, getState }) => {
     setState({
-      userId: '',
-      userEmail: '',
-      errorMessage: '',
-      userName: '',
-      phone: '',
-      errorMessage: '',
+      userId: "",
+      userEmail: "",
+      errorMessage: "",
+      userName: "",
+      phone: "",
+      errorMessage: "",
     });
     try {
-      console.log('get into the function');
-      const response = await axios.put(`${process.env.REACT_APP_PATIENT_SERVER_URL}/info`, data, {
-        headers: header,
-      });
+      console.log("get into the function");
+      const response = await axios.put(
+        `${process.env.REACT_APP_PATIENT_SERVER_URL}/info`,
+        data,
+        {
+          headers: header,
+        }
+      );
       setState({
         userEmail: response.data.email,
         userName: response.data.fullName,
@@ -70,18 +77,18 @@ const actions = {
     } catch (error) {
       if (error.response.data.status === 401) {
         setState({
-          userId: '',
-          userEmail: '',
-          userName: '',
-          phone: '',
-          errorMessage: 'Unauthorized',
+          userId: "",
+          userEmail: "",
+          userName: "",
+          phone: "",
+          errorMessage: "Unauthorized",
         });
       } else {
         setState({
-          userId: '',
-          userEmail: '',
-          userName: '',
-          phone: '',
+          userId: "",
+          userEmail: "",
+          userName: "",
+          phone: "",
           errorMessage: error.response.data.errorMessage,
         });
       }
@@ -90,23 +97,27 @@ const actions = {
 
   signUp: (data, fullName) => async ({ setState, getState }) => {
     setState({
-      userEmail: '',
-      accessToken: '',
-      userId: '',
+      errorMessage: "",
+      userEmail: "",
+      accessToken: "",
+      userId: "",
       userName: fullName,
     });
     try {
-      const response = await axios.post(`${process.env.REACT_APP_PATIENT_SERVER_URL}/registration`, data);
+      const response = await axios.post(
+        `${process.env.REACT_APP_PATIENT_SERVER_URL}/registration`,
+        data
+      );
       setState({
         userEmail: response.data.email,
         userName: fullName,
       });
     } catch (error) {
       setState({
-        accessToken: '',
-        userId: '',
-        userName: '',
-        userEmail: '',
+        accessToken: "",
+        userId: "",
+        userName: "",
+        userEmail: "",
         errorMessage: error.response.data.errorMessage,
       });
     }
@@ -115,7 +126,9 @@ const actions = {
   confirmOTP: (data) => async ({ setState, getState }) => {
     try {
       const response = await axios.get(
-        `${process.env.REACT_APP_PATIENT_SERVER_URL}/registration/confirm?token=${data}&email=${getState().userEmail}`,
+        `${
+          process.env.REACT_APP_PATIENT_SERVER_URL
+        }/registration/confirm?token=${data}&email=${getState().userEmail}`
       );
       setState({
         accessToken: response.data.token,
@@ -123,10 +136,10 @@ const actions = {
       });
     } catch (error) {
       setState({
-        accessToken: '',
-        userId: '',
+        accessToken: "",
+        userId: "",
         userEmail: getState().userEmail,
-        userName: '',
+        userName: "",
         errorMessage: error.response.data.errorMessage,
       });
     }
@@ -134,20 +147,24 @@ const actions = {
 
   resendOTP: () => async ({ setState, getState }) => {
     setState({
-      errorMessage: '',
+      errorMessage: "",
     });
     try {
-      await axios.get(`${process.env.REACT_APP_PATIENT_SERVER_URL}/sendtoken&email=${getState().userEmail}`);
+      await axios.get(
+        `${process.env.REACT_APP_PATIENT_SERVER_URL}/sendtoken&email=${
+          getState().userEmail
+        }`
+      );
     } catch (error) {}
   },
 
   signOut: () => async ({ setState, getState }) => {
     setState({
-      accessToken: '',
-      userId: '',
-      userEmail: '',
-      userName: '',
-      errorMessage: '',
+      accessToken: "",
+      userId: "",
+      userEmail: "",
+      userName: "",
+      errorMessage: "",
       noti: [],
     });
   },
@@ -160,13 +177,13 @@ const actions = {
 
   deletePreviousLocation: () => ({ getState, setState }) => {
     setState({
-      previousLocation: '',
+      previousLocation: "",
     });
   },
 
   clearErrorMessage: () => async ({ setState, getState }) => {
     setState({
-      errorMessage: '',
+      errorMessage: "",
     });
   },
 
