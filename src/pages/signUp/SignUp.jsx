@@ -19,6 +19,7 @@ const SignUp = () => {
   const [state, actions] = useAuth();
   const [OTPValue, setOTPValue] = useState("");
   const history = useHistory();
+  const [isLoading,setIsLoading] = useState(false);
 
   state.accessToken && history.push(state.previousLocation);
 
@@ -46,6 +47,8 @@ const SignUp = () => {
       .required(`${t("confirmPasswordRequired")}`)
       .oneOf([Yup.ref("password"), null], `${t("matchPassword")}`),
   });
+
+  console.log(state)
   const submitForm = async (values, formActions) => {
     const data = {
       email: values.email,
@@ -54,11 +57,14 @@ const SignUp = () => {
     };
 
     await actions.signUp(data, values.fullName);
-    if (state.errorMessage === "") {
-      setOTPModal(true);
-    } else {
-      setOTPModal(false);
-    }
+    setTimeout(() => {
+      if (state.errorMessage) {
+        setOTPModal(true);
+      } else {
+        setOTPModal(false);
+      }
+    }, 2000);
+
     formActions.setSubmitting(false);
   };
 
