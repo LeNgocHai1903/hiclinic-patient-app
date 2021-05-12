@@ -57,10 +57,8 @@ const actions = {
       errorMessage: "",
       userName: "",
       phone: "",
-      errorMessage: "",
     });
     try {
-      console.log("get into the function");
       const response = await axios.put(
         `${process.env.REACT_APP_PATIENT_SERVER_URL}/info`,
         data,

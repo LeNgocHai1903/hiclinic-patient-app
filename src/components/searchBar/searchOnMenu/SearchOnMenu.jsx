@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import { withRouter, useHistory } from 'react-router-dom';
 import { Formik } from 'formik';

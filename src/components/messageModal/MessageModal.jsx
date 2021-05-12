@@ -5,6 +5,8 @@ import './MessageModal.scss';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import { useHistory } from 'react-router-dom';
 
+import {useAuth} from '../../store/authenticate/store';
+
 import * as routeType from '../../constant/route/route';
 
 const MessageModal = (props) => {
@@ -12,6 +14,7 @@ const MessageModal = (props) => {
 
   const history = useHistory();
   const { buttonLabel, className } = props;
+  const [state, actions] = useAuth()
 
   const [modal, setModal] = useState(false);
 
@@ -19,6 +22,7 @@ const MessageModal = (props) => {
 
   const switchPageHander = (e) => {
     e.preventDefault();
+    actions.savePreviousLocation(history.location.pathname);
     history.push(`${routeType.ROUTE_SIGN_IN}`);
   };
 
