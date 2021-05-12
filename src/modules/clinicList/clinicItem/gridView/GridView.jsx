@@ -1,6 +1,8 @@
 import './GridView.scss';
 import { useTranslation } from 'react-i18next';
 import { useHistory } from 'react-router-dom';
+import {FaRegClock} from 'react-icons/fa';
+import {GrLocation} from 'react-icons/gr'
 
 import { Link } from 'react-router-dom';
 
@@ -24,13 +26,13 @@ const GridClinicItem = (props) => {
         <div className="clinic-item-content">
           <div className="clinic-item-content-header">
             <div className="clinic-name">
-              <b data-test-name="name">{data.clinicName}</b>
+              <p data-test-name="name">{data.clinicName}</p>
             </div>
             <div data-test-time="time">
-              <b>{t('workingTime')}:</b> {data.openAt} - {data.closeAt}
+              <FaRegClock/> {data.openAt} - {data.closeAt}
             </div>
             <div className="clinic-address" data-test-address="address">
-              <b>{t('address')}:</b> {data.address}
+              <GrLocation/> {data.address}
             </div>
           </div>
         </div>

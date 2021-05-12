@@ -1,16 +1,31 @@
-import { Card, Button, CardTitle, CardSubtitle, CardImg, Alert } from 'reactstrap';
-import './MyProfile.scss';
-import { useTranslation } from 'react-i18next';
-import { useState, useEffect } from 'react';
-import apiWrapper from '../../api/apiWrapper';
-import { useParams } from 'react-router-dom';
-import LoadingSpinner from '../../components/loadingSpinner/LoadingSpinner';
-import classnames from 'classnames';
-import { Tooltip, InputGroup, InputGroupAddon, InputGroupText, Input, Row, FormFeedback } from 'reactstrap';
-import { Formik, Form, Field } from 'formik';
-import * as Yup from 'yup';
-import { useAuth } from '../../store/authenticate/store';
-import { useHistory } from 'react-router-dom';
+import {
+  Card,
+  Button,
+  CardTitle,
+  CardSubtitle,
+  CardImg,
+  Alert,
+} from "reactstrap";
+import "./MyProfile.scss";
+import { useTranslation } from "react-i18next";
+import { useState, useEffect } from "react";
+import apiWrapper from "../../api/apiWrapper";
+import { useParams } from "react-router-dom";
+import LoadingSpinner from "../../components/loadingSpinner/LoadingSpinner";
+import classnames from "classnames";
+import {
+  Tooltip,
+  InputGroup,
+  InputGroupAddon,
+  InputGroupText,
+  Input,
+  Row,
+  FormFeedback,
+} from "reactstrap";
+import { Formik, Form, Field } from "formik";
+import * as Yup from "yup";
+import { useAuth } from "../../store/authenticate/store";
+import { useHistory } from "react-router-dom";
 
 const MyProfile = () => {
   const { t } = useTranslation();
@@ -21,7 +36,7 @@ const MyProfile = () => {
   const [fullName, setFullName] = useState();
   const [email, setEmail] = useState();
   const [phone, setPhone] = useState();
-  const [status, setStatus] = useState();
+  const [error, setError] = useState();
   const [visible, setVisible] = useState(false);
   const [tooltipOpen, setTooltipOpen] = useState(false);
   const [state, actions] = useAuth();
@@ -34,7 +49,7 @@ const MyProfile = () => {
     if (token) {
       apiWrapper({
         url: `${process.env.REACT_APP_PATIENT_SERVER_URL}/info`,
-        method: 'GET',
+        method: "GET",
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -43,9 +58,19 @@ const MyProfile = () => {
         setLoading(false);
       });
     } else {
-      history.push('/');
+      history.push("/");
     }
   }, [profileId.profileId]);
+
+  const handleFailed = (error) => {
+    if (error.status === 401) {
+      setError(t("unauthorized"));
+    } else {
+      setError(
+        error.data.message || error.data.errorMessage || error.message || error
+      );
+    }
+  };
 
   const changeFullName = (value) => {
     if (fullName !== value) setFullName(value);
@@ -84,11 +109,14 @@ const MyProfile = () => {
   const phoneRegex = /^[0][0-9]{9}$/;
   const ProfileSchema = Yup.object().shape({
     fullName: Yup.string()
-      .required('Please enter the required field')
-      .max(30, 'Maximum 30 characters')
-      .matches(fullNameRegex, 'Invalid name'),
-    phone: Yup.string().matches(phoneRegex, 'Invalid phone'),
-    email: Yup.string().matches(emailRegex, 'Invalid email').email('Invalid email').required('Required'),
+      .required("Please enter the required field")
+      .max(30, "Maximum 30 characters")
+      .matches(fullNameRegex, "Invalid name"),
+    phone: Yup.string().matches(phoneRegex, "Invalid phone"),
+    email: Yup.string()
+      .matches(emailRegex, "Invalid email")
+      .email("Invalid email")
+      .required("Required"),
   });
   const submitForm = async (values) => {
     const data = {
@@ -99,8 +127,7 @@ const MyProfile = () => {
     const header = {
       Authorization: `Bearer ${token}`,
     };
-    await actions.myProfile(data, header);
-    //formActions.setSubmitting(false);
+    await actions.myProfile(data, header, handleFailed);
   };
 
   return (
@@ -134,32 +161,46 @@ const MyProfile = () => {
                   submitForm(values);
                 }}
               >
-                {({ errors, touched, values, handleBlur, handleChange, setFieldValue, handleSubmit, status }) => (
+                {({
+                  errors,
+                  touched,
+                  values,
+                  handleBlur,
+                  handleChange,
+                  setFieldValue,
+                  handleSubmit,
+                  status,
+                }) => (
                   <Form onSubmit={handleSubmit}>
-                    {state && state.errorMessage ? (
+                    {state && error ? (
                       <Alert color="info" isOpen={visible} toggle={onDismiss}>
-                        Something went wrong
+                        {t("somethingwentwrong")}
                       </Alert>
                     ) : (
                       <Alert color="info" isOpen={visible} toggle={onDismiss}>
-                        Successfully updated!
+                        {t("successfullUpdated")}
                       </Alert>
                     )}
                     <CardTitle>
                       <InputGroup>
                         <Input
                           className={classnames({
-                            'patient-profile-name': true,
-                            'patient-profile-input': true,
-                            'patient-profile-input-active': edit === true,
+                            "patient-profile-name": true,
+                            "patient-profile-input": true,
+                            "patient-profile-input-active": edit === true,
                           })}
                           name="fullName"
                           id="fullName"
                           tag={Field}
                           component="input"
-                          invalid={!!errors.fullName && touched.fullName && edit}
+                          invalid={
+                            !!errors.fullName && touched.fullName && edit
+                          }
                           value={
-                            edit || (!edit && visible) || (!edit && !visible && !cancel) || !cancel
+                            edit ||
+                            (!edit && visible) ||
+                            (!edit && !visible && !cancel) ||
+                            !cancel
                               ? values.fullName
                               : data.fullName
                           }
@@ -174,12 +215,14 @@ const MyProfile = () => {
                     <CardSubtitle className="patient-profile-input">
                       <InputGroup className="patient-profile-email">
                         <InputGroupAddon addonType="prepend">
-                          <InputGroupText className="patient-profile-label">{t('email')}:</InputGroupText>
+                          <InputGroupText className="patient-profile-label">
+                            {t("email")}:
+                          </InputGroupText>
                         </InputGroupAddon>
                         <Input
                           className={classnames({
-                            'patient-profile-email': true,
-                            'patient-profile-input-active': edit === true,
+                            "patient-profile-email": true,
+                            "patient-profile-input-active": edit === true,
                           })}
                           tag={Field}
                           component="input"
@@ -188,8 +231,13 @@ const MyProfile = () => {
                           type="email"
                           readOnly
                         />
-                        <Tooltip placement="right" isOpen={tooltipOpen} target="email" toggle={tooltipToggle}>
-                          {t('readonlyEmail')}
+                        <Tooltip
+                          placement="right"
+                          isOpen={tooltipOpen}
+                          target="email"
+                          toggle={tooltipToggle}
+                        >
+                          {t("readonlyEmail")}
                         </Tooltip>
                         <FormFeedback>{errors.email}</FormFeedback>
                       </InputGroup>
@@ -197,16 +245,24 @@ const MyProfile = () => {
                     <CardSubtitle className="patient-profile-input">
                       <InputGroup className="patient-profile-phone patient-profile-input">
                         <InputGroupAddon addonType="prepend">
-                          <InputGroupText className="patient-profile-label">{t('phoneNumber')}:</InputGroupText>
+                          <InputGroupText className="patient-profile-label">
+                            {t("phoneNumber")}:
+                          </InputGroupText>
                         </InputGroupAddon>
                         <Input
-                          className={classnames({ 'patient-profile-phone': true })}
+                          className={classnames({
+                            "patient-profile-phone": true,
+                          })}
                           component="input"
                           id="phone"
                           name="phone"
                           invalid={!!errors.phone && touched.phone && edit}
                           value={
-                            edit || (!edit && visible) || (!edit && !visible && !cancel) ? values.phone : data.phone
+                            edit ||
+                            (!edit && visible) ||
+                            (!edit && !visible && !cancel)
+                              ? values.phone
+                              : data.phone
                           }
                           disabled={edit === false}
                           onChange={handleChange}
@@ -217,29 +273,31 @@ const MyProfile = () => {
                     </CardSubtitle>
                     <Button
                       id="patient-profile-edit-button"
-                      className={classnames({ 'patient-profile-edit-true': edit === true })}
+                      className={classnames({
+                        "patient-profile-edit-true": edit === true,
+                      })}
                       onClick={() => editHandler()}
                     >
-                      {t('editProfile')}
+                      {t("editProfile")}
                     </Button>
                     <Row className="profile-edit-buttons">
                       <Button
                         className={classnames({
-                          'patient-profile-cancel': edit === true,
-                          'patient-profile-edit-false': edit === false,
+                          "patient-profile-cancel": edit === true,
+                          "patient-profile-edit-false": edit === false,
                         })}
                         onClick={() => cancelHandler()}
                       >
-                        {t('cancle')}
+                        {t("cancle")}
                       </Button>
                       <Button
                         type="submit"
                         className={classnames({
-                          'patient-profile-save': edit === true,
-                          'patient-profile-edit-false': edit === false,
+                          "patient-profile-save": edit === true,
+                          "patient-profile-edit-false": edit === false,
                         })}
                       >
-                        {t('saveProfile')}
+                        {t("saveProfile")}
                       </Button>
                     </Row>
                   </Form>

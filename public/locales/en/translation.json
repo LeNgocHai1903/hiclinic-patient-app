@@ -5,8 +5,8 @@
     "signUp": "Sign up",
     "yourLink": "Your Link"
   },
-  "signIn": "Sign in",
-  "signUp": "Sign up",
+  "signIn": "SIGN IN",
+  "signUp": "SIGN UP",
   "yourLink": "Your Link",
   "copyright": "Copyright @2021 HiClinic",
   "termsOfUse": "Terms of Use",
@@ -17,8 +17,8 @@
   "profile": "Profile",
   "news": "News",
   "signOut": "Sign Out",
-  "topClinic": "Top Clinic",
-  "topNews": "Top News",
+  "topClinic": "HIGHLIGHTED CLINICS",
+  "topNews": "NEWS",
   "seeAll": "See All",
   "grid": "Grid",
   "list": "List",
@@ -93,5 +93,8 @@
   "saveProfile": "Save",
   "confirmProfileCancel": "Are you sure you want to discard changes?",
   "ok": "OK",
-  "readonlyEmail": "You cannot make changes to e-mail"
+  "readonlyEmail": "You cannot make changes to e-mail",
+  "unauthorized": "Unauthorized",
+  "somethingwentwrong": "Something went wrong",
+  "successfullUpdated" : "Successfull Updated"
 }

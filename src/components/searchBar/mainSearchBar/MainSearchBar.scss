@@ -1,12 +1,10 @@
 @import '../../../styles/variable.scss';
 
-.search {
-  padding: 20px;
-}
-
 .search-icon {
   position: absolute;
-  margin: 11px;
+  z-index: 10;
+  margin-top: 10px;
+  margin-left: 10px;
 }
 
 .main-form {
@@ -16,41 +14,21 @@
   max-width: 100%;
 }
 
-.search-icon-input-area {
-  position: relative;
-  display: inline-block;
-  width: 70%;
-}
-
 .search-input {
-  height: 40px;
-  width: 100%;
-  border: 1px solid rgb(62, 63, 61);
-  border-radius: 10px;
-  font-size: 16px;
-  text-align: center;
-  align-items: center;
-
-  &:focus {
-    outline: none;
-  }
+  text-indent: 20px;
 }
 
-.search-type {
-  background: $primary-color-3;
-  color: black;
-  outline-offset: -5px;
-  font-size: 80%;
-  height: 40px;
-  width: 20%;
+.input-group {
+  // display: inline-block;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+}
 
-  &:focus {
-    outline: none;
-  }
-
-  margin-left: 20px;
-  border-radius: 0.3rem;
-  text-align: center;
+.input-search-icon {
+  display: flex;
+  justify-content: left;
+  width: 80%;
 }
 
 .clinic-list-for-search {
@@ -62,26 +40,37 @@
   left: 0;
 }
 
+#dropdown-toggle {
+  background-color: $primary-color-3;
+}
+
 .list-group-item {
-  width: 100%;
+  width: 80%;
   cursor: pointer;
+  text-decoration: none;
 
   &:hover {
-    background-color: $grey-color-3;
+    background-color: $primary-color-3;
+    color: white;
   }
-}
-
-.main-search-bar {
-  display: flex;
-}
-
-.main-search-bar-list {
-  width: 100%;
 }
 
 .loading-result {
   position: absolute;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  margin-top: 1.3rem;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  // transform: translateX(-20%);
+  margin-left: -5rem;
+}
+
+.input-group-prepend .btn,
+.input-group-append .btn {
+  width: 3rem;
+}
+
+#link-to-clinic-detail {
+  text-decoration: none;
+  color: rgba(0, 0, 0, 0.795);
 }

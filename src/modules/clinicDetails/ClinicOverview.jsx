@@ -8,7 +8,6 @@ const ClinicOverview = (props) => {
   const { t } = useTranslation();
   const data = props;
   const clinicDetails = data.data;
-  var today = new Date();
   return (
     <div>
       {clinicDetails ? (

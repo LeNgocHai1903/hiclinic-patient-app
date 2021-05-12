@@ -1,7 +1,10 @@
-import axios from 'axios';
+import apiWrapper from "../../api/apiWrapper";
 
 const actions = {
-  saveDoctor: (departmentName, doctorName, docId) => ({ setState, getState }) => {
+  saveDoctor: (departmentName, doctorName, docId) => ({
+    setState,
+    getState,
+  }) => {
     setState({
       dataBooking: {
         ...getState().dataBooking,
@@ -35,7 +38,7 @@ const actions = {
         clinic: {
           id: data.id,
           clinicName: data.clinicName,
-          phone: 'empty',
+          phone: "empty",
           address: data.address,
         },
       },
@@ -62,8 +65,16 @@ const actions = {
       },
     });
   },
-  makeBooking: (data) => async ({ setState, getState }) => {
-    const response = await axios.post(`${process.env.REACT_APP_PATIENT_BOOKING}`, data);
+  makeBooking: (data, onFailed) => async ({ setState, getState }) => {
+    try {
+      const response = await apiWrapper({
+        url: `${process.env.REACT_APP_PATIENT_BOOKING}`,
+        method: "POST",
+        data,
+      });
+    } catch (err) {
+      onFailed(err);
+    }
   },
 };
 

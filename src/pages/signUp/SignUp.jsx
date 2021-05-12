@@ -18,10 +18,16 @@ const SignUp = () => {
   const { t } = useTranslation();
   const [state, actions] = useAuth();
   const [OTPValue, setOTPValue] = useState("");
+  const [error, setError] = useState();
   const history = useHistory();
-  const [isLoading,setIsLoading] = useState(false);
 
   state.accessToken && history.push(state.previousLocation);
+
+  const handleFailed = (error) => {
+      setError(
+        error.data.message || error.data.errorMessage || error.message || error
+      );
+  };
 
   const initialValues = {
     email: "",
@@ -48,7 +54,6 @@ const SignUp = () => {
       .oneOf([Yup.ref("password"), null], `${t("matchPassword")}`),
   });
 
-  console.log(state)
   const submitForm = async (values, formActions) => {
     const data = {
       email: values.email,
@@ -56,21 +61,22 @@ const SignUp = () => {
       fullName: values.fullName,
     };
 
-    await actions.signUp(data, values.fullName);
-    setTimeout(() => {
-      if (state.errorMessage) {
-        setOTPModal(true);
-      } else {
-        setOTPModal(false);
-      }
-    }, 2000);
-
+    await actions.signUp(data, values.fullName, handleFailed);
+    if(state.userEmail === "") {
+      openModal()
+    } else {
+      closeModal()
+    }
     formActions.setSubmitting(false);
   };
 
   const closeModal = () => {
     setOTPModal(false);
   };
+
+  const openModal = () => {
+    setOTPModal(true);
+  }
 
   const confirmSignUp = async () => {
     await actions.confirmOTP(OTPValue);
@@ -85,7 +91,6 @@ const SignUp = () => {
   };
 
   const changeToSignInPage = () => {
-    actions.clearErrorMessage();
     history.push(`${routeType.ROUTE_SIGN_IN}`);
   };
 
@@ -116,9 +121,7 @@ const SignUp = () => {
                 onClick={backToHomePage}
               />
               <h1 className="signup-title">{t("signUp")}</h1>
-              {state.errorMessage && (
-                <div className="signup-error">{state.errorMessage}</div>
-              )}
+              {error && <div className="signup-error">{error}</div>}
               <b>{t("email")}</b>
               <input
                 className="signup-form-input"
@@ -167,13 +170,20 @@ const SignUp = () => {
               {errors.confirmPassword && touched.confirmPassword && (
                 <div className="signup-error">{errors.confirmPassword}</div>
               )}
-              <button
-                type="submit"
-                className="signup-btn"
-                disabled={!errors || !isValid || !dirty}
-              >
-                {t("submit")}
-              </button>
+              {!errors || !isValid || !dirty ? (
+                <button
+                  type="submit"
+                  className="signup-btn"
+                  disabled={!errors || !isValid || !dirty}
+                >
+                  {t("submit")}
+                </button>
+              ) : (
+                <button type="submit" className="signup-btn-active">
+                  {t("submit")}
+                </button>
+              )}
+
               <span>{t("youAlreadyHaveAccount")}</span>
               <Link>
                 <span onClick={changeToSignInPage}>

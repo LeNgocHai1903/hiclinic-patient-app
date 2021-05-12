@@ -22,7 +22,6 @@ const MessageModal = (props) => {
 
   const switchPageHander = (e) => {
     e.preventDefault();
-    actions.clearErrorMessage();
     actions.savePreviousLocation(history.location.pathname);
     history.push(`${routeType.ROUTE_SIGN_IN}`);
   };

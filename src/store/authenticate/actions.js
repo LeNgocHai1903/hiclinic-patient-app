@@ -1,4 +1,4 @@
-import axios from "axios";
+import apiWrapper from "../../api/apiWrapper";
 
 const actions = {
   setUserId: (value) => ({ setState, getState }) => {
@@ -9,125 +9,102 @@ const actions = {
     });
   },
 
-  //TODO: Handler error code from BE
-  signIn: (data) => async ({ setState, getState }) => {
+
+  signIn: (data, onFailed) => async ({ setState, getState }) => {
     setState({
       accessToken: "",
       userId: "",
       userEmail: "",
-      errorMessage: "",
       userName: "",
     });
     try {
-      const response = await axios.post(
-        `${process.env.REACT_APP_PATIENT_SERVER_URL}/signin`,
-        data
-      );
-
+      const response = await apiWrapper({
+        url: `${process.env.REACT_APP_PATIENT_SERVER_URL}/signin`,
+        method: "POST",
+        data,
+      });
       setState({
-        accessToken: response.data.accessToken,
-        userId: response.data.id,
-        userEmail: response.data.email,
-        userName: response.data.fullName,
+        accessToken: response.accessToken,
+        userId: response.id,
+        userEmail: response.email,
+        userName: response.fullName,
       });
     } catch (error) {
-      if (error.response.data.status === 401) {
-        setState({
-          accessToken: "",
-          userId: "",
-          userEmail: "",
-          userName: "",
-          errorMessage: "Email or password is incorrect",
-        });
-      } else {
-        setState({
-          accessToken: "",
-          userId: "",
-          userEmail: "",
-          userName: "",
-          errorMessage: error.response.data.errorMessage,
-        });
-      }
+      onFailed(error);
+      setState({
+        ...getState(),
+        accessToken: "",
+        userId: "",
+        userEmail: "",
+        userName: "",
+      });
     }
   },
-  myProfile: (data, header) => async ({ setState, getState }) => {
+  myProfile: (data, header, onFailed) => async ({ setState, getState }) => {
     setState({
       userId: "",
       userEmail: "",
-      errorMessage: "",
       userName: "",
       phone: "",
     });
     try {
-      const response = await axios.put(
-        `${process.env.REACT_APP_PATIENT_SERVER_URL}/info`,
+      const response = await apiWrapper({
+        url: `${process.env.REACT_APP_PATIENT_SERVER_URL}/info`,
+        method: "PUT",
         data,
-        {
-          headers: header,
-        }
-      );
+        headers: header,
+      });
       setState({
-        userEmail: response.data.email,
-        userName: response.data.fullName,
-        phone: response.data.phone,
-        userId: response.data.id,
+        userEmail: response.email,
+        userName: response.fullName,
+        phone: response.phone,
+        userId: response.id,
       });
     } catch (error) {
-      if (error.response.data.status === 401) {
-        setState({
-          userId: "",
-          userEmail: "",
-          userName: "",
-          phone: "",
-          errorMessage: "Unauthorized",
-        });
-      } else {
-        setState({
-          userId: "",
-          userEmail: "",
-          userName: "",
-          phone: "",
-          errorMessage: error.response.data.errorMessage,
-        });
-      }
+      onFailed(error);
+      setState({
+        ...getState(),
+        phone: "",
+      });
     }
   },
 
-  signUp: (data, fullName) => async ({ setState, getState }) => {
+  signUp: (data, fullName, onFailed) => async ({ setState, getState }) => {
     setState({
-      errorMessage: "",
       userEmail: "",
       accessToken: "",
       userId: "",
       userName: fullName,
     });
     try {
-      const response = await axios.post(
-        `${process.env.REACT_APP_PATIENT_SERVER_URL}/registration`,
-        data
-      );
+      const response = await apiWrapper({
+        url: `${process.env.REACT_APP_PATIENT_SERVER_URL}/registration`,
+        method: "POST",
+        data,
+      });
       setState({
-        userEmail: response.data.email,
+        userEmail: response.email,
         userName: fullName,
       });
     } catch (error) {
+      onFailed(error);
       setState({
         accessToken: "",
         userId: "",
         userName: "",
         userEmail: "",
-        errorMessage: error.response.data.errorMessage,
       });
     }
   },
 
   confirmOTP: (data) => async ({ setState, getState }) => {
     try {
-      const response = await axios.get(
-        `${
+      const response = await apiWrapper({
+        url: `${
           process.env.REACT_APP_PATIENT_SERVER_URL
-        }/registration/confirm?token=${data}&email=${getState().userEmail}`
-      );
+        }/registration/confirm?token=${data}&email=${getState().userEmail}`,
+        method: "GET",
+      });
       setState({
         accessToken: response.data.token,
         userId: response.data.id,
@@ -138,21 +115,18 @@ const actions = {
         userId: "",
         userEmail: getState().userEmail,
         userName: "",
-        errorMessage: error.response.data.errorMessage,
       });
     }
   },
 
   resendOTP: () => async ({ setState, getState }) => {
-    setState({
-      errorMessage: "",
-    });
     try {
-      await axios.get(
-        `${process.env.REACT_APP_PATIENT_SERVER_URL}/sendtoken&email=${
+      await apiWrapper({
+        url: `${process.env.REACT_APP_PATIENT_SERVER_URL}/sendtoken&email=${
           getState().userEmail
-        }`
-      );
+        }`,
+        method: "GET",
+      });
     } catch (error) {}
   },
 
@@ -162,7 +136,6 @@ const actions = {
       userId: "",
       userEmail: "",
       userName: "",
-      errorMessage: "",
       noti: [],
     });
   },
@@ -176,12 +149,6 @@ const actions = {
   deletePreviousLocation: () => ({ getState, setState }) => {
     setState({
       previousLocation: "",
-    });
-  },
-
-  clearErrorMessage: () => async ({ setState, getState }) => {
-    setState({
-      errorMessage: "",
     });
   },
 

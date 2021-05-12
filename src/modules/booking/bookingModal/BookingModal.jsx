@@ -4,6 +4,11 @@ import "./BookingModal.scss";
 import "react-calendar/dist/Calendar.css";
 import { FaRegCalendarAlt } from "react-icons/fa";
 import {
+  MdPermContactCalendar,
+  MdDateRange,
+  MdAccessTime,
+} from "react-icons/md";
+import {
   UncontrolledPopover,
   PopoverHeader,
   PopoverBody,
@@ -23,6 +28,7 @@ import { DOCTORS_DETAIL } from "../../../api/apiUrl";
 
 import Backdrop from "../../../components/backdrop/BackDrop";
 import MiniModal from "../../../components/modal/MiniModal";
+import LoadingSpinner from "../../../components/loadingSpinner/LoadingSpinner";
 
 const BookingModal = (props) => {
   const [state, actions] = useCounter();
@@ -30,6 +36,8 @@ const BookingModal = (props) => {
   const [value, onChange] = useState(new Date());
   const [modal, setModal] = useState(false);
   const [successBookingModal, setSuccessBookingModal] = useState(false);
+  const [err, setError] = useState();
+  const [isLoading, setIsLoading] = useState(true);
 
   const [doctor, setDoctor] = useState([]);
   const [schedule, setSchedule] = useState([]);
@@ -54,11 +62,18 @@ const BookingModal = (props) => {
       .then((res) => {
         setDoctor(res);
         setSchedule(res.workingSchedule);
+        setIsLoading(false);
       })
       .catch((err) => {
         console.log(err);
       });
   }, [doc.docId]);
+
+  const handleFailed = (error) => {
+    setError(
+      error.data.message || error.data.errorMessage || error.message || error
+    );
+  };
 
   timeLists = schedule.find((item) => item.workingDate === convert(value));
   if (timeLists) {
@@ -105,7 +120,7 @@ const BookingModal = (props) => {
   };
 
   const confirmBooking = async () => {
-    await actions.makeBooking(state.dataBooking);
+    await actions.makeBooking(state.dataBooking, handleFailed);
     setSuccessBookingModal(true);
     setModal(!modal);
   };
@@ -186,26 +201,32 @@ const BookingModal = (props) => {
                 </div>
                 <div className="booking-modal-time">
                   <div className="booking-modal-time-list">
-                    {listTimeAvailable.length === 0 ? (
-                      <div className="booking-no-result">
-                        {t("notAvailable")}
-                      </div>
+                    {isLoading ? (
+                      <LoadingSpinner />
                     ) : (
                       <>
-                        {listTimeAvailable.map((item) => (
-                          <button
-                            className={
-                              item.startAt === values.time
-                                ? "time-selected-active"
-                                : "time-selected"
-                            }
-                            value={item.startAt}
-                            name="time"
-                            onClick={handleChange}
-                          >
-                            {item.startAt} - {item.endAt}
-                          </button>
-                        ))}
+                        {listTimeAvailable.length === 0 ? (
+                          <div className="booking-no-result">
+                            {t("notAvailable")}
+                          </div>
+                        ) : (
+                          <>
+                            {listTimeAvailable.map((item) => (
+                              <button
+                                className={
+                                  item.startAt === values.time
+                                    ? "time-selected-active"
+                                    : "time-selected"
+                                }
+                                value={item.startAt}
+                                name="time"
+                                onClick={handleChange}
+                              >
+                                {item.startAt} - {item.endAt}
+                              </button>
+                            ))}
+                          </>
+                        )}
                       </>
                     )}
                   </div>
@@ -236,21 +257,22 @@ const BookingModal = (props) => {
           modal={modal}
           confirmBooking={confirmBooking}
         >
-          <h3>
-            {t("clinicName")} : {state.dataBooking.clinic.clinicName}
-          </h3>
+          <h3>{state.dataBooking.clinic.clinicName}</h3>
+
           <label>
-            {t("doctorName")}: {state.dataBooking.doctor.fullName}
+            <MdPermContactCalendar /> {t("doctorName")}:{" "}
+            {state.dataBooking.doctor.fullName}
           </label>
           <label>
-            {t("date")}: {state.dataBooking.bookingDate}
+            <MdDateRange /> {t("date")}: {state.dataBooking.bookingDate}
           </label>
           <label>
-            {t("time")}: {state.dataBooking.bookingFrom} -{" "}
+            <MdAccessTime /> {t("time")}: {state.dataBooking.bookingFrom} -{" "}
             {(
               parseInt(state.dataBooking.bookingFrom.slice(0, -3)) + 1
             ).toString() + ":00"}
           </label>
+          {err && <div>{t('somethingwentwrong')}</div>}
         </MiniModal>
       )}
       {successBookingModal && (

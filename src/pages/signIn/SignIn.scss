@@ -1,9 +1,10 @@
 @import '../../styles/variable.scss';
 
 .signin-logo {
-  height: 60px;
-  width: 200px;
+  height: 40px;
+  width: 130px;
   cursor: pointer;
+  margin-bottom: 10px;
 }
 
 .signin-wrapper {
@@ -60,7 +61,20 @@
   width: 70px;
   border-radius: 0.3rem;
   margin-top: 30px;
-  background-color: $primary-color-3;
+  background-color: $grey-color-3;
   color: white;
   margin-bottom: 20px;
 }
+.signin-btn-active {
+  bottom: 0;
+  border: none;
+  height: 40px;
+  width: 70px;
+  border-radius: 0.3rem;
+  margin-top: 30px;
+  background-color: $primary-color-3;
+  color: white;
+  margin-bottom: 20px;
+  cursor: pointer;
+}
+

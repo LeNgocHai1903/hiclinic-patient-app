@@ -1,6 +1,9 @@
 import './ListView.scss';
 import { useTranslation } from 'react-i18next';
 import { useHistory } from 'react-router-dom';
+import {FaRegClock} from 'react-icons/fa';
+import {GrLocation} from 'react-icons/gr'
+
 
 import { Link } from 'react-router-dom';
 
@@ -26,10 +29,10 @@ const ListClinicItem = (props) => {
                 <h5 className="mb-1">{data.clinicName}</h5>
               </div>
               <label className="mb-1" data-test-time="time">
-                <b>{t('workingTime')}:</b> {data.openAt} - {data.closeAt}
+                <FaRegClock/> {data.openAt} - {data.closeAt}
               </label>
               <p className="mb-1" data-test-address="address">
-                <b>{t('address')}:</b> {data.address}
+                <GrLocation/> {data.address}
               </p>
               <div data-test-description="description" className="clinic-item-description">
                 {data.description}

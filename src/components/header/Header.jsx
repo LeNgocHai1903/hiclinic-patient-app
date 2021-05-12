@@ -40,13 +40,12 @@ const Header = () => {
 
   const changeToSigninPage = () => {
     actions.savePreviousLocation(history.location.pathname);
-    actions.clearErrorMessage();
+
     history.push(`${routeType.ROUTE_SIGN_IN}`);
   };
 
   const changeToSignUpPage = () => {
     actions.savePreviousLocation(history.location.pathname);
-    actions.clearErrorMessage();
     history.push(`${routeType.ROUTE_SIGN_UP}`);
   };
 
