@@ -20,7 +20,7 @@ const SignUp = () => {
   const [state, actions] = useAuth();
   const [OTPValue, setOTPValue] = useState("");
   const [error, setError] = useState(null);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   const history = useHistory();
 
   state.accessToken && history.push(state.previousLocation);
