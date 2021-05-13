@@ -98,5 +98,6 @@
   "unauthorized": "Unauthorized",
   "somethingwentwrong": "Something went wrong",
   "successfullUpdated" : "Successfull Updated",
-  "delete": "Delete"
+  "delete": "Delete",
+  "error500" :"Something went wrong, please try again later!"
 }

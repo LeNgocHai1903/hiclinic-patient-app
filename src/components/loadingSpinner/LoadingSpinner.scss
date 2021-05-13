@@ -1,13 +1,15 @@
-@import '../../styles/variable.scss';
+@import "../../styles/variable.scss";
 
 .lds-dual-ring {
-  display: inline-block;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 40px;
   height: 40px;
 }
 
 .lds-dual-ring::after {
-  content: ' ';
+  content: " ";
   display: block;
   width: 30px;
   height: 30px;
@@ -15,6 +17,18 @@
   border-radius: 50%;
   border: 2px solid $primary-color-3;
   border-color: $primary-color-3 transparent $primary-color-3 transparent;
+  animation: lds-dual-ring 1.2s linear infinite;
+}
+
+.lds-dual-ring-white::after {
+  content: " ";
+  display: block;
+  width: 30px;
+  height: 30px;
+  margin: 1px;
+  border-radius: 50%;
+  border: 2px solid white;
+  border-color: white transparent white transparent;
   animation: lds-dual-ring 1.2s linear infinite;
 }
 

@@ -15,9 +15,6 @@ import {
   UncontrolledPopover,
   PopoverHeader,
   PopoverBody,
-  Modal,
-  ModalBody,
-  Button,
 } from "reactstrap";
 
 import Calendar from "react-calendar";
@@ -40,7 +37,7 @@ const BookingModal = (props) => {
   const [value, onChange] = useState(new Date());
   const [modal, setModal] = useState(false);
   const [successBookingModal, setSuccessBookingModal] = useState(false);
-  const [err, setError] = useState();
+  const [error, setError] = useState();
   const [isLoading, setIsLoading] = useState(true);
 
   const [doctor, setDoctor] = useState([]);
@@ -75,9 +72,18 @@ const BookingModal = (props) => {
   }, [doc.docId]);
 
   const handleFailed = (error) => {
-    setError(
-      error.data.message || error.data.errorMessage || error.message || error
-    );
+    if (error === "Network Error") {
+      setError("Network Error");
+    } else {
+      setError(
+        error.data.message || error.data.errorMessage || error.message || error
+      );
+    }
+  };
+  const handleSuccess = () => {
+    setSuccessBookingModal(true);
+    setModal(!modal);
+    notify();
   };
 
   timeLists = schedule.find((item) => item.workingDate === convert(value));
@@ -125,10 +131,7 @@ const BookingModal = (props) => {
   };
 
   const confirmBooking = async () => {
-    await actions.makeBooking(state.dataBooking, handleFailed);
-    setSuccessBookingModal(true);
-    setModal(!modal);
-    notify();
+    await actions.makeBooking(state.dataBooking, handleFailed, handleSuccess);
   };
 
   const { t } = useTranslation();
@@ -272,6 +275,7 @@ const BookingModal = (props) => {
           modal={modal}
           confirmBooking={confirmBooking}
         >
+          {error && <span className="bookingmodal-error">{t('error500')}</span>}
           <h3>{state.dataBooking.clinic.clinicName}</h3>
 
           <label>
@@ -287,18 +291,13 @@ const BookingModal = (props) => {
               parseInt(state.dataBooking.bookingFrom.slice(0, -3)) + 1
             ).toString() + ":00"}
           </label>
-          {err && <div>{t("somethingwentwrong")}</div>}
+          {error && <div>{t("somethingwentwrong")}</div>}
         </MiniModal>
       )}
       {successBookingModal && (
         <>
           <div>
-          <ToastContainer/>
-            {/* <Modal isOpen={successBookingModal}>
-              <ModalBody>
-                <div className="mini-modal">{t("successBookingMessage")}</div>
-              </ModalBody>
-            </Modal> */}
+            <ToastContainer />
           </div>
         </>
       )}

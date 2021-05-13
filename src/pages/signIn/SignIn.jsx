@@ -1,6 +1,6 @@
-import { useState } from 'react';
-import './SignIn.scss';
-import LogoImg from '../../asset/img/logo.png';
+import { useState } from "react";
+import "./SignIn.scss";
+import LogoImg from "../../asset/img/logo.png";
 
 import { Formik } from "formik";
 import * as Yup from "yup";
@@ -10,19 +10,26 @@ import { Link, useHistory } from "react-router-dom";
 import { useAuth } from "../../store/authenticate/store";
 
 import * as routeType from "../../constant/route/route";
+import LoadingSpinner from "../../components/loadingSpinner/LoadingSpinner";
 
 const SignIn = () => {
   const history = useHistory();
 
   const [state, actions] = useAuth();
   const [error, setError] = useState();
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleFailed = (error) => {
     if (error.status === 401) {
-      setError(t('signInError'));
+      setError(t("signInError"));
+    } else if (error === "Network Error") {
+      setError("Network Error");
     } else {
-      setError(error.data.message || error.data.errorMessage || error.message || error);
+      setError(
+        error.data.message || error.data.errorMessage || error.message || error
+      );
     }
+    setIsLoading(false);
   };
 
   const { t } = useTranslation();
@@ -46,20 +53,21 @@ const SignIn = () => {
       email: values.email,
       password: values.password,
     };
+    setIsLoading(true);
     await actions.signIn(data, handleFailed);
     formActions.setSubmitting(false);
-    if (state.accessToken) {
-      changeToPreviousLocation();
-    }
   };
 
   const backToHomePage = () => {
     history.push("/");
   };
 
-  const changeToPreviousLocation = () => {
-    history.push(state.previousLocation);
-  };
+  // const changeToPreviousLocation = () => {
+  //   setIsLoading(false);
+  //   history.push(state.previousLocation);
+  // };
+
+  state.accessToken && history.push(state.previousLocation)
 
   const changeToSignUpPage = () => {
     history.push(`${routeType.ROUTE_SIGN_UP}`);
@@ -85,10 +93,15 @@ const SignIn = () => {
           } = formik;
           return (
             <form className="signin-form" onSubmit={handleSubmit}>
-              <img className="signin-logo" alt="hiclinic-logo" src={LogoImg} onClick={backToHomePage} />
-              <h1 className="signin-title">{t('signIn')}</h1>
+              <img
+                className="signin-logo"
+                alt="hiclinic-logo"
+                src={LogoImg}
+                onClick={backToHomePage}
+              />
+              <h1 className="signin-title">{t("signIn")}</h1>
               {error && <div className="signin-error">{error}</div>}
-              <b>{t('email')}</b>
+              <b>{t("email")}</b>
               <input
                 className="signin-form-input"
                 type="text"
@@ -110,18 +123,20 @@ const SignIn = () => {
                 value={values.password}
                 name="password"
               />
-              {errors.password && touched.password && <div className="signin-error">{errors.password}</div>}
+              {errors.password && touched.password && (
+                <div className="signin-error">{errors.password}</div>
+              )}
               {!errors || !isValid || !dirty ? (
                 <button type="submit" className="signin-btn" disabled>
-                  {t('submit')}
+                  {t("submit")}
                 </button>
               ) : (
                 <button type="submit" className="signin-btn-active">
-                  {t('submit')}
+                  {isLoading ? <LoadingSpinner color="white" /> : t("submit")}
                 </button>
               )}
 
-              <span>{t('youDontHaveAnyAccount?')}</span>
+              <span>{t("youDontHaveAnyAccount?")}</span>
               <Link>
                 <span onClick={changeToSignUpPage}>
                   {" "}

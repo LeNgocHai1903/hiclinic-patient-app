@@ -121,7 +121,6 @@ const ClinicList = (props) => {
             <select id="sort-list" onChange={changeSortHandler} className="sort-option">
               <optgroup label="Alphabet">
                 <option value="alphabet inc"> {t('a_z')}</option>
-                <option value="alphabet desc"> {t('z_a')}</option>
               </optgroup>
             </select>
           </div>

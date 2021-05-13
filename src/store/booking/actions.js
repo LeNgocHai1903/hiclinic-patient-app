@@ -65,13 +65,14 @@ const actions = {
       },
     });
   },
-  makeBooking: (data, onFailed) => async ({ setState, getState }) => {
+  makeBooking: (data, onFailed,onSucess) => async ({ setState, getState }) => {
     try {
       const response = await apiWrapper({
         url: `${process.env.REACT_APP_PATIENT_BOOKING}`,
         method: 'POST',
         data,
       });
+      onSucess(response);
     } catch (err) {
       onFailed(err);
     }
