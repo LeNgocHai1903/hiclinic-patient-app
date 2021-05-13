@@ -1,7 +1,7 @@
 import './MiniModal.scss';
 import { useTranslation } from 'react-i18next';
 
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
+import { Button, Modal, ModalHeader, ModalBody } from 'reactstrap';
 
 const ModalExample = (props) => {
   const { t } = useTranslation();

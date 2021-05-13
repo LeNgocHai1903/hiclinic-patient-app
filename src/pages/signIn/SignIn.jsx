@@ -2,14 +2,14 @@ import { useState } from 'react';
 import './SignIn.scss';
 import LogoImg from '../../asset/img/logo.png';
 
-import { Formik } from 'formik';
-import * as Yup from 'yup';
+import { Formik } from "formik";
+import * as Yup from "yup";
 
-import { useTranslation } from 'react-i18next';
-import { Link, useHistory } from 'react-router-dom';
-import { useAuth } from '../../store/authenticate/store';
+import { useTranslation } from "react-i18next";
+import { Link, useHistory } from "react-router-dom";
+import { useAuth } from "../../store/authenticate/store";
 
-import * as routeType from '../../constant/route/route';
+import * as routeType from "../../constant/route/route";
 
 const SignIn = () => {
   const history = useHistory();
@@ -27,18 +27,18 @@ const SignIn = () => {
 
   const { t } = useTranslation();
   const initialValues = {
-    email: '',
-    password: '',
+    email: "",
+    password: "",
   };
 
   const validateSchema = Yup.object().shape({
     email: Yup.string()
-      .email(`${t('invalidEmail')}`)
-      .required(`${t('emailIsRequired')}`),
+      .email(`${t("invalidEmail")}`)
+      .required(`${t("emailIsRequired")}`),
     password: Yup.string()
       .min(8)
       .max(50)
-      .required(`${t('passwordRequired')}`),
+      .required(`${t("passwordRequired")}`),
   });
 
   const submitForm = async (values, formActions) => {
@@ -54,7 +54,11 @@ const SignIn = () => {
   };
 
   const backToHomePage = () => {
-    history.push('/');
+    history.push("/");
+  };
+
+  const changeToPreviousLocation = () => {
+    history.push(state.previousLocation);
   };
 
   const changeToPreviousLocation = () => {
@@ -67,9 +71,22 @@ const SignIn = () => {
 
   return (
     <div className="signin-wrapper">
-      <Formik initialValues={initialValues} validationSchema={validateSchema} onSubmit={submitForm}>
+      <Formik
+        initialValues={initialValues}
+        validationSchema={validateSchema}
+        onSubmit={submitForm}
+      >
         {(formik) => {
-          const { errors, isValid, dirty, values, handleChange, handleBlur, handleSubmit, touched } = formik;
+          const {
+            errors,
+            isValid,
+            dirty,
+            values,
+            handleChange,
+            handleBlur,
+            handleSubmit,
+            touched,
+          } = formik;
           return (
             <form className="signin-form" onSubmit={handleSubmit}>
               <img className="signin-logo" alt="hiclinic-logo" src={LogoImg} onClick={backToHomePage} />
@@ -85,8 +102,10 @@ const SignIn = () => {
                 name="email"
                 autoComplete="off"
               />
-              {errors.email && touched.email && <div className="signin-error">{errors.email}</div>}
-              <b>{t('password')}</b>
+              {errors.email && touched.email && (
+                <div className="signin-error">{errors.email}</div>
+              )}
+              <b>{t("password")}</b>
               <input
                 className="signin-form-input"
                 type="password"
@@ -108,7 +127,10 @@ const SignIn = () => {
 
               <span>{t('youDontHaveAnyAccount?')}</span>
               <Link>
-                <span onClick={changeToSignUpPage}> {t('clickHereToSignUp')}</span>
+                <span onClick={changeToSignUpPage}>
+                  {" "}
+                  {t("clickHereToSignUp")}
+                </span>
               </Link>
             </form>
           );

@@ -5,7 +5,6 @@ import actions from './actions';
 export const AuthenticationStoreName = 'AuthStore';
 
 export const initialState = {
-  errorMessage: '',
   accessToken: '',
   userId: '',
   userName: '',

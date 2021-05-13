@@ -67,18 +67,7 @@ const NewsList = (props) => {
         ) : (
           <div className="news-list">
             <MainSearchBar />
-            <h1>{t('newsList')}</h1>
-            {/* <div className="news-sort">
-              <select id="sort-list" onChange={changeSortHandler} className="sort-option">
-                <optgroup label="Alphabet">
-                  <option value="alphabet inc"> {t('a_z')} </option>
-                  <option value="alphabet desc"> {t('z_a')} </option>
-                </optgroup>
-              </select>
-            </div> */}
-            {/* <Pagination data={data} type={'news'} itemPerPage={3}>
-              <NewsItemGrid />
-            </Pagination> */}
+            <h1 className="news-title">{t('news')}</h1>
             {data.listNews.map((item) => {
               return <NewsItem data={item} />;
             })}

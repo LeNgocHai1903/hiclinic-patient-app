@@ -1,7 +1,14 @@
+<<<<<<< HEAD
 import apiWrapper from '../../api/apiWrapper';
+=======
+import apiWrapper from "../../api/apiWrapper";
+>>>>>>> a23c6826f572ba19c4d09704ebf5734746a5230e
 
 const actions = {
-  saveDoctor: (departmentName, doctorName, docId) => ({ setState, getState }) => {
+  saveDoctor: (departmentName, doctorName, docId) => ({
+    setState,
+    getState,
+  }) => {
     setState({
       dataBooking: {
         ...getState().dataBooking,
@@ -35,7 +42,7 @@ const actions = {
         clinic: {
           id: data.id,
           clinicName: data.clinicName,
-          phone: 'empty',
+          phone: "empty",
           address: data.address,
         },
       },
@@ -66,7 +73,11 @@ const actions = {
     try {
       const response = await apiWrapper({
         url: `${process.env.REACT_APP_PATIENT_BOOKING}`,
+<<<<<<< HEAD
         method: 'POST',
+=======
+        method: "POST",
+>>>>>>> a23c6826f572ba19c4d09704ebf5734746a5230e
         data,
       });
     } catch (err) {
