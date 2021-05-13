@@ -5,20 +5,17 @@ import "react-calendar/dist/Calendar.css";
 import { FaRegCalendarAlt } from "react-icons/fa";
 import { Container, Row, Col } from "reactstrap";
 import {
-<<<<<<< HEAD
-  Button,
-=======
   MdPermContactCalendar,
   MdDateRange,
   MdAccessTime,
 } from "react-icons/md";
 import {
->>>>>>> a23c6826f572ba19c4d09704ebf5734746a5230e
   UncontrolledPopover,
   PopoverHeader,
   PopoverBody,
   Modal,
   ModalBody,
+  Button,
 } from "reactstrap";
 
 import Calendar from "react-calendar";
@@ -124,7 +121,6 @@ const BookingModal = (props) => {
     );
   };
 
-
   const confirmBooking = async () => {
     await actions.makeBooking(state.dataBooking, handleFailed);
     setSuccessBookingModal(true);
@@ -212,46 +208,35 @@ const BookingModal = (props) => {
                       <LoadingSpinner />
                     ) : (
                       <>
-<<<<<<< HEAD
-                        <Container>
-                          <Row xs="2" sm="2" md="4">
-                          {listTimeAvailable.map((item) => (
-                            <Col>
-                              <Button outline
-                              color="primary"
-=======
+                        {" "}
                         {listTimeAvailable.length === 0 ? (
-                          <div className="booking-no-result">
-                            {t("notAvailable")}
-                          </div>
+                          <div>{t("notAvailable")}</div>
                         ) : (
                           <>
-                            {listTimeAvailable.map((item) => (
-                              <button
->>>>>>> a23c6826f572ba19c4d09704ebf5734746a5230e
-                                className={
-                                  item.startAt === values.time
-                                    ? "time-selected-active"
-                                    : "time-selected"
-                                }
-                                value={item.startAt}
-                                name="time"
-                                onClick={handleChange}
-                              >
-                                {item.startAt} - {item.endAt}
-<<<<<<< HEAD
-                              </Button>
-                              </Col>
-                          ))}
-                          </Row>
-
-                        </Container>
-=======
-                              </button>
-                            ))}
+                            <Container>
+                              <Row xs="2" sm="2" md="4">
+                                {listTimeAvailable.map((item) => (
+                                  <Col>
+                                    <Button
+                                      outline
+                                      color="primary"
+                                      className={
+                                        item.startAt === values.time
+                                          ? "time-selected-active"
+                                          : "time-selected"
+                                      }
+                                      value={item.startAt}
+                                      name="time"
+                                      onClick={handleChange}
+                                    >
+                                      {item.startAt} - {item.endAt}
+                                    </Button>
+                                  </Col>
+                                ))}
+                              </Row>
+                            </Container>
                           </>
                         )}
->>>>>>> a23c6826f572ba19c4d09704ebf5734746a5230e
                       </>
                     )}
                   </div>
@@ -276,7 +261,7 @@ const BookingModal = (props) => {
           );
         }}
       </Formik>
-      
+
       {modal && (
         <MiniModal
           toggle={toggle}
@@ -298,7 +283,7 @@ const BookingModal = (props) => {
               parseInt(state.dataBooking.bookingFrom.slice(0, -3)) + 1
             ).toString() + ":00"}
           </label>
-          {err && <div>{t('somethingwentwrong')}</div>}
+          {err && <div>{t("somethingwentwrong")}</div>}
         </MiniModal>
       )}
       {successBookingModal && (

@@ -188,7 +188,7 @@ const SignUp = () => {
 
           <ModalFooter>
             <Button color="secondary" onClick={closeModal}>
-              {t('cancel')}
+              {t('cancle')}
             </Button>{' '}
             <Button color="primary" onClick={confirmSignUp}>
               {t('confirm')}

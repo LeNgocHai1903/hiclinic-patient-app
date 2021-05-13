@@ -33,6 +33,9 @@ body {
 
 #notification-icon {
   font-size: 20px;
+  color: $grey-color-3;
+  background-color: #fff;
+  border: none;
   svg {
     cursor: pointer;
   }

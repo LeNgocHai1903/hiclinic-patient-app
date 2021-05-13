@@ -61,10 +61,6 @@ const SignIn = () => {
     history.push(state.previousLocation);
   };
 
-  const changeToPreviousLocation = () => {
-    history.push(state.previousLocation);
-  };
-
   const changeToSignUpPage = () => {
     history.push(`${routeType.ROUTE_SIGN_UP}`);
   };
