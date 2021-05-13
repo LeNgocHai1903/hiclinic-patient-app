@@ -181,9 +181,13 @@ body {
     #site-nav-action {
       display: flex;
       align-items: center;
-      width: 275px;
+      //width: 275px;
+      flex-wrap: nowrap;
       justify-content: space-between;
       margin-bottom: 0;
+      li {
+        margin-right: 10px;
+      }
     }
 
     .site-nav-action-item {

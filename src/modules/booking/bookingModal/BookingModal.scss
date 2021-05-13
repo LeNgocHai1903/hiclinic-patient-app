@@ -52,8 +52,7 @@
 
 .booking-modal-doctor {
   padding: 10px;
-  margin-left: 20px;
-  width: 40%;
+  width: 50%;
   // border: 0.5px solid $grey-color-3;
   border-radius: 0.3rem;
   display: flex;
@@ -69,6 +68,9 @@
   padding: 7px;
   border: 1px solid black;
   border-radius: 0.3rem;
+  width: 30%;
+  text-align: center;
+  margin-bottom: 20px;
 
   svg {
     margin-left: 20px;
@@ -94,22 +96,42 @@
 }
 
 .time-selected {
-  padding-bottom: 10px;
-  margin-bottom: 10px;
-
+  background-color: white;
+  border: 0.5px solid $primary-color-3;
+  border-radius : 0.2rem ;
+  margin-top: 3px;
+  margin-bottom: 3px;
+  padding: 5px;
+  height: 72px;
+  width: 118px;
+  color: $primary-color-3
 }
 
 .time-selected-active {
-  margin-bottom: 10px;
-  padding-bottom: 10px;
+  height: 72px;
+  border: 0.5px solid $primary-color-3;
+  border-radius : 0.2rem ;
+  margin-top: 3px;
+  margin-bottom: 3px;
+  padding: 5px;
+  width: 118px;
+  color:white;
+  background-color: $primary-color-3;
 }
+.btn-outline-primary:active {
+  background-color: $primary-color-3;
+  color: #fff;
+}
+
 .btn-outline-primary:hover {
   background-color: $primary-color-3;
   color: #fff;
-  margin-bottom: 10px;
-  padding-bottom: 10px;
 }
-
+#time-row {
+  width: 65%;
+  margin-left: auto;
+  margin-right: auto;
+}
 .booking-no-result {
   color: $primary-color-3;
   font-size: 18px;
@@ -163,5 +185,6 @@
     width: 100%;
     margin-left: 0;
     border-radius: 0;
+
   }
 }

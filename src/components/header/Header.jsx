@@ -35,12 +35,12 @@ const Header = () => {
         console.log(data);
         actions.saveNoti(data);
       }
+      
     };
     channel.bind(`booking-response-handler-${state.userEmail}`, callback);
+    return ()=>{channel.unbind(`booking-response-handler-${state.userEmail}`)}
   }, []);
 
-  
-  console.log(state)
 
   const changeToSigninPage = () => {
     actions.savePreviousLocation(history.location.pathname);

@@ -97,5 +97,6 @@
   "readonlyEmail": "You cannot make changes to e-mail",
   "unauthorized": "Unauthorized",
   "somethingwentwrong": "Something went wrong",
-  "successfullUpdated" : "Successfull Updated"
+  "successfullUpdated" : "Successfull Updated",
+  "delete": "Delete"
 }

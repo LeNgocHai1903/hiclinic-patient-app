@@ -15,7 +15,7 @@ const DoctorCard = (props) => {
       <Card className="doctor-item">
         <CardImg className="doctor-image" top width="100%" src={image} alt="Card image cap" />
         <Card body>
-          <CardTitle className="doctor-name">{fullName}</CardTitle>
+          <div className="doctor-name">{fullName}</div>
           {state.accessToken ? (
             <Button className="button-book" onClick={() => props.onclick(fullName, image, depName, docId)}>
               {t('bookNow')}

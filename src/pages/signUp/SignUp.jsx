@@ -23,7 +23,6 @@ const SignUp = () => {
   const [isLoading, setIsLoading] = useState(false);
   const history = useHistory();
 
-  console.log(state)
   state.accessToken && history.push(state.previousLocation);
 
   const handleFailed = (error) => {

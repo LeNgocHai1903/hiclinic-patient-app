@@ -48,6 +48,7 @@ const ClinicDetails = () => {
   };
 
   const bookingHandler = (docName, docImage, depName, docId) => {
+    window.scrollTo(0, 0);
     setChooseDoctor({
       docName,
       docImage,

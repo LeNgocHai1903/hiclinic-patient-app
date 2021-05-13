@@ -112,7 +112,6 @@ const actions = {
         userId: response.id,
       });
     } catch (error) {
-      console.log(error)
       setState({
         accessToken: '',
         userId: '',

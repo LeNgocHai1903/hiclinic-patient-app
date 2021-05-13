@@ -4,6 +4,8 @@ import "./BookingModal.scss";
 import "react-calendar/dist/Calendar.css";
 import { FaRegCalendarAlt } from "react-icons/fa";
 import { Container, Row, Col } from "reactstrap";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import {
   MdPermContactCalendar,
   MdDateRange,
@@ -47,6 +49,7 @@ const BookingModal = (props) => {
   let timeLists = [];
   let listTimeAvailable = [];
 
+  const notify = () => toast(t("successBookingMessage"));
   const { data, doc } = props;
 
   function convert(str) {
@@ -125,6 +128,7 @@ const BookingModal = (props) => {
     await actions.makeBooking(state.dataBooking, handleFailed);
     setSuccessBookingModal(true);
     setModal(!modal);
+    notify();
   };
 
   const { t } = useTranslation();
@@ -214,12 +218,12 @@ const BookingModal = (props) => {
                         ) : (
                           <>
                             <Container>
-                              <Row xs="2" sm="2" md="4">
+                              <Row xs="2" sm="2" md="4" id="time-row">
                                 {listTimeAvailable.map((item) => (
                                   <Col>
-                                    <Button
-                                      outline
+                                    <button
                                       color="primary"
+                                      onClick={handleChange}
                                       className={
                                         item.startAt === values.time
                                           ? "time-selected-active"
@@ -230,7 +234,7 @@ const BookingModal = (props) => {
                                       onClick={handleChange}
                                     >
                                       {item.startAt} - {item.endAt}
-                                    </Button>
+                                    </button>
                                   </Col>
                                 ))}
                               </Row>
@@ -289,16 +293,13 @@ const BookingModal = (props) => {
       {successBookingModal && (
         <>
           <div>
-            <Modal isOpen={successBookingModal}>
+          <ToastContainer/>
+            {/* <Modal isOpen={successBookingModal}>
               <ModalBody>
                 <div className="mini-modal">{t("successBookingMessage")}</div>
               </ModalBody>
-            </Modal>
+            </Modal> */}
           </div>
-          {setTimeout(() => {
-            setSuccessBookingModal(false);
-            props.modalClosed();
-          }, 2000)}
         </>
       )}
     </>
