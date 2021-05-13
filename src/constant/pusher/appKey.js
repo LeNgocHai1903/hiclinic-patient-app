@@ -1,1 +1,1 @@
-export const APP_KEY = '5add0ec59f4573f3888e';
+export const APP_KEY = process.env.REACT_APP_PUSHER_KEY || process.env.PUSHER_KEY;

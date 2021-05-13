@@ -5,10 +5,10 @@
   margin-top: 20px;
   align-items: center;
   justify-content: center;
-  border-radius: 0.5rem;
+  border-radius: 0.2rem;
   cursor: pointer;
   height: 300px;
-  border: 1px solid $primary-color-3;
+  border: 0.5px solid $primary-color-3;
 }
 
 .clinic-item-list-row {
@@ -21,8 +21,11 @@
   height: 100%;
   width: 100%;
   display: flex;
-  padding: 5px;
+  padding: 3px;
+}
+.clinic-item-list-items:hover {
   text-decoration: none;
+  color: black;
 }
 
 // .clinic-item-list-items .list-group-item-action {
@@ -31,7 +34,7 @@
 
 .clinic-item-list-img {
   width: 400px;
-  border-radius: 0.7rem;
+  border-radius: 0.2rem;
   padding-right: 10px;
 }
 

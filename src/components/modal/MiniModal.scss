@@ -1,4 +1,12 @@
+@import '../../styles/variable.scss';
 .mini-modal {
   display: flex;
   flex-direction: column;
+}
+
+.mini-modal-footer{
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  border-top: 0.5px solid $grey-color-3;
 }

@@ -4,6 +4,11 @@
   height: calc(100vh - 293px);
 }
 
+.profile-spinner {
+  display: flex;
+  justify-content: center;
+}
+
 #patient-profile {
   width: 70%;
   margin: auto;

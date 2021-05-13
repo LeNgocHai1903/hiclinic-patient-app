@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-
+import {Button} from 'reactstrap';
 //i18n
 import { useTranslation } from 'react-i18next';
 
@@ -9,6 +9,7 @@ import './Homepage.scss';
 import apiWrapper from '../../api/apiWrapper';
 import { Link } from 'react-router-dom';
 import { FaArrowCircleRight } from 'react-icons/fa';
+import {MdKeyboardArrowRight} from 'react-icons/md'
 
 //Component
 import MainSearchBar from '../../components/searchBar/mainSearchBar/MainSearchBar';
@@ -65,9 +66,9 @@ const Homepage = () => {
           </div>
           <div className="seeall-link">
             <Link to={`${routeType.ROUTE_CLINICLIST_LIST}`}>
-              <button className="seeall-btn">
-                {t('seeAllClinic')} <FaArrowCircleRight />
-              </button>
+              <Button className="seeall-btn">
+              {t('seeAllClinic')} <MdKeyboardArrowRight />
+              </Button>
             </Link>
           </div>
         </div>
@@ -88,9 +89,9 @@ const Homepage = () => {
           </div>
           <div className="seeall-link">
             <Link to={`${routeType.ROUTE_NEWS_LIST}`}>
-              <button className="seeall-btn">
-                {t('seeAllNews')} <FaArrowCircleRight />
-              </button>
+              <Button className="seeall-btn">
+              {t('seeAllNews')} <MdKeyboardArrowRight />
+              </Button>
             </Link>
           </div>
         </div>

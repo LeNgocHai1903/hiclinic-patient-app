@@ -39,7 +39,7 @@ const Noti = (props) => {
 
   return (
     <>
-      <Media className="notificaiton-modal">
+      <Media>
         <Media middle left className="mr-3">
           {map.bookingStatus === 'CONFIRMED' && <i className="fa fa-fw fa-2x fa-check" style={{ color: 'green' }}></i>}
 

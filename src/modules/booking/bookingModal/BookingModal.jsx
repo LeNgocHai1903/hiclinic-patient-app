@@ -3,7 +3,9 @@ import { useTranslation } from "react-i18next";
 import "./BookingModal.scss";
 import "react-calendar/dist/Calendar.css";
 import { FaRegCalendarAlt } from "react-icons/fa";
+import { Container, Row, Col } from "reactstrap";
 import {
+  Button,
   UncontrolledPopover,
   PopoverHeader,
   PopoverBody,
@@ -104,6 +106,7 @@ const BookingModal = (props) => {
     );
   };
 
+
   const confirmBooking = async () => {
     await actions.makeBooking(state.dataBooking);
     setSuccessBookingModal(true);
@@ -134,6 +137,7 @@ const BookingModal = (props) => {
   return (
     <>
       <Backdrop show={props.show} clicked={props.modalClosed} />
+
       <Formik
         initialValues={initialValues}
         validationSchema={validateSchema}
@@ -192,20 +196,28 @@ const BookingModal = (props) => {
                       </div>
                     ) : (
                       <>
-                        {listTimeAvailable.map((item) => (
-                          <button
-                            className={
-                              item.startAt === values.time
-                                ? "time-selected-active"
-                                : "time-selected"
-                            }
-                            value={item.startAt}
-                            name="time"
-                            onClick={handleChange}
-                          >
-                            {item.startAt} - {item.endAt}
-                          </button>
-                        ))}
+                        <Container>
+                          <Row xs="2" sm="2" md="4">
+                          {listTimeAvailable.map((item) => (
+                            <Col>
+                              <Button outline
+                              color="primary"
+                                className={
+                                  item.startAt === values.time
+                                    ? "time-selected-active"
+                                    : "time-selected"
+                                }
+                                value={item.startAt}
+                                name="time"
+                                onClick={handleChange}
+                              >
+                                {item.startAt} - {item.endAt}
+                              </Button>
+                              </Col>
+                          ))}
+                          </Row>
+
+                        </Container>
                       </>
                     )}
                   </div>
@@ -230,6 +242,7 @@ const BookingModal = (props) => {
           );
         }}
       </Formik>
+      
       {modal && (
         <MiniModal
           toggle={toggle}

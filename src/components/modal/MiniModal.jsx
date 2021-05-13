@@ -15,14 +15,14 @@ const ModalExample = (props) => {
         <ModalBody>
           <div className="mini-modal">{props.children}</div>
         </ModalBody>
-        <ModalFooter>
+        <div className="mini-modal-footer">
           <Button color="secondary" onClick={props.toggle}>
             {t('cancle')}
           </Button>
           <Button color="primary" onClick={props.confirmBooking}>
             {t('submit')}
           </Button>{' '}
-        </ModalFooter>
+        </div>
       </Modal>
     </div>
   );

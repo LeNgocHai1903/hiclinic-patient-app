@@ -106,7 +106,7 @@ const MyProfile = () => {
   return (
     <div className="profile">
       {loading ? (
-        <div>
+        <div className="profile-spinner">
           <LoadingSpinner />
         </div>
       ) : (

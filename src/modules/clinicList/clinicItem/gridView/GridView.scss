@@ -8,8 +8,8 @@
 }
 
 .clinic-item {
-  border-radius: 0.5rem;
-  border: 1px solid $primary-color-3;
+  border-radius: 0.2rem;
+  border: 0.5px solid $primary-color-3;
   width: 300px;
   cursor: pointer;
   text-decoration: none;
@@ -17,10 +17,14 @@
   overflow: hidden;
 }
 
+.clinic-item:hover {
+  text-decoration: none;
+  color: black;
+}
+
 .clinic-item-img {
   height: 200px;
   display: flex;
-  background-color: $primary-color-3;
   align-items: center;
   justify-content: center;
 }
@@ -32,7 +36,7 @@
 }
 
 .clinic-item-content {
-  padding: 5px;
+  padding: 10px;
   font-size: 14px;
   background-color: white;
   display: flex;
@@ -41,24 +45,30 @@
 
 .clinic-name {
   height: 38px;
-  margin-bottom: 6px;
+  font-size: 20px;
+  margin-bottom: 20px;
   display: flex;
   justify-content: space-between;
 }
 
 .clinic-item-content-header {
   width: 100%;
+
+  svg {
+    font-size: 18px;
+    margin-right: 10px;
+  }
 }
 
 .clinic-address {
+  margin-top: 10px;
   height: 50px;
 }
 
 // Extra small devices (portrait phones, less than 576px)
 @media (max-width: 575.98px) {
   .clinic-item {
-    border-radius: 0.5rem;
-    background-color: $primary-color-3;
+    border-radius: 0.2rem;
     width: 80%;
   }
 

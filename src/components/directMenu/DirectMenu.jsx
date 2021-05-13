@@ -2,7 +2,7 @@ import { useState } from 'react';
 import './DirectMenu.scss';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
-
+import {DropdownItem} from 'reactstrap';
 import SearchOnMenu from '../searchBar/searchOnMenu/SearchOnMenu';
 
 import { useAuth } from '../../store/authenticate/store';
@@ -44,34 +44,49 @@ const DirectMenu = () => {
         {!state.accessToken ? (
           <>
             <SearchOnMenu />
-            <Link to={`${routeType.ROUTE_NEWS_LIST}`}>
-              <FaNewspaper />
-              {t('news')}
-            </Link>
+            <DropdownItem divider />
+            <DropdownItem id="menu-item">
+              <Link to={`${routeType.ROUTE_NEWS_LIST}`}>
+                <FaNewspaper />
+                {t('newsList')}
+              </Link>
+            </DropdownItem>
+            <DropdownItem id="menu-item">
             <Link to={`${routeType.ROUTE_CLINICLIST_LIST}`}>
               <FaClinicMedical />
               {t('clinicList')}
             </Link>
+            </DropdownItem>
           </>
         ) : (
           <>
             <SearchOnMenu />
-            <Link to={`${routeType.ROUTE_NEWS_LIST}`}>
-              <FaNewspaper />
-              {t('news')}
-            </Link>
+            {/* <DropdownItem>Another Action</DropdownItem> */}
+            <DropdownItem divider />
+            <DropdownItem id="menu-item">
+              <Link to={`${routeType.ROUTE_NEWS_LIST}`}>
+                <FaNewspaper />
+                {t('newsList')}
+              </Link>
+            </DropdownItem>
+            <DropdownItem id="menu-item">
             <Link to={`${routeType.ROUTE_CLINICLIST_LIST}`}>
               <FaClinicMedical />
               {t('clinicList')}
             </Link>
-            <Link to={`${routeType.ROUTE_MY_PROFILE}`}>
-              <FaUserCircle />
-              {t('profile')}
-            </Link>
-            <Link className="signout-area" onClick={signOutHandler}>
-              <FaRegArrowAltCircleLeft />
-              {t('signOut')}
-            </Link>
+            </DropdownItem>
+            <DropdownItem id="menu-item">
+              <Link to={`${routeType.ROUTE_MY_PROFILE}`}>
+                <FaUserCircle />
+                {t('profile')}
+              </Link>
+            </DropdownItem>
+            <DropdownItem id="menu-item">
+              <Link className="signout-area" onClick={signOutHandler}>
+                <FaRegArrowAltCircleLeft />
+                {t('signOut')}
+              </Link>
+            </DropdownItem>
           </>
         )}
       </div>

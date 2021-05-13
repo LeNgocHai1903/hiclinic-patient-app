@@ -1,4 +1,4 @@
-@import '../../styles/variable.scss';
+@import "../../styles/variable.scss";
 
 .main-search-on-homepage {
   display: flex;
@@ -10,6 +10,8 @@
   h1 {
     display: flex;
     justify-content: center;
+    color: $primary-color-3;
+    padding: 20px;
   }
 }
 
@@ -26,14 +28,11 @@
   margin: 20px;
 
   .seeall-btn {
-    height: 35px;
-    border-radius: 0.2rem;
     background-color: $primary-color-3;
-    padding: 5px;
-    display: flex;
-    align-items: center;
     border: none;
-    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.356);
+  }
+  .seeall-btn:hover {
+    background-color: $primary-color-2;
   }
 
   a {
@@ -41,6 +40,6 @@
   }
 
   svg {
-    margin-left: 10px;
+    font-size: 25px;
   }
 }

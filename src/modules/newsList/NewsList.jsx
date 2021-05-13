@@ -65,7 +65,7 @@ const NewsList = (props) => {
             <LoadingSpinner />
           </div>
         ) : (
-          <div>
+          <div className="news-list">
             <MainSearchBar />
             <h1>{t('newsList')}</h1>
             {/* <div className="news-sort">

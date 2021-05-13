@@ -1,10 +1,11 @@
 import { useEffect, useState } from 'react';
 import './Header.scss';
 import { useTranslation } from 'react-i18next';
-import { Media, Button } from 'reactstrap';
+import { Media, Button, DropdownMenu, DropdownItem, Dropdown, DropdownToggle } from 'reactstrap';
 import { FaGenderless } from 'react-icons/fa';
 import Pusher from 'pusher-js';
 import BackDrop from '../backdrop/BackDrop';
+import { Link } from 'react-router-dom';
 
 import HeaderLogo from '../../asset/img/logo.png';
 import DirectMenu from '../directMenu/DirectMenu';
@@ -38,15 +39,16 @@ const Header = () => {
     channel.bind(`booking-response-handler-${state.userEmail}`, callback);
   }, []);
 
+  
+  console.log(state)
+
   const changeToSigninPage = () => {
     actions.savePreviousLocation(history.location.pathname);
-    actions.clearErrorMessage();
     history.push(`${routeType.ROUTE_SIGN_IN}`);
   };
 
   const changeToSignUpPage = () => {
     actions.savePreviousLocation(history.location.pathname);
-    actions.clearErrorMessage();
     history.push(`${routeType.ROUTE_SIGN_UP}`);
   };
 
@@ -64,9 +66,21 @@ const Header = () => {
         <div className="site-nav-desktop-only align-center">
           <div className="header-logo">
             <a href="/">
-              <img src={HeaderLogo} alt="HiClinic Logo" />
+              <img src={HeaderLogo} alt="HiClinic Logo" className="header-logo"/>
             </a>
           </div>
+          <ul id="list-page">
+            <li className="list-item">
+              <Link className="list-item" to={`${routeType.ROUTE_NEWS_LIST}`}>
+                {t('newsList')}
+              </Link>
+            </li>
+            <li className="list-item">
+            <Link className="list-item" to={`${routeType.ROUTE_CLINICLIST_LIST}`}>
+              {t('clinicList')}
+            </Link>
+            </li>
+        </ul>
         </div>
 
         <div className="site-nav-mobile-only mobile-logo">
@@ -74,24 +88,30 @@ const Header = () => {
             <img src={HeaderLogo} alt="HiClinic Logo" />
           </a>
         </div>
-        <ul className="site-nav-action">
+        
+        <ul id="site-nav-action">
           {state.accessToken ? (
             <>
-              <li>
-                {t('welcome')} {state.userName}
+              <li id="welcome-title">
+                {t("welcome")}, {state.userName}
               </li>
+              <Dropdown toggle={openNotiModal} isOpen={notiModal}>
               <li className="notification-icon">
+                <DropdownToggle id="notification-icon">
                 <MdNotificationsActive onClick={openNotiModal} />
                 <span className="badge badge-warning" id="lblCartCount">
                   {' '}
                   {state.noti.length}{' '}
                 </span>
+                </DropdownToggle>
                 {notiModal && (
                   <>
-                    <BackDrop show={true} clicked={closeNotiModal} />
-                    <div className="noti-wrraper">
+                    {/* <BackDrop className="noti-backdrop" show={true} clicked={closeNotiModal} /> */}
+                    <DropdownMenu right className="noti-dropdown">
+                    <DropdownItem header>{t("notification")}</DropdownItem>
                       {state.noti.length === 0 ? (
-                        <Media className="notificaiton-modal">
+                        <DropdownItem>
+                          <Media >
                           <Media middle left className="mr-3">
                             <FaGenderless size={35} color="primary" />
                           </Media>
@@ -100,41 +120,56 @@ const Header = () => {
                               {t('empty')}
                             </Media>
                             <Media className="noti-content">{t('noNotification')}</Media>
-                            <div className="d-flex mt-2">
+                            {/* <div className="d-flex mt-2">
                               <Button color="link" onClick={closeNotiModal} className={`ml-2 text-success`}>
                                   {t('confirm')}
                               </Button>
-                            </div>
+                            </div> */}
                           </Media>
                         </Media>
+                        </DropdownItem>
+                        
                       ) : (
                         <>
                           {state.noti.map((item, index) => (
-                            <Noti data={item} index={index} closeNotiModal={closeNotiModal} />
+                            <DropdownItem>
+                              <Noti data={item} index={index} closeNotiModal={closeNotiModal} />
+                            </DropdownItem>
+                            
                           ))}
                         </>
                       )}
-                    </div>
+                    
+                    </DropdownMenu>
                   </>
                 )}
+              </li>
+              </Dropdown>
+              <li className="direct-menu-button">
+                <DirectMenu />
               </li>
             </>
           ) : (
             <>
-              <li className="direct-menu " onClick={changeToSigninPage}>
-                {' '}
+              <li>
+                <Button color="primary" id="sign-button" onClick={changeToSigninPage}>
                 {t('signIn')}
+                </Button>
               </li>
-              <li className="direct-menu " onClick={changeToSignUpPage}>
-                {' '}
+              <li >
+              <Button color="primary" id="sign-button" onClick={changeToSignUpPage}>
                 {t('signUp')}
+                </Button>
+              </li>
+              <li className="direct-menu-button">
+                <DirectMenu />
               </li>
             </>
           )}
-          <li className="direct-menu ">
-            <DirectMenu />
-          </li>
         </ul>
+        {/* <div className="direct-menu-button">
+          <DirectMenu />
+        </div> */}
       </header>
     </div>
   );

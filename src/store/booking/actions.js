@@ -1,4 +1,4 @@
-import axios from 'axios';
+import apiWrapper from '../../api/apiWrapper';
 
 const actions = {
   saveDoctor: (departmentName, doctorName, docId) => ({ setState, getState }) => {
@@ -62,8 +62,16 @@ const actions = {
       },
     });
   },
-  makeBooking: (data) => async ({ setState, getState }) => {
-    const response = await axios.post(`${process.env.REACT_APP_PATIENT_BOOKING}`, data);
+  makeBooking: (data, onFailed) => async ({ setState, getState }) => {
+    try {
+      const response = await apiWrapper({
+        url: `${process.env.REACT_APP_PATIENT_BOOKING}`,
+        method: 'POST',
+        data,
+      });
+    } catch (err) {
+      onFailed(err);
+    }
   },
 };
 
