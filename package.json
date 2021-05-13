@@ -23,7 +23,6 @@
     "i18next": "^20.2.1",
     "i18next-browser-languagedetector": "^6.1.0",
     "i18next-http-backend": "^1.2.1",
-    "node-sass": "^5.0.0",
     "pusher-js": "^7.0.3",
     "react": "^17.0.2",
     "react-calendar": "^3.4.0",
@@ -60,6 +59,7 @@
   "devDependencies": {
     "husky": "^4.2.3",
     "lint-staged": "^10.1.2",
+    "node-sass": "^5.0.0",
     "prettier": "^2.0.4",
     "pretty-quick": "^2.0.1",
     "stylelint": "^13.3.2",

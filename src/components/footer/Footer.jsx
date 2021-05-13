@@ -19,7 +19,7 @@ const Footer = () => {
               <a href="#">{t('legalNotices')}</a>
             </li>
             <li>
-              <a href="#">{t('privacyAndSecurity')}</a>
+              <a className="last-child" href="#">{t('privacyAndSecurity')}</a>
             </li>
           </ul>
         </div>
