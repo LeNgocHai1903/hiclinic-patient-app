@@ -23,8 +23,6 @@ const SignUp = () => {
   const [isLoading, setIsLoading] = useState(false);
   const history = useHistory();
 
-  state.accessToken && history.push(state.previousLocation);
-
   const handleFailed = (error) => {
     if (error === "Network error") {
       setError("Network Error");
@@ -92,6 +90,7 @@ const SignUp = () => {
 
   const confirmSignUp = async () => {
     await actions.confirmOTP(OTPValue, handleSingupSuccess);
+    history.push(`${routeType.ROUTE_SIGN_IN}`)
   };
 
   const OTPChange = (e) => {

@@ -17,7 +17,6 @@ import { useHistory } from 'react-router-dom';
 
 import { MdNotificationsActive } from 'react-icons/md';
 //import constant
-import { APP_KEY } from '../../constant/pusher/appKey';
 const Header = () => {
   const history = useHistory();
   const { t } = useTranslation();
@@ -25,6 +24,7 @@ const Header = () => {
   const [notiModal, setNotiModal] = useState(false);
 
   useEffect(() => {
+    const APP_KEY = process.env.REACT_APP_PUSHER_KEY||process.env.PUSHER_KEY ;
     const pusher = new Pusher(APP_KEY, {
       cluster: 'ap1',
       encrypted: true,

@@ -108,7 +108,6 @@ const actions = {
       });
       onSucess(response)
       setState({
-        accessToken: response.token,
         userId: response.id,
       });
     } catch (error) {
