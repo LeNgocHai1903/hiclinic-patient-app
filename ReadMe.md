@@ -77,3 +77,9 @@ Requires Node >= 10 and Git >= 2.13.0
 - EditorConfig
 - Code-spell-checker
 - Prettier
+
+
+##Heroku account
+
+-anhhuy.le.1999.tb@gmail.com
+-Levuanhhuy173
